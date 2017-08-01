@@ -1,0 +1,7 @@
+*.ncrunchsolution
+_NCrunch_CS.Changelog/
+*.user
+.vs/
+*/obj/
+*/bin/
+packages/
