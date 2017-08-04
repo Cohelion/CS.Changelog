@@ -5,9 +5,13 @@ using System.Linq;
 
 namespace CS.ChangelogConsole.Tests
 {
+	/// <summary>
+	/// Tests <see cref="Parsing"/>
+	/// </summary>
 	[TestClass()]
-	public class GeneratorsTests
+	public class ParsingTests
 	{
+		/// <summary>Tests <see cref="Parsing.Parse(string, ParseOptions)"/>.</summary>
 		[TestMethod()]
 		public void ParseTest()
 		{
