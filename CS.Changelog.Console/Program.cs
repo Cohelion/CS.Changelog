@@ -34,7 +34,6 @@ namespace CS.Changelog.Console
 
 				$"Raw log : {log}".Dump(loglevel:LogLevel.Debug);
 
-
 				var parseOptions = new ParseOptions()
 				{
 					prefix_feature = _options.prefix_feature,
@@ -52,7 +51,6 @@ namespace CS.Changelog.Console
 				var entries = Parsing.Parse(log, parseOptions);
 
 				//
-
 				var exportOptions = new ExportOptions()
 				{
 					Append = !_options.OverWrite,

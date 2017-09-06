@@ -27,9 +27,12 @@ HelpText = "Overwrite the target file. Default is not to overwrite, but to appen
 		[Option(
 			'v',
 			"verbosity",
-		  DefaultValue = LogLevel.Debug,
+		  DefaultValue = Utils.ConsoleExtensions.DefaultVerbosity,
 		  HelpText = "Prints all messages to standard output")]
-		public LogLevel Verbosity { get; set; }
+		public LogLevel Verbosity {
+			get { return Utils.ConsoleExtensions.Verbosity; }
+			set { Utils.ConsoleExtensions.Verbosity = value; }
+		}
 
 		[Option(
 		 	"issueformat",
