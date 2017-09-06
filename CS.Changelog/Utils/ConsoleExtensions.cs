@@ -8,7 +8,7 @@ namespace CS.Changelog.Utils
 	public static partial class ConsoleExtensions
 	{
 		/// <summary>The default verbosity</summary>
-		public const LogLevel DefaultVerbosity = LogLevel.Warning;
+		public const LogLevel DefaultVerbosity = LogLevel.Info;
 
 		/// <summary>The verbosity, by deafult uses <see cref="DefaultVerbosity"/>.</summary>
 		public static LogLevel Verbosity = DefaultVerbosity;

@@ -8,7 +8,7 @@ namespace CS.Changelog.Exporters.Tests
 	[TestClass()]
 	public class JsonChangelogExporterTests
 	{
-		/// <summary>Tests implementataion of <see cref="IChangelogExporter.Export(ChangeSet, System.IO.FileInfo, ExportOptions)"/> by <see cref="JsonChangelogExporter.Export"/></summary>
+		/// <summary>Tests implementation of <see cref="IChangelogExporter.Export(ChangeSet, System.IO.FileInfo, ExportOptions)"/> by <see cref="JsonChangelogExporter.Export"/></summary>
 		[TestMethod()]
 		public void ExportTest()
 		{

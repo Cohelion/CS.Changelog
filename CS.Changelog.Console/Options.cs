@@ -11,10 +11,24 @@ namespace CS.Changelog.Console
 		//public string InputFile { get; set; }
 
 		[Option(
-'o',
-"overwrite",
-DefaultValue = false,
-HelpText = "Overwrite the target file. Default is not to overwrite, but to append.")]
+			'g',
+			"pathToGit",
+			DefaultValue = "git",
+			HelpText = "Path to git")]
+		public string PathToGit { get; set; } = "git";
+
+		[Option(
+			'r',
+			"repositoryDirectory",
+			DefaultValue = @"d:\Users\Robert\Source\SwissportCargoDCM",
+			HelpText = "Path to the repository")]
+		public string RepositoryLocation { get; set; }
+
+		[Option(
+			'o',
+			"overwrite",
+			DefaultValue = false,
+			HelpText = "Overwrite the target file. Default is not to overwrite, but to append.")]
 		public bool OverWrite { get; set; }
 
 		[Option(
@@ -27,36 +41,36 @@ HelpText = "Overwrite the target file. Default is not to overwrite, but to appen
 		[Option(
 			'v',
 			"verbosity",
-		  DefaultValue = Utils.ConsoleExtensions.DefaultVerbosity,
-		  HelpText = "Prints all messages to standard output")]
-		public LogLevel Verbosity {
+			DefaultValue = Utils.ConsoleExtensions.DefaultVerbosity,
+			HelpText = "Prints all messages to standard output")]
+		public LogLevel Verbosity
+		{
 			get { return Utils.ConsoleExtensions.Verbosity; }
 			set { Utils.ConsoleExtensions.Verbosity = value; }
 		}
 
 		[Option(
 		 	"issueformat",
-		  DefaultValue = @"\w{1,5}-\d{1,5}",
-		  HelpText = "Expression for recognizing issue numbers")]
+			DefaultValue = @"\w{1,5}-\d{1,5}",
+			HelpText = "Expression for recognizing issue numbers")]
 		public string IssueNumberRegex { get; set; }
-
 
 		[Option(
 		 	"issuetrackerurl",
-		  DefaultValue = @"https://project.cs.nl/issue/{0}",
-		  HelpText = "Url for recognizing issue numbers. '{0}' will be substituted with issue number")]
+			DefaultValue = @"https://project.cs.nl/issue/{0}",
+			HelpText = "Url for recognizing issue numbers. '{0}' will be substituted with issue number")]
 		public string IssueTrackerUrl { get; set; }
 
 		[Option(
 		 	"repositoryurl",
-		  DefaultValue = @"https://tfs.cs.nl/tfs/DefaultCollection/_git/Swissport%20Cargo%20DCM/commit/{0}",
-		  HelpText = "Url for showing commit details")]
+			DefaultValue = @"https://tfs.cs.nl/tfs/DefaultCollection/_git/Swissport%20Cargo%20DCM/commit/{0}",
+			HelpText = "Url for showing commit details")]
 		public string RepositoryUrl { get; set; }
 
 		[Option(
 		 	"linkifyissuenumbers",
-		  DefaultValue = true,
-		  HelpText = "Recognized issue numbers will be converted to links")]
+			DefaultValue = true,
+			HelpText = "Recognized issue numbers will be converted to links")]
 		public bool LinkifyIssueNumbers { get; set; }
 
 		[ParserState]
@@ -70,6 +84,7 @@ HelpText = "Overwrite the target file. Default is not to overwrite, but to appen
 		}
 
 		//CS-enhanced Gitflow branches
+		#region Gitflow settings
 		[Option("branch_development", DefaultValue = "develop", HelpText = "The development branch")]
 		public string branch_development { get; set; }
 
@@ -95,5 +110,6 @@ HelpText = "Overwrite the target file. Default is not to overwrite, but to appen
 
 		[Option("category_hotfix", DefaultValue = "Hotfix", HelpText = "The display label of the hotfix category", Required = false)]
 		public string category_hotfix { get; set; }
+		#endregion
 	}
 }

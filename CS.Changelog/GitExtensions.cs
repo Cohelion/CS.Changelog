@@ -12,17 +12,15 @@ namespace CS.Changelog
 		/// <returns>The log message in custom prettyprint format</returns>
 		/// <exception cref="System.Exception">An error ocurred whele reading the log.
 		/// </exception>
-		/// <remarks>WORK IN PROGRESS: Needs configurable working dir for finding the git repo</remarks>
-		public static string GetHistory()
+		public static string GetHistory(
+			string workingDirectory,
+			string pathToGit = "git")
 		{
+			const string gitGetStartArgument = @"describe --tags --abbrev=0";
 
-			string gitCommand = "git";
-			string gitGetStartArgument = @"describe --tags --abbrev=0";
-
-			var workingDirectory = @"d:\Users\Robert\Source\SwissportCargoDCM";
 			string start;
 
-			var psi = new ProcessStartInfo(gitCommand)
+			var psi = new ProcessStartInfo(pathToGit)
 			{
 				RedirectStandardOutput = true,
 				RedirectStandardError = true,
@@ -31,7 +29,6 @@ namespace CS.Changelog
 				CreateNoWindow = true,
 				WindowStyle = ProcessWindowStyle.Hidden
 			};
-
 
 			psi.Arguments = gitGetStartArgument;
 			using (var p = Process.Start(psi))

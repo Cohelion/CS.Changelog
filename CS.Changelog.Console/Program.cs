@@ -30,7 +30,7 @@ namespace CS.Changelog.Console
 			{
 				firstrun = false;
 
-				var log = GitExtensions.GetHistory();
+				var log = GitExtensions.GetHistory(_options.RepositoryLocation, _options.PathToGit);
 
 				$"Raw log : {log}".Dump(loglevel:LogLevel.Debug);
 
