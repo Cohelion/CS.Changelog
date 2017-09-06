@@ -25,7 +25,12 @@ namespace CS.Changelog
 		/// <param name="message">The message.</param>
 		public void Add(string hash, string category, string message = null)
 		{
-			base.Add(new ChangeLogMessage { Hash = hash, Category = category, Message = message });
+			base.Add(
+				new ChangeLogMessage {
+					Hash = hash,
+					Category = category,
+					Message = message == null ? string.Empty : message.Trim()
+				});
 		}
 	}
 }

@@ -8,16 +8,21 @@ namespace CS.Changelog.Utils
 	public static partial class ConsoleExtensions
 	{
 		/// <summary>The default verbosity</summary>
-		public const LogLevel DefaultVerbosity = LogLevel.Info;
+		public const LogLevel DefaultVerbosity =
+#if DEBUG
+		 LogLevel.Debug;
+#else
+		LogLevel.Info;
+#endif
 
 		/// <summary>The verbosity, by deafult uses <see cref="DefaultVerbosity"/>.</summary>
 		public static LogLevel Verbosity = DefaultVerbosity;
 
 		/// <summary>Dumps the specified <paramref name="trash"/> to a console window, either for development purposes or to use the programs' verbosity.</summary>
 		/// <param name="trash">The 'trash', the object or text to dump.</param>
-		/// <param name="color">The color in which to write to the console.</param>
 		/// <param name="loglevel">The loglevel.</param>
-		public static void Dump(this object trash, System.ConsoleColor? color = null, LogLevel loglevel = LogLevel.Info)
+		/// <param name="color">The color in which to write to the console.</param>
+		public static void Dump(this object trash, LogLevel loglevel = LogLevel.Info, System.ConsoleColor? color = null)
 		{
 			if (loglevel <= Verbosity)
 				using ((ConsoleColor)color.GetValueOrDefault(loglevel.ToConsoleColor()))

@@ -10,8 +10,6 @@ namespace CS.Changelog.Console
 	{
 		internal static readonly Options _options = new Options();
 
-		public static LogLevel Verbosity = LogLevel.Debug;
-
 		static void Main(string[] args)
 		{
 			_options.GetUsage().Dump();
@@ -21,8 +19,8 @@ namespace CS.Changelog.Console
 				System.Console.ReadKey();
 				return;
 			}
-
-			_options.Verbosity.Dump();
+			
+			_options.Dump(LogLevel.Debug);
 
 			var firstrun = true;
 
@@ -32,7 +30,7 @@ namespace CS.Changelog.Console
 
 				var log = GitExtensions.GetHistory(_options.RepositoryLocation, _options.PathToGit);
 
-				$"Raw log : {log}".Dump(loglevel:LogLevel.Debug);
+				$"Raw log : {log}".Dump(loglevel: LogLevel.Debug);
 
 				var parseOptions = new ParseOptions()
 				{
@@ -57,8 +55,8 @@ namespace CS.Changelog.Console
 					Reverse = true,
 					ResolveIssueNumbers = _options.LinkifyIssueNumbers,
 					IssueTrackerUrl = _options.IssueTrackerUrl,
-					RepositoryUrl = _options.RepositoryUrl,
-					LinkHash = !string.IsNullOrWhiteSpace(_options.RepositoryUrl),
+					RepositoryUrl = _options.CommitDetailsUrl,
+					LinkHash = !string.IsNullOrWhiteSpace(_options.CommitDetailsUrl),
 					ShortHash = true,
 					IssueNumberRegex = new Regex(_options.IssueNumberRegex, RegexOptions.IgnoreCase | RegexOptions.Compiled)
 				};

@@ -47,8 +47,10 @@ namespace CS.Changelog.Exporters
 
 			using (var w = file.CreateText())
 			{
-				var s = new JsonSerializer();
-				s.Formatting = Formatting.Indented;
+				var s = new JsonSerializer
+				{
+					Formatting = Formatting.Indented
+				};
 				s.Serialize(w, log);
 			}
 		}

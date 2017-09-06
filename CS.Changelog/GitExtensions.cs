@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using CS.Changelog.Utils;
+using System.Diagnostics;
 using System.Text;
 
 namespace CS.Changelog
@@ -10,8 +11,7 @@ namespace CS.Changelog
 	{
 		/// <summary>Gets the history as a string that can be parsed using <see cref="Parsing.Parse(string, ParseOptions)"/>.</summary>
 		/// <returns>The log message in custom prettyprint format</returns>
-		/// <exception cref="System.Exception">An error ocurred whele reading the log.
-		/// </exception>
+		/// <exception cref="System.Exception">An error occurred whele reading the log.</exception>
 		public static string GetHistory(
 			string workingDirectory,
 			string pathToGit = "git")
@@ -38,10 +38,32 @@ namespace CS.Changelog
 				start = p.StandardOutput.ReadToEnd().Trim();
 
 				if (p.ExitCode != 0)
-					throw new System.Exception(p.StandardError.ReadToEnd());
+				{
+					string errorMessage = p.StandardError.ReadToEnd();
+
+					switch (errorMessage.Trim())
+					{
+						case "fatal: No names found, cannot describe anything.":
+							break;
+						default:
+							throw new System.Exception($"Error while obtaining the previous release name : {errorMessage}");
+					}
+				}
 			}
 
-			var gitGetChangelogArgument = $@"log {start}..HEAD --pretty=format:""% H '%cI' % B""";
+			(string.IsNullOrWhiteSpace(start)
+				? $"Reading the entire history: no previous tagged release was found."
+				: $"Reading history since tag : '{start}'"
+				).Dump();
+
+			//Switches:
+			//H  = full hash
+			//cI = committer date, strict ISO 8601 format
+			//B  = raw body (unwrapped subject and body)
+			const string formatarguments = "%H '%cI' %B";
+			var gitGetChangelogArgument = string.IsNullOrWhiteSpace(start)
+				? $@"log               --pretty=format:""{formatarguments}"""
+				: $@"log {start}..HEAD --pretty=format:""{formatarguments}""";
 
 			var result = new StringBuilder();
 
