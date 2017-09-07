@@ -1,5 +1,4 @@
 ﻿using CS.Changelog;
-using CS.Changelog.Console;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 
