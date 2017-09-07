@@ -58,6 +58,7 @@
     <Compile Include="Exporters\IChangelogExporter.cs" />
     <Compile Include="Exporters\JsonChangelogExporter.cs" />
     <Compile Include="Exporters\MarkDownChangelogExporter.cs" />
+    <Compile Include="Exporters\TraceChangelogExporter.cs" />
     <Compile Include="GitExtensions.cs" />
     <Compile Include="LogLevel.cs" />
     <Compile Include="OutputExtensions.cs" />

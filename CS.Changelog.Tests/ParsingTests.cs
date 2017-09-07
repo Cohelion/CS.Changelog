@@ -1,4 +1,5 @@
 ﻿using CS.Changelog;
+using CS.Changelog.Exporters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 
@@ -138,6 +139,21 @@ Some more lines containing release information regarding this commit";
 			AssertChange(log, category);
 		}
 
+		/// <summary>Tests <see cref="Parsing.Parse(string, ParseOptions)"/> by parsing a merge upon pull.</summary>
+		[TestMethod()]
+		public void ParsePull() {
+			//Arrange
+			var logs = new[]{
+				@"356b6f76da7cf718ecb9b3a9eddc0d8de4a8bf38 '2017-08-25T17:05:36+02:00' Merge branch 'preview' of https://tfs.cs.nl/tfs/DefaultCollection/_git/Swissport%20Cargo%20DCM into preview"
+			};
+
+			ParseOptions options = new ParseOptions();
+
+			//Act & assert
+			foreach (var log in logs)
+				AssertIgnoredCommit(log);
+		}
+
 		private static void AssertIgnoredCommit(string log)
 		{
 			ParseOptions options = new ParseOptions();
@@ -146,7 +162,7 @@ Some more lines containing release information regarding this commit";
 			var changeset = Parsing.Parse(log, options);
 
 			//Assert
-			Assert.IsFalse(changeset.Any(), $"Log entry should lead to ignored commit. Entry: {log}");
+			Assert.IsFalse(changeset.Any(), $"Log entry should lead to ignored commit. Entry: {log} caused change log message :  {(changeset.Any()?changeset.First().Message:null)} ({(changeset.Any() ? changeset.First().Hash : null)})");
 		}
 
 		private static ChangeLogMessage AssertChange(string log, string category)
@@ -168,7 +184,7 @@ Some more lines containing release information regarding this commit";
 
 		/// <summary>Tests <see cref="Parsing.Parse(string, ParseOptions)"/>.</summary>
 		[TestMethod()]
-		public void ParseTest()
+		public void ParseTest1()
 		{
 			//Just a log from Swissport Cargo DCM
 			const string log = @"f4451af20c0f4023d7d785a6e7f647e43bc64fa2 '2017-06-27T12:28:01+02:00'  Merge branch 'feature/updatecubes' into develop
@@ -284,6 +300,105 @@ d0f0c6e80284de11a6b067fa0bd0e14f3a7a5f3a '2017-05-30T08:38:16+02:00'  Merge bran
 			var changeset = Parsing.Parse(log, new ParseOptions());
 
 			Assert.IsTrue(changeset.Any());
+
+			IChangelogExporter e = new TraceChangelogExporter();
+			e.Export(changeset);
+		}
+		/// <summary>Tests <see cref="Parsing.Parse(string, ParseOptions)"/>.</summary>
+		[TestMethod()]
+		public void ParseTest2()
+		{
+			//Just a log from Swissport Cargo DCM
+			const string log = @"7ba108c90a435353c909ad71b9d125de7971c251 '2017-09-07T14:55:52+02:00' Merge branch 'feature/cDCM-811_BudgetPrep_Finance_HQ' into preview
+65f5d69e6802403bd77c56b8b6d0ba2f5779d1ae '2017-09-07T14:51:45+02:00' cDCM-811 - Budget prep report - Ramp/Overhead tabs renamed
+d6c103879bd984e56de4c8a689da3a8cd153e6a5 '2017-09-07T11:06:24+02:00' Merge branch 'feature/cDCM-811_BudgetPrep_Finance_HQ' into preview
+55de56a96971754e7edf0332e7c89f922360ce05 '2017-09-06T18:14:26+02:00' cDCM-811 - Ramp & HQ hours values as real numbers instead of percentages
+f6f47287d5412fd6ca0c2065779bfd734f27acc5 '2017-09-01T17:59:25+02:00' Merge branch 'feature/CSPM_New_Interface' into preview
+533cc239ac00b0de1bec2f3d46c8ad38a7e68a92 '2017-09-01T17:58:58+02:00' Merge branch 'feature/CSPM_New_Interface' of https://tfs.cs.nl/tfs/DefaultCollection/_git/Swissport%20Cargo%20DCM into feature/CSPM_New_Interface
+3fffb5f2bdaacc589572025422ec9c443a256337 '2017-09-01T17:58:52+02:00' added rules
+c97ab21f8772a933927e3df04a8cd9f039f6515d '2017-09-01T17:28:02+02:00' Merge branch 'feature/CSPM_New_Interface' of https://tfs.cs.nl/tfs/DefaultCollection/_git/Swissport%20Cargo%20DCM into feature/CSPM_New_Interface
+6731b28d5cb980dfb85f29818d6a34bcff990b83 '2017-09-01T17:27:35+02:00' Dataevents
+f68cf16cba2a573cb70f77e0d7a4d1528b2f592b '2017-09-01T16:51:43+02:00' Updated description
+045c26ac5adf596ea6d2518e443c862c9140dd21 '2017-09-01T15:42:22+02:00' added celltype to the rule
+ea6a3759c1d6176b07e7faee7f3e984c3006d33e '2017-09-01T15:26:38+02:00' Merge branch 'feature/cDCM-811_BudgetPrep_Finance_HQ' into preview
+de1d2e7d22097eb37a649fc10c9b558714d48451 '2017-09-01T15:20:14+02:00' cDCM-811 - Budget Preparation & Finance report adjustments
+2e570c495a71855921b7e4c6b0dcf80a66cf1fac '2017-09-01T12:24:13+02:00' Rest Api: made error message more descriptive
+952789d40086ed6bc08ab265ff09192e750457f5 '2017-09-01T12:03:07+02:00' Fix HoursMonth rules
+84d63cf644e4566ca18ae78667c64c18970a2851 '2017-09-01T11:30:14+02:00' added entry rules for hours
+0621ee23a8cd98e3c10fc7b9060b9ed811410bf1 '2017-09-01T11:29:58+02:00' Remove de canedit style rule
+88b9a173eb6bf72cc5e05b937bdc327ac7be1763 '2017-09-01T11:29:23+02:00' Rest Api: add application name in swagger
+146f80c0c3a54c3b5655e940085267259395328b '2017-08-31T11:43:22+02:00' Rest Api Reporting: added reporting tabs names
+6f437da1fe86ed5f24347841685d04281c04829e '2017-08-31T09:50:33+02:00' added didplay label for the columns
+df1e12f9d29dd7411d5238d621ae1578a3d34da6 '2017-08-30T17:40:47+02:00' Merge branch 'feature/CSPM_New_Interface' into preview
+757ed5fd48965ecdc3f26938230c6d0f4bdf4fe1 '2017-08-30T17:24:42+02:00' added comparisons to Cargo
+fc1e32e4d262a8ba8018af7389622203fc5ccbf4 '2017-08-30T16:41:36+02:00' Merge branch 'feature/CSPM_New_Interface' into preview
+7c7f25bd4e9b3e3ca402f75a8114e027db1a53c0 '2017-08-30T16:40:34+02:00' Swagger generator: copy from GH
+be305d0337bb97e24be538bc478fb8a90132f918 '2017-08-30T16:40:11+02:00' Rest Api: Sync changes from GH. Removed typed arrays that contain objects which contain objects
+398cd11df36e3f458c56282b5bcae7bd340da2a7 '2017-08-30T14:27:41+02:00' Merge branch 'feature/DCM-1421_Datepicker_fix' into preview
+b740f569d2d96ec17a5d2773c65342d32aab86b7 '2017-08-30T14:25:44+02:00' DCM-1421 - Datepicker fix for new & old interface
+1e6548f9e864b424a89ff0b266c7cfe1203b4eac '2017-08-30T12:30:33+02:00' Messaging data entry grids (old and new UI)
+ff8f3f289f7fb530536f8848ee6e359c48a45ede '2017-08-30T09:58:24+02:00' disable buttons when actuals
+d5ff50f2e0a437a1df5055f06a9aad00b2faf711 '2017-08-30T09:58:05+02:00' remove 2017 header and disable buttons when actuals
+ad30fcc098e6a38eec132faceb8851859e9d8c05 '2017-08-29T11:06:35+02:00' Enable outlooks for editing
+c21b709edab19923c933b58356097a7ef693ce17 '2017-08-29T08:59:44+02:00' Merge branch 'feature/CSPM_New_Interface' into preview
+0af1519041726f345f6578029db6970574ae40f0 '2017-08-29T08:59:17+02:00' removing group
+08a9eca5a7040ab2ccb52653b74b5c49b6ca1b88 '2017-08-28T17:04:02+02:00' Merge branch 'feature/CSPM_New_Interface' into preview
+9303c5bfe1f8d16ba77e393453f94637c585d048 '2017-08-28T16:03:17+02:00' refactor client config
+cd0c6c991bbbe854d6394171d71fc4c19e1f5c2f '2017-08-28T16:02:49+02:00' added popover edit on awb
+fefab192d952883974194ca25a0b9dd694617759 '2017-08-28T16:02:32+02:00' added Edit on hours month
+99065b57bb597a93075bc4ccfcb304fcf9e4618c '2017-08-25T17:50:59+02:00' Merge branch 'feature/CSPM_New_Interface' of https://tfs.cs.nl/tfs/DefaultCollection/_git/Swissport%20Cargo%20DCM into feature/CSPM_New_Interface
+af1fb74b915429235b00b0c72093d0a4ec5c7f54 '2017-08-25T17:50:52+02:00' Rest Api: sync with GH
+80e49928b409cbcbff22bc6d82c9e79dec1f8ef2 '2017-08-25T17:09:17+02:00' Merge branch 'feature/CSPM_New_Interface' into preview
+356b6f76da7cf718ecb9b3a9eddc0d8de4a8bf38 '2017-08-25T17:05:36+02:00' Merge branch 'preview' of https://tfs.cs.nl/tfs/DefaultCollection/_git/Swissport%20Cargo%20DCM into preview
+57e91d7d4929ac5c687a9e55432e83d15feb556d '2017-08-25T16:53:41+02:00' Calendar debug
+b3a4fcf0f9a4afd0e8812ff8df7c3f6306f8c48f '2017-08-25T16:07:52+02:00' Rest Api: fix excel export returntype
+7c440ef3f89369a97146f0d6a9bcd5cf635aabb0 '2017-08-25T15:13:40+02:00' Merge branch 'hotfix/cDCM-810_Pivoted_CargoWO_Report_on_Server' into develop
+53d03a27a868f50f661a94719fd3292f862d17f6 '2017-08-25T14:44:31+02:00' add legacyKeys when List for month
+8f25f7f6fa616443028b443a344ea3682adeda6b '2017-08-25T12:10:46+02:00' added rules for edit styles
+5672a5bb9e226c42c1b48951fd9217edf38a5ca3 '2017-08-23T09:01:18+02:00' Removed deletion of rest service in onResetApplication
+6627b82c068efbe70befcb7d39ee6b58ae6a8293 '2017-08-23T08:59:34+02:00' Added http statuscodes to restapiutil/reset.cfm; fix init of rest service in onStartApplication
+b0e61e22bb22e1403ec61e92c7fc82fe3d9b19b5 '2017-08-22T15:28:22+02:00' Added RestApiUtils to _Dev
+2da2da6fb46d2aa5ac337a0719c1ac63eed7e891 '2017-08-22T15:23:44+02:00' CSPM-82: import fixes
+21ab6fd779e8b0b6fdf31fa3be3b17312d0b033e '2017-08-22T14:57:57+02:00' CSPM-82: used import for Model references in services
+ba70db231b342d40a12c17800aae290b5dbd7560 '2017-08-21T14:56:23+02:00' Merge branch 'develop' of https://tfs.cs.nl/tfs/DefaultCollection/_git/Swissport%20Cargo%20DCM into develop
+8882b534495966c62f60893350bf1a8277e27549 '2017-08-21T10:49:05+02:00' Merge branch 'hotfix/DCM-1413_Budget_figures_not_showing_in_CBT' into develop
+391ecb8a2404d974abf89519b80b9b76201595ca '2017-08-21T08:21:44+02:00' Check-in _DataEntryState changes (Roeland)
+6046b583b705757c9857aa45e26092159097c523 '2017-08-18T16:30:30+02:00' Merge branch 'hotfix/DCMDataExportReport_-_fixes' into develop
+c468afd16bf4a0e3b76bd1ec45144090e2dba44a '2017-08-18T16:21:54+02:00' Merge branch 'develop' of https://tfs.cs.nl/tfs/DefaultCollection/_git/Swissport%20Cargo%20DCM into develop
+d89436db046b92fe4cb697eab7878b22e5208b1f '2017-08-18T16:21:10+02:00' Merge branch 'hotfix/fix_scheduledpdf' into develop
+339cc40ba28893f21257c9588319888c2c082e16 '2017-08-18T15:56:33+02:00' Merge branch 'hotfix/BudgetPrepReport_-_Remove_paid_hour_columns' into develop
+bd35e9d6d04f2390d1e39c2822cc9db2963d0d19 '2017-08-18T13:22:51+02:00' Merge branch 'hotfix/cDCM-809_Productivity_Target_report' into develop
+b4c806a11c38ff4d9dc1902c414f06aaadb7ac15 '2017-08-18T12:39:48+02:00' Merge branch 'develop' of https://tfs.cs.nl/tfs/DefaultCollection/_git/Swissport%20Cargo%20DCM into develop
+c06fefbb7e6572d10c20553fae839b8224ec1c1f '2017-08-18T12:36:09+02:00' added compare rules to base config
+42c6533861c4124bbee3da64169fe612ceea53e5 '2017-08-18T12:35:26+02:00' Merge branch 'hotfix/Datepicker_Fix' into develop
+dca7204e1990b7a57b4c57fc88006ae91aec832a '2017-08-18T09:02:49+02:00' Merge branch 'master' into develop
+a133564341e047536e2c0b341a730cd07a07f68f '2017-08-17T18:52:57+02:00' Merge branch 'hotfix/DCM-1410_Budget_DateRange_2018' into develop
+0ce6776f9fa66e46babcc66f576c37c0ba89094b '2017-08-17T13:47:44+02:00' Merge branch 'release/v20170804_Operation_High_Ground' into develop
+b865471bb4ef22965b53e1348f155be50196138d '2017-08-17T12:44:35+02:00' Merge branch 'hotfix/fix_hours_indicators_on_landingpage' into develop
+634a095cbb209a7175ed41215350bd0ca536b32a '2017-08-17T12:00:41+02:00' added injected column for add carrier
+2e8a61306a6c34f88ff78005f6ff90d3eed8eb87 '2017-08-17T11:21:22+02:00' Merge branch 'hotfix/fix_data_entry_state_hours_for_2018' into develop
+e4bc117a8753e29082540a3ceb2a7caea9c9282b '2017-07-27T12:37:30+02:00' Merge branch 'feature/CSPM-15_Swagger_API_Docs' into preview
+943d173d74d932df4787750f16baeb5ff56df062 '2017-07-26T18:38:21+02:00' Merge branch 'feature/CSPM-15_Swagger_API_Docs' into preview
+340f18881f7bc9f0d6f53c240869c09c74924dd1 '2017-07-26T09:51:18+02:00' Merge branch 'feature/CSPM-15_Swagger_API_Docs' into preview
+4ee91a5c7eba89a4900e140d7d42f6188d80cb2d '2017-07-25T13:40:52+02:00' Merge branch 'feature/CSPM-15_Swagger_API_Docs' into preview
+bf28f0f16efb71da135411a1d8557e9c64289055 '2017-07-25T13:05:59+02:00' Merge branch 'develop' into preview
+# Conflicts:
+#       www/App/Home/_DataEntryState.cfm
+326144666df8822a79d6b9931fd53587e077ab43 '2017-07-21T11:06:49+02:00' Merge branch 'develop' into preview
+dfe91a0ce978df37461de0430ed790d1f7073bc5 '2017-07-19T12:29:49+02:00' Merge branch 'develop' into preview
+0100d294b1700842bd384f9eb5e767bb577f5a86 '2017-07-18T12:25:36+02:00' Merge branch 'feature/cDCM-798_Weekly_scheduled_email_PDF' into preview
+5339153a2bbc41e19883f2c8ace3c2e5f6b9d09d '2017-07-16T12:58:45+02:00' Merge branch 'feature/CSPM-15_Swagger_API_Docs' into preview
+f42120d9b82fd6bd33479aeffd5a252749ebfdef '2017-07-16T12:27:53+02:00' Merge branch 'feature/CSPM-15_Swagger_API_Docs' into preview
+3762cc869010dc2dfbbbf5b3724ff164338de06d '2017-07-12T12:29:17+02:00' Merge branch 'feature/DCM-1367_Station_code_consistency' into preview
+6f3cad976a39af2ed652f4957bf580376271d688 '2017-07-12T12:29:11+02:00' Merge branch 'develop' into preview
+1d9b3be59d0df38bd1f237b69bf86bdae2be2ad5 '2017-07-12T09:13:52+02:00' Merge branch 'feature/CSPM-15_Swagger_API_Docs' into preview";
+
+			var changeset = Parsing.Parse(log, new ParseOptions());
+
+			Assert.IsTrue(changeset.Any());
+
+			IChangelogExporter e = new TraceChangelogExporter();
+			e.Export(changeset);
 		}
 	}
 }
