@@ -20,8 +20,9 @@ namespace CS.Changelog
 		(?<merge>Merge\sbranch
 			\s
 			'(?<frombranch>[^'\n\s]+)
-			'\s
+			'
 			(?:
+				\s
 				into
 				\s
 				(?<tobranch>[^\n\s]+)
