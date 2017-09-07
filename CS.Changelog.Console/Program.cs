@@ -19,12 +19,13 @@ namespace CS.Changelog.Console
 				System.Console.ReadKey();
 				return;
 			}
-			
+
 			_options.Dump(LogLevel.Debug);
 
 			var firstrun = true;
 
-			while (firstrun || System.Console.ReadKey().Key != ConsoleKey.X)
+			while (firstrun
+				|| !System.Console.IsInputRedirected && System.Console.ReadKey().Key != ConsoleKey.X)
 			{
 				firstrun = false;
 
@@ -67,7 +68,8 @@ namespace CS.Changelog.Console
 				System.Console.WriteLine();
 				entries.Export(OutputFormat.JSON, _options.TargetFile, exportOptions);
 
-				"Press 'X' to exit".Dump();
+				if (!System.Console.IsInputRedirected)
+					"Press 'X' to exit".Dump();
 			}
 		}
 	}
