@@ -47,8 +47,12 @@ namespace CS.Changelog
 		/// </code>
 		/// </remarks>
 		/// <seealso cref="GitExtensions.GetHistory"/>
-		public static ChangeSet Parse(string log, ParseOptions options)
+		public static ChangeSet Parse(string log, ParseOptions options = null)
 		{
+			//If no options are specified, use default options
+			if (options == null)
+				options = new ParseOptions();
+
 			var matches = r.Matches(log);
 
 			var result = new ChangeSet();
