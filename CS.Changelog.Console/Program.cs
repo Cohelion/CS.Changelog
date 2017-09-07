@@ -12,20 +12,15 @@ namespace CS.Changelog.Console
 
 		static void Main(string[] args)
 		{
-			_options.GetUsage().Dump();
-
 			if (!Parser.Default.ParseArguments(args, _options))
-			{
-				System.Console.ReadKey();
 				return;
-			}
 
 			_options.Dump(LogLevel.Debug);
 
 			var firstrun = true;
 
 			while (firstrun
-				|| !System.Console.IsInputRedirected && System.Console.ReadKey().Key != ConsoleKey.X)
+				|| (!System.Console.IsInputRedirected && System.Console.ReadKey().Key != ConsoleKey.X))
 			{
 				firstrun = false;
 
@@ -66,10 +61,20 @@ namespace CS.Changelog.Console
 				entries.Export(OutputFormat.Console, _options.TargetFile, exportOptions);
 
 				System.Console.WriteLine();
-				entries.Export(OutputFormat.JSON, _options.TargetFile, exportOptions);
+				var file = entries.Export(OutputFormat.JSON, _options.TargetFile, exportOptions);
 
 				if (!System.Console.IsInputRedirected)
-					"Press 'X' to exit".Dump();
+				{
+					if (file.Exists)
+					{
+						$"Opening file: {file.FullName}".Dump();
+						System.Diagnostics.Process.Start(file.FullName);
+					}
+					else
+						$"Changelog does not exist at: {file.FullName}".Dump();
+
+					"Press 'X' to exit (and anything else to run again)".Dump();
+				}
 			}
 		}
 	}
