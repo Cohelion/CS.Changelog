@@ -17,10 +17,19 @@ namespace CS.Changelog
 	'(?<date>[T\d-\s\:\+]+)'
 	\s*
 	(?<message>
-		(?<merge>Merge\sbranch
+		(?<merge>
+			Merge
+			\s
+			branch
 			\s
 			'(?<frombranch>[^'\n\s]+)
 			'
+			(?:
+				\s
+				of
+				\s
+				(?<remote>[^\n\s]+)
+			)?
 			(?:
 				\s
 				into
@@ -61,10 +70,14 @@ namespace CS.Changelog
 			{
 				var hash = match.Groups["hash"].Value.Trim();
 				var merge = match.Groups["merge"].Value.Trim();
-				var isMerge = !string.IsNullOrWhiteSpace(merge);
 				var fromBranch = match.Groups["frombranch"].Value.Trim();
 				var toBranch = match.Groups["tobranch"].Value.Trim();
-				
+				var remote = match.Groups["remote"].Value.Trim();
+
+				//Derive logic
+				var isMerge = !string.IsNullOrWhiteSpace(merge);
+				var isMergeUponPull = isMerge && fromBranch.Equals(toBranch, c) && !string.IsNullOrWhiteSpace(remote);
+
 				//Parse message to see if it was useful
 				var message = match.Groups["message"].Value.Trim();
 				var messagematch = commitMessageRegex.Match(message);
@@ -75,7 +88,14 @@ namespace CS.Changelog
 
 					if (!isMerge)
 						if (!messagematch.Success)
-							LogIgnoredCommit($"Regular commit with changelog category omitted", match, ref ignored);
+							LogIgnoredCommit($"Regular commit without explicit changelog message omitted", match, ref ignored);
+						else
+						{
+							//Not an ignored commit nor a merge, see commit message hadling later on
+						}
+					else if (isMergeUponPull)
+						if (!messagematch.Success)
+							LogIgnoredCommit($"Merge when pulling without explicit changelog message omitted", match, ref ignored);
 						else
 						{
 							//Not an ignored commit nor a merge, see commit message hadling later on
@@ -153,6 +173,25 @@ namespace CS.Changelog
 								else
 								{
 									LogCommit($"Branch {fromBranchPrefix} {fromBranchFullName} is merged directly into master", match, level: LogLevel.Warning);
+								}
+							}
+							else if (toBranch.Equals(options.branch_preview, c))
+							{
+								if (fromBranchPrefix.Equals(options.prefix_feature, c))
+								{
+									LogCommit($"Feature {fromBranchFullName} is selected for or updated on preview", match, ConsoleColor.Green, level: LogLevel.Info);
+									result.Add(hash, options.category_feature, fromBranchFullName);
+								}
+								else if (fromBranch.Equals(options.branch_development, c)
+									 || (fromBranchPrefix.Equals(options.prefix_release, c)
+									 || (fromBranchPrefix.Equals(options.prefix_hotfix, c)))
+									 )
+								{
+									LogIgnoredCommit($"Merging {fromBranch} into {options.branch_preview} is ignored : {match.Groups["message"].Value}", match, ref ignored);
+								}
+								else
+								{
+									LogCommit($"Branch {fromBranch} is merged directly into preview", match, level: LogLevel.Warning);
 								}
 							}
 							else
