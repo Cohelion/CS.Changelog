@@ -30,7 +30,7 @@ namespace CS.Changelog.Console
 		[Option(
 			'r',
 			"repositoryDirectory",
-			DefaultValue = @"d:\Users\Robert\Source\SwissportCargoDCM",
+			DefaultValue = @"D:\Users\Robert\Documents\SwissportCargoDCM",
 			HelpText = "Path to the repository")]
 		public string RepositoryLocation { get; set; }
 
