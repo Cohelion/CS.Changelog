@@ -15,7 +15,7 @@ namespace CS.Changelog.Exporters
 		/// <param name="targetFile">The target file (when applicable).</param>
 		/// <param name="exportOptions">The export options.</param>
 		/// <exception cref="NotImplementedException">When an export format (<paramref name="format"/>) is not supported yet</exception>
-		public static void Export(
+		public static FileInfo Export(
 			this ChangeSet changes,
 			OutputFormat format,
 			string targetFile,
@@ -53,9 +53,7 @@ namespace CS.Changelog.Exporters
 
 			exporter.Export(changes, file, exportOptions);
 
-			if(file.Exists)
-				System.Diagnostics.Process.Start(file.FullName);
-
+			return file;
 		}
 	}
 }
