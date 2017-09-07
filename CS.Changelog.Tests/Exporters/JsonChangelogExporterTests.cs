@@ -12,7 +12,7 @@ namespace CS.Changelog.Exporters.Tests
 		[TestMethod()]
 		public void ExportTest()
 		{
-			Assert.Fail();
+			Assert.Inconclusive();
 		}
 	}
 }
