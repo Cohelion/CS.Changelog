@@ -13,19 +13,82 @@ namespace CS.ChangelogConsole.Tests
 	{
 		/// <summary>Tests <see cref="Parsing.Parse(string, ParseOptions)"/> by parsing a feature completion.</summary>
 		[TestMethod()]
-		public void ParseFeatureCompletion() {
+		public void ParseFeatureCompletion()
+		{
 			//Arrange
-			const string log = @"f4451af20c0f4023d7d785a6e7f647e43bc64fa2 '2017-06-27T12:28:01+02:00'  Merge branch 'feature/updatecubes' into develop";
+			var logs = new []{
+				@"f4451af20c0f4023d7d785a6e7f647e43bc64fa2 '2017-06-27T12:28:01+02:00'  Merge branch 'feature/updatecubes' into develop"
+			};
+
 			ParseOptions options = new ParseOptions();
 
-			//Act
-			var changeset = Parsing.Parse(log, options);
+			//Act & assert
+			foreach (var log in logs)
+				AssertChange(log, options.category_feature);
+		}
 
-			//Assert
-			Assert.AreEqual(1,changeset.Count);
-			var change = changeset.Single();
+		/// <summary>Tests <see cref="Parsing.Parse(string, ParseOptions)"/> by parsing a hotfix merge back into the development branch.</summary>
+		[TestMethod()]
+		public void ParseCatchup()
+		{
+			//Arrange
+			var logs = new[]{
+				@"4890379be68202cacdb4377fbf35f91d77de04f5 '2017-06-08T08:13:37+02:00'  Merge branch 'develop' into feature/ cDCM - 769_stationstatuslog"
+			};
 
-			Assert.AreEqual(change.Category, options.category_feature);
+			ParseOptions options = new ParseOptions();
+
+			//Act & assert
+			foreach (var log in logs)
+				AssertIgnoredCommit(log);
+		}
+
+		/// <summary>Tests <see cref="Parsing.Parse(string, ParseOptions)"/> by parsing a hotfix merge back into the development branch.</summary>
+		[TestMethod()]
+		public void ParseHotfixCatchup()
+		{
+			//Arrange
+			var logs = new[]{
+				@"bdf971617e7e576f7770401cefdb3090f89d3fcc '2017-06-23T17:21:32+02:00'  Merge branch 'hotfix/cDCM-661_Reimport_file_with_existing_file' into develop"
+			};
+
+			ParseOptions options = new ParseOptions();
+
+			//Act & assert
+			foreach (var log in logs)
+				AssertIgnoredCommit(log);
+		}
+
+		/// <summary>Tests <see cref="Parsing.Parse(string, ParseOptions)"/> by parsing a merge from master back into the development branch (or anything else).</summary>
+		[TestMethod()]
+		public void ParseMasterSync()
+		{
+			//Arrange
+			var logs = new[]{
+				@"bdf971617e7e576f7770401cefdb3090f89d3fcc '2017-06-23T17:21:32+02:00' Merge branch 'master' into development"
+			};
+
+			ParseOptions options = new ParseOptions();
+
+			//Act & assert
+			foreach (var log in logs)
+				AssertIgnoredCommit(log);
+		}
+
+		/// <summary>Tests <see cref="Parsing.Parse(string, ParseOptions)"/> by parsing a hotfix completion.</summary>
+		[TestMethod()]
+		public void ParseHotfixCompletion()
+		{
+			//Arrange
+			var logs = new []{
+				@"5bc8f9d0723bdb699580cabe4fbaf55bd7960545 '2017-06-23T17:21:31+02:00'  Merge branch 'hotfix/cDCM-661_Reimport_file_with_existing_file'"
+			};
+
+			ParseOptions options = new ParseOptions();
+
+			//Act & assert
+			foreach (var log in logs)
+				AssertChange(log, options.category_hotfix);
 		}
 
 		/// <summary>Tests <see cref="Parsing.Parse(string, ParseOptions)"/> by parsing a commit message without a change log message.</summary>
@@ -33,16 +96,37 @@ namespace CS.ChangelogConsole.Tests
 		public void ParseIgnoredCommit()
 		{
 			//Arrange
-			const string log = @"e226d3ad1c5f49caaaddf3e6e43135f092cc3c5e '2017-06-26T15:09:24+02:00' cDCM-704 - Enabled InActive selection in reporting";
-			ParseOptions options = new ParseOptions();
+			var logs = new[]{
+				@"e226d3ad1c5f49caaaddf3e6e43135f092cc3c5e '2017-06-26T15:09:24+02:00' cDCM-704 - Enabled InActive selection in reporting",
+				@"d0f0c6e80284de11a6b067fa0bd0e14f3a7a5f3a '2017-05-30T08:38:16+02:00'  Merge branch 'develop' into feature/ cDCM - 773_list - ignored - data - imports
+# Conflicts:
+#	www/_Api/Custom/Facts/Import/Post.cfm",
+				@"e58b2f1b80dff8569601a2077c7a7ca9f4e4188d '2017-05-30T15:53:35+02:00'  Revert ""cDCM-712 - Remove non-required columns from excel export""
+This reverts commit 3c14f373aff2dc280907c4ee3878107f0a05b527."
+			};
 
-			//Act
-			var changeset = Parsing.Parse(log, options);
-
-			//Assert
-			Assert.IsFalse(changeset.Any());
+			foreach (var log in logs)
+				AssertIgnoredCommit(log);
 		}
-		
+
+		/// <summary>Tests <see cref="Parsing.Parse(string, ParseOptions)"/> by parsing a commit message without a change log message.</summary>
+		[TestMethod()]
+		public void ParseRegularCommitWithReleaseMessage()
+		{
+			var expectedMessage = @"cDCM-704 - Enabled InActive selection in reporting
+Some more lines containing release information regarding this commit";
+			//Arrange
+			var cases = new[]{
+				new {log = $@"e226d3ad1c5f49caaaddf3e6e43135f092cc3c5e '2017-06-26T15:09:24+02:00' [category]{expectedMessage}"}
+			};
+
+			foreach (var @case in cases)
+			{
+				var entry = AssertChange(@case.log, "category");
+				Assert.AreEqual(expectedMessage, entry.Message.Trim());
+			}
+		}
+
 		/// <summary>Tests <see cref="Parsing.Parse(string, ParseOptions)"/> by parsing a commit message without a change log message.</summary>
 		[TestMethod()]
 		public void ParseCommitWithChangelogMessage()
@@ -50,6 +134,25 @@ namespace CS.ChangelogConsole.Tests
 			//Arrange
 			const string category = "GUI";
 			var log = $@"e226d3ad1c5f49caaaddf3e6e43135f092cc3c5e '2017-06-26T15:09:24+02:00' [{category}] cDCM-704 - Enabled InActive selection in reporting";
+
+			//Act & assert
+			AssertChange(log, category);
+		}
+
+		private static void AssertIgnoredCommit(string log)
+		{
+			ParseOptions options = new ParseOptions();
+
+			//Act
+			var changeset = Parsing.Parse(log, options);
+
+			//Assert
+			Assert.IsFalse(changeset.Any(), $"Log entry should lead to ignored commit. Entry: {log}");
+		}
+
+		private static ChangeLogMessage AssertChange(string log, string category)
+		{
+			//Arrange
 			ParseOptions options = new ParseOptions();
 
 			//Act
@@ -60,6 +163,8 @@ namespace CS.ChangelogConsole.Tests
 			var change = changeset.Single();
 
 			Assert.AreEqual(change.Category, category);
+
+			return change;
 		}
 
 		/// <summary>Tests <see cref="Parsing.Parse(string, ParseOptions)"/>.</summary>
@@ -87,8 +192,7 @@ a4d613683fe2b29b8e1245d02801ce6dea3b3696 '2017-06-23T11:28:34+02:00'  Merge bran
 d68c6f2793469690fdd8870dac39e303df8a2ddb '2017-06-23T11:27:53+02:00'  Merge branch 'feature/cDCM-772_ParentCompany_CommercialReport' into develop
 94aca3cc0b24f9c1b691d320d07f42181a19cc28 '2017-06-23T11:27:45+02:00'  Merge branch 'feature/cDCM-769_stationstatuslog' into develop
 64a77a846cedbe3f3f36d3ebe06d7d1b1245661c '2017-06-23T09:44:07+02:00'  cDCM - 704 - Hide ""InActive"" from reporting section
- 
-  49c0d99a023a3190b1f81160a31a155258078962 '2017-06-23T09:31:10+02:00'  Merge branch 'develop' into feature/ cDCM - 704_Disregard_station_IsActive
+49c0d99a023a3190b1f81160a31a155258078962 '2017-06-23T09:31:10+02:00'  Merge branch 'develop' into feature/ cDCM - 704_Disregard_station_IsActive
 0ebc6abcb29682a60fb5100fabf93c4029f1c84e '2017-06-22T10:42:01+02:00'  Merge branch 'hotfix/Feed_import_-_Mapping_-_Setting_IsUsed_Fix' into develop
 299cc158f23208ca3b75b26ecafde07a867b0170 '2017-06-22T10:42:00+02:00'  Merge branch 'hotfix/Feed_import_-_Mapping_-_Setting_IsUsed_Fix'
 dec41f9305ec80ab54612464d061d9ca9cc00556 '2017-06-22T10:41:49+02:00'  Feed import: Mapping: Fix for setting IsUsed -limit to one systemlevel
@@ -113,7 +217,7 @@ c4c56838fc7751a978829d06f739cae8ced588be '2017-06-14T11:11:09+02:00'  trendrepor
 3dbd81c6b8274e110f77a1bf930325620b02a0df '2017-06-13T15:38:45+02:00'  Merge branch 'hotfix/cDCM-763' into develop
 0ff19d89a53f6cf1bad99a95fa79c3478882d831 '2017-06-13T15:37:50+02:00'  cDCM - 763: Support using actuals in warehouse statistics over other designations
 3040f858ef95cf1006c4363bad71965ff276ac40 '2017-06-13T15:25:28+02:00'  cDCM - 763: Support using actuals in warehouse statistics over other designations
-  cb0a3caca91c14ae71fbf7ffc70d626515b333e9 '2017-06-13T14:02:59+02:00'  Merge branch 'hotfix/budget_disable_edit_before_roundstart' into develop
+cb0a3caca91c14ae71fbf7ffc70d626515b333e9 '2017-06-13T14:02:59+02:00'  Merge branch 'hotfix/budget_disable_edit_before_roundstart' into develop
 36c4053c1c4cc5a934a6766f78d3a7867a4c66ef '2017-06-13T14:02:58+02:00'  Merge branch 'hotfix/budget_disable_edit_before_roundstart'
 bb4867dd75967bab520f86f933476aa59b22ea75 '2017-06-13T13:59:38+02:00'  fix: budgets not editable before start of round 1
 d3acfd030ef5e3abcb918019c0627ebd9b25ae1e '2017-06-13T13:50:29+02:00'  Merge branch 'hotfix/cDCM-783_Keep_cursor_after_savin_hours_in_actuals_data_entry' into develop
@@ -126,7 +230,7 @@ d365fe2b5104d638115bf700801f0eda79c951d6 '2017-06-09T11:16:32+02:00'  Removed MD
 ef3ba409e0a165bacb77f8628dfa5a0fc2ad845d '2017-06-08T16:02:45+02:00'  Merge branch 'hotfix/dataentry_timetillupdate' into develop
 8daed19a43334f59be30b3cf8f81349350fa118f '2017-06-08T16:02:45+02:00'  Merge branch 'hotfix/dataentry_timetillupdate'
 bbe1420b285e0bf775c674eb4d449fe7eb2e10f1 '2017-06-08T16:02:36+02:00'  re - enabled data entry for current month (disabled for previous months)
-				300b8a6315a47dbaea513cde93b876b9b69d147b '2017-06-08T12:43:29+02:00'  cDCM - 773: show XLS import warnings in Modal window
+300b8a6315a47dbaea513cde93b876b9b69d147b '2017-06-08T12:43:29+02:00'  cDCM - 773: show XLS import warnings in Modal window
 e35a49683eddbe16abc1d06a1e759319f68b6ca4 '2017-06-08T12:34:04+02:00'  Merge branch 'hotfix/feed_ae_exceptionduringimport' into develop
 a7eece905ac6cae5ac1c73e7b95f58dea7ad2053 '2017-06-08T12:34:03+02:00'  Merge branch 'hotfix/feed_ae_exceptionduringimport'
 1be1c5209daf91555feb46154392bd94b94ca52b '2017-06-08T12:33:18+02:00'  AE transform: fix for proper try-catch handling
@@ -155,19 +259,13 @@ c048352001470379a6b6b1b90541aeabcf628966 '2017-06-01T11:02:02+02:00'  express wi
 8dadfe9215fdbf129bd06dde7f14dc2234c485de '2017-05-31T11:10:31+02:00'  cDCM - 777 Initially selected station must be active
 f5f142ce107a9f45f4f8f7d6930fda4911b38245 '2017-05-31T08:26:00+02:00'  set default Parent Company to Carrier label
 bc38cd09d81430c8652975ecd4e3f858f1757501 '2017-05-30T16:18:34+02:00'  cDCM - 774 - Hit counter fix for all reports; ignore hit count for scheduled jobs; code refactoring
- 
 df190d9395b3c7188dc23f185b6faf2d31ff1542 '2017-05-30T16:02:22+02:00'  Merge branch 'hotfix/rk_cube_improvements' into develop
- 
 606790b1101313f0be363deb60fdea3d854b3b7c '2017-05-30T16:02:21+02:00'  Merge branch 'hotfix/rk_cube_improvements'
- 
 3a68e259439bfa2b1caf4cddc1d5e1a7b98a7b6d '2017-05-30T16:00:40+02:00'  cube improvement(request Roeland)
- 
 028295170cb98d782bcd090db1bebb0d4cce4375 '2017-05-30T15:54:10+02:00'  Merge branch 'hotfix/cDCM-703_undoEarlyMerge' into develop
- 
 f5b992878f902a2600c7563610cc96d7066789d8 '2017-05-30T15:54:09+02:00'  Merge branch 'hotfix/cDCM-703_undoEarlyMerge'
- 
 e58b2f1b80dff8569601a2077c7a7ca9f4e4188d '2017-05-30T15:53:35+02:00'  Revert ""cDCM-712 - Remove non-required columns from excel export""
- This reverts commit 3c14f373aff2dc280907c4ee3878107f0a05b527.
+This reverts commit 3c14f373aff2dc280907c4ee3878107f0a05b527.
 aea43723bd88d0813c56b08a5fedc8b6c12dda34 '2017-05-30T15:48:27+02:00'  cDCM - 703 - Undo changes from Dev, QA
 6108150637d945da32664f79fd395cf713fc036d '2017-05-30T14:06:20+02:00'  Merge branch 'hotfix/cDCM-773_trendreport_onepage' into develop
 1d446c5f7dd9351801c9e3f5bc2445ade4575f11 '2017-05-30T14:06:19+02:00'  Merge branch 'hotfix/cDCM-773_trendreport_onepage'
@@ -185,7 +283,7 @@ d0f0c6e80284de11a6b067fa0bd0e14f3a7a5f3a '2017-05-30T08:38:16+02:00'  Merge bran
 5f6ee7bd6265624c2d871d2ea191985d6dad31c3 '2017-05-26T15:24:34+02:00'  cDCM-773: added visual warning for ignored data during actuals xls import";
 
 			var changeset = Parsing.Parse(log, new ParseOptions());
-			
+
 			Assert.IsTrue(changeset.Any());
 		}
 	}
