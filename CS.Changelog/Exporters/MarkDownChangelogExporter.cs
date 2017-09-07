@@ -33,9 +33,18 @@ namespace CS.Changelog.Exporters
 				result.AppendLine($"## {group.Category} ##");
 				result.AppendLine();
 
-				foreach (var entry in group.Entries)
+				foreach (var entry in group.Entries
+											.GroupBy(x=>x.Message)
+											.Select(x=>
+												new { Message = x.Key,
+													  Commits = x.Select(y=>y.Hash)
+												}
+											)
+										)
 				{
-					var displayHash = options.ShortHash ? entry.Hash.Substring(0, 8) : entry.Hash;
+					//Change log messages are grouped by message, commits are appended
+					var hashes = entry.Commits.Select(x=> options.LinkHash? $"[{(options.ShortHash ? x.Substring(0, 8) : x)}]({string.Format(options.RepositoryUrl, x)})" : options.ShortHash ? x.Substring(0, 8) : x);
+
 					var message = string.IsNullOrWhiteSpace(entry.Message)
 						? string.Empty
 						: options.ResolveIssueNumbers
@@ -46,7 +55,7 @@ namespace CS.Changelog.Exporters
 								.Replace(@"_", @"\_")
 								.Replace(@"#", @"\#");
 
-					result.AppendLine($"- {message} ({(options.LinkHash ? $"[{displayHash}]({string.Format(options.RepositoryUrl, entry.Hash)})" : displayHash)})");
+					result.AppendLine($"- {message} ({string.Join(", ", hashes)})");
 				}
 			}
 
