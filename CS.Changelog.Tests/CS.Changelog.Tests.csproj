@@ -61,8 +61,10 @@
     <Compile Include="Exporters\ChangelogExporterTestsBase.cs" />
     <Compile Include="Exporters\JsonChangelogExporterTests.cs" />
     <Compile Include="Exporters\MarkdownChangelogExporterTests.cs" />
+    <Compile Include="Exporters\NamespaceDoc.cs" />
     <Compile Include="Exporters\XMLChangelogExporterTests.cs" />
     <Compile Include="GitExtensionsTests.cs" />
+    <Compile Include="NamespaceDoc.cs" />
     <Compile Include="ParsingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

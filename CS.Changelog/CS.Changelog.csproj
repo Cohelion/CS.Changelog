@@ -58,10 +58,12 @@
     <Compile Include="Exporters\IChangelogExporter.cs" />
     <Compile Include="Exporters\JsonChangelogExporter.cs" />
     <Compile Include="Exporters\MarkDownChangelogExporter.cs" />
+    <Compile Include="Exporters\NamespaceDoc.cs" />
     <Compile Include="Exporters\TraceChangelogExporter.cs" />
     <Compile Include="Exporters\XMLChangelogExporter.cs" />
     <Compile Include="GitExtensions.cs" />
     <Compile Include="LogLevel.cs" />
+    <Compile Include="NamespaceDoc.cs" />
     <Compile Include="OutputExtensions.cs" />
     <Compile Include="OutputFormat.cs" />
     <Compile Include="Parsing.cs" />
@@ -69,6 +71,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\ConsoleExtensions.ConsoleColor.cs" />
     <Compile Include="Utils\ConsoleExtensions.cs" />
+    <Compile Include="Utils\NamespaceDoc.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

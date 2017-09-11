@@ -2,9 +2,11 @@
 
 namespace CS.Changelog.Utils
 {
+
 	/// <summary>
-	/// 
+	/// <see cref="Console"/> extensions for logging, writing in color.
 	/// </summary>
+	/// <remarks>Some part should be move to a more console-centric lib.</remarks>
 	public static partial class ConsoleExtensions
 	{
 		/// <summary>The default verbosity</summary>
@@ -26,7 +28,7 @@ namespace CS.Changelog.Utils
 		{
 			if (loglevel <= Verbosity)
 				using ((ConsoleColor)color.GetValueOrDefault(loglevel.ToConsoleColor()))
-				Console.WriteLine($"{trash}");
+					Console.WriteLine($"{trash}");
 		}
 
 		/// <summary>Converts <paramref name="level"/> to <see cref="System.ConsoleColor"/>.</summary>

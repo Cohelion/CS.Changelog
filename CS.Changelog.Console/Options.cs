@@ -6,9 +6,62 @@ using System.Xml.Serialization;
 
 namespace CS.Changelog.Console
 {
-	/// <summary>
-	/// Options that can be passed to the console application
-	/// </summary>
+    /// <summary>
+    /// Options that can be passed to the console application:
+    /// <code>
+    ///  -g, --pathToGit           (Default: git)
+    ///                            Path to git
+    ///                               
+    ///  -r, --repositoryDirectory (Default: ``)
+    ///                            Path to the repository
+    ///                               
+    ///  -o, --overwrite           (Default: False)
+    ///                            Overwrite the target file. Default is not to overwrite, but to append.
+    ///                               
+    ///  -f, --filename            (Default: Changelog)
+    ///                            The file to write to, if no file extension is specified, output-specific extension will be added.
+    ///                               
+    ///  -v, --verbosity           (Default: Debug)
+    ///                            Prints all messages to standard output
+    ///                               
+    ///  --issueformat             (Default: \w{ 1,5}-\d{1,5})
+    ///                            Expression for recognizing issue numbers
+    ///                               
+    ///  --issuetrackerurl         (Default: https://project.cs.nl/issue/{0})
+    ///                            Url for recognizing issue numbers. '{0}' will be substituted with issue number
+    ///                               
+    ///  --repositoryurl           Url for showing commit details
+    ///                               
+    ///  --linkifyissuenumbers     (Default: True)
+    ///                            Recognized issue numbers will be converted to links
+    ///                               
+    ///  --branch_development      (Default: develop)
+    ///                            The development branch
+    ///                               
+    ///  --branch_master           (Default: master)
+    ///                            The master branch
+    ///                               
+    ///  --branch_preview          (Default: preview)
+    ///                            The preview branch
+    ///                               
+    ///  --prefix_hotfix           (Default: hotfix)
+    ///                            The prefix of hotfix branches
+    ///                               
+    ///  --prefix_release          (Default: release)
+    ///                            The prefix of release branches
+    ///                               
+    ///  --prefix_feature          (Default: feature)
+    ///                            The prefix of release ranches
+    ///                               
+    ///  --category_feature        (Default: Feature)
+    ///                            The display label of the feature category
+    ///                               
+    ///  --category_hotfix         (Default: Hotfix)
+    ///                            The display label of the hotfix category
+    ///                               
+    ///  -h, --help                Display this help screen.
+    /// </code>
+    /// </summary>
 	public class Options
 	{
 		//[Option('r', "read",
@@ -121,7 +174,7 @@ namespace CS.Changelog.Console
 		public IParserState LastParserState { get; set; }
 
 		/// <summary>Gets the instructions for these parameters when used in a console application.</summary>
-		/// <returns></returns>
+		/// <returns>A help text explaining how to use the application.</returns>
 		[HelpOption('h', "help")]
 		public string GetUsage()
 		{

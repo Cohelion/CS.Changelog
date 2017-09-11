@@ -9,7 +9,11 @@ namespace CS.Changelog
 	/// </summary>
 	public static class GitExtensions
 	{
-		/// <summary>Gets the history as a string that can be parsed using <see cref="Parsing.Parse(string, ParseOptions)"/>.</summary>
+		/// <summary>
+		/// Gets the history as a string that can be parsed using <see cref="Parsing.Parse(string, ParseOptions)" />.
+		/// </summary>
+		/// <param name="workingDirectory">The working directory, should be the git repository directory.</param>
+		/// <param name="pathToGit">The path to git, defaults to 'git', which should suffice. Usually git is a PATH variable.</param>
 		/// <returns>The log message in custom prettyprint format</returns>
 		/// <exception cref="System.Exception">An error occurred whele reading the log.</exception>
 		public static string GetHistory(

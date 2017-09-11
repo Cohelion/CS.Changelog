@@ -16,7 +16,7 @@ namespace CS.ChangelogConsole.Tests
 		public void ParseFeatureCompletion()
 		{
 			//Arrange
-			var logs = new []{
+			var logs = new[]{
 				@"f4451af20c0f4023d7d785a6e7f647e43bc64fa2 '2017-06-27T12:28:01+02:00'  Merge branch 'feature/updatecubes' into develop"
 			};
 
@@ -80,7 +80,7 @@ namespace CS.ChangelogConsole.Tests
 		public void ParseHotfixCompletion()
 		{
 			//Arrange
-			var logs = new []{
+			var logs = new[]{
 				@"5bc8f9d0723bdb699580cabe4fbaf55bd7960545 '2017-06-23T17:21:31+02:00'  Merge branch 'hotfix/cDCM-661_Reimport_file_with_existing_file'"
 			};
 
@@ -141,7 +141,8 @@ Some more lines containing release information regarding this commit";
 
 		/// <summary>Tests <see cref="Parsing.Parse(string, ParseOptions)"/> by parsing a merge upon pull.</summary>
 		[TestMethod()]
-		public void ParsePull() {
+		public void ParsePull()
+		{
 			//Arrange
 			var logs = new[]{
 				@"356b6f76da7cf718ecb9b3a9eddc0d8de4a8bf38 '2017-08-25T17:05:36+02:00' Merge branch 'preview' of https://tfs.cs.nl/tfs/DefaultCollection/_git/Swissport%20Cargo%20DCM into preview"
@@ -162,7 +163,7 @@ Some more lines containing release information regarding this commit";
 			var changeset = Parsing.Parse(log, options);
 
 			//Assert
-			Assert.IsFalse(changeset.Any(), $"Log entry should lead to ignored commit. Entry: {log} caused change log message :  {(changeset.Any()?changeset.First().Message:null)} ({(changeset.Any() ? changeset.First().Hash : null)})");
+			Assert.IsFalse(changeset.Any(), $"Log entry should lead to ignored commit. Entry: {log} caused change log message :  {(changeset.Any() ? changeset.First().Message : null)} ({(changeset.Any() ? changeset.First().Hash : null)})");
 		}
 
 		private static ChangeLogMessage AssertChange(string log, string category)
@@ -302,7 +303,7 @@ d0f0c6e80284de11a6b067fa0bd0e14f3a7a5f3a '2017-05-30T08:38:16+02:00'  Merge bran
 			Assert.IsTrue(changeset.Any());
 
 			IChangelogExporter e = new TraceChangelogExporter();
-			e.Export(changeset,null);
+			e.Export(changeset, null);
 		}
 
 		//Just a log from Swissport Cargo DCM
@@ -393,7 +394,7 @@ f42120d9b82fd6bd33479aeffd5a252749ebfdef '2017-07-16T12:27:53+02:00' Merge branc
 		/// <summary>Tests <see cref="Parsing.Parse(string, ParseOptions)"/>.</summary>
 		[TestMethod()]
 		public void ParseTest2()
-		{	
+		{
 			var changeset = Parsing.Parse(logParseTest2, new ParseOptions());
 
 			Assert.IsTrue(changeset.Any());
