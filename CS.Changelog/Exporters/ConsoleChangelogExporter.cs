@@ -16,7 +16,7 @@ namespace CS.Changelog.Exporters
 		/// <param name="changes">The changes to export.</param>
 		/// <param name="file">Ignored, there is no file output.</param>
 		/// <param name="options">The options for exporting.</param>
-		public void Export(ChangeSet changes, FileInfo file, ExportOptions options)
+		public void Export(ChangeSet changes, FileInfo file, ExportOptions options = null)
 		{
 			foreach (var group in changes
 						.GroupBy(x => x.Category)

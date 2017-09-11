@@ -11,6 +11,6 @@ namespace CS.Changelog.Exporters
 		/// <param name="changes">The changes to export.</param>
 		/// <param name="file">The file to create of append, depending on <see cref="ExportOptions.Append"/>.</param>
 		/// <param name="options">The options for exporting.</param>
-		void Export(ChangeSet changes, FileInfo file = null, ExportOptions options = null);
+		void Export(ChangeSet changes, FileInfo file, ExportOptions options = null);
 	}
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace CS.Changelog
@@ -9,14 +10,21 @@ namespace CS.Changelog
 	/// <seealso cref="List{T}" />
 	public class ChangeSet : List<ChangeLogMessage>
 	{
-		/// <summary>The date of the release / deployment</summary>
-		public readonly DateTime? Date = DateTime.UtcNow;
 
-		/// <summary>Adds the specified message.</summary>
-		/// <param name="message">The message.</param>
-		public new void Add(ChangeLogMessage message)
-		{
-			base.Add(message);
+		/// <summary>The date of the release / deployment</summary>
+		[JsonProperty]
+		public DateTime? Date { get;set;} = DateTime.UtcNow;
+
+		/// <summary>The name of the release</summary>
+		[JsonProperty]
+		public string Name;
+
+		/// <summary>The date of the release / deployment</summary>
+		/// <value>The changes.</value>
+		[JsonProperty]
+		public IEnumerable<ChangeLogMessage> Changes { get{
+				return ToArray(); ;
+			}
 		}
 
 		/// <summary>Adds the specified hash.</summary>
@@ -25,7 +33,7 @@ namespace CS.Changelog
 		/// <param name="message">The message.</param>
 		public void Add(string hash, string category, string message = null)
 		{
-			base.Add(
+			Add(
 				new ChangeLogMessage {
 					Hash = hash,
 					Category = category,

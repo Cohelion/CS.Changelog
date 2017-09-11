@@ -174,7 +174,7 @@ Some more lines containing release information regarding this commit";
 			var changeset = Parsing.Parse(log, options);
 
 			//Assert
-			Assert.AreEqual(1, changeset.Count);
+			Assert.AreEqual(1, changeset.Count());
 			var change = changeset.Single();
 
 			Assert.AreEqual(change.Category, category);
@@ -302,14 +302,11 @@ d0f0c6e80284de11a6b067fa0bd0e14f3a7a5f3a '2017-05-30T08:38:16+02:00'  Merge bran
 			Assert.IsTrue(changeset.Any());
 
 			IChangelogExporter e = new TraceChangelogExporter();
-			e.Export(changeset);
+			e.Export(changeset,null);
 		}
-		/// <summary>Tests <see cref="Parsing.Parse(string, ParseOptions)"/>.</summary>
-		[TestMethod()]
-		public void ParseTest2()
-		{
-			//Just a log from Swissport Cargo DCM
-			const string log = @"7ba108c90a435353c909ad71b9d125de7971c251 '2017-09-07T14:55:52+02:00' Merge branch 'feature/cDCM-811_BudgetPrep_Finance_HQ' into preview
+
+		//Just a log from Swissport Cargo DCM
+		internal const string logParseTest2 = @"7ba108c90a435353c909ad71b9d125de7971c251 '2017-09-07T14:55:52+02:00' Merge branch 'feature/cDCM-811_BudgetPrep_Finance_HQ' into preview
 65f5d69e6802403bd77c56b8b6d0ba2f5779d1ae '2017-09-07T14:51:45+02:00' cDCM-811 - Budget prep report - Ramp/Overhead tabs renamed
 d6c103879bd984e56de4c8a689da3a8cd153e6a5 '2017-09-07T11:06:24+02:00' Merge branch 'feature/cDCM-811_BudgetPrep_Finance_HQ' into preview
 55de56a96971754e7edf0332e7c89f922360ce05 '2017-09-06T18:14:26+02:00' cDCM-811 - Ramp & HQ hours values as real numbers instead of percentages
@@ -393,12 +390,16 @@ f42120d9b82fd6bd33479aeffd5a252749ebfdef '2017-07-16T12:27:53+02:00' Merge branc
 6f3cad976a39af2ed652f4957bf580376271d688 '2017-07-12T12:29:11+02:00' Merge branch 'develop' into preview
 1d9b3be59d0df38bd1f237b69bf86bdae2be2ad5 '2017-07-12T09:13:52+02:00' Merge branch 'feature/CSPM-15_Swagger_API_Docs' into preview";
 
-			var changeset = Parsing.Parse(log, new ParseOptions());
+		/// <summary>Tests <see cref="Parsing.Parse(string, ParseOptions)"/>.</summary>
+		[TestMethod()]
+		public void ParseTest2()
+		{	
+			var changeset = Parsing.Parse(logParseTest2, new ParseOptions());
 
 			Assert.IsTrue(changeset.Any());
 
 			IChangelogExporter e = new TraceChangelogExporter();
-			e.Export(changeset);
+			e.Export(changeset, null);
 		}
 	}
 }

@@ -17,16 +17,16 @@ namespace CS.Changelog.Exporters
 		/// </summary>
 		public bool ResolveIssueNumbers = true;
 		/// <summary>The issue tracker URL, used when <see cref="ResolveIssueNumbers"/> is <c>true</c>.<c>$0</c> will be substituded with the issue number.</summary>
-		public string IssueTrackerUrl;
+		public string IssueTrackerUrl = @"https://project.cs.nl/issue/{0}";
 
 		/// <summary>The repository URL, used when <see cref="LinkHash"/> is true.</summary>
-		public string RepositoryUrl;
+		public string RepositoryUrl = @"https://tfs.cs.nl/tfs/DefaultCollection/_git/MYUNCONFIGUREDPROJECTNAME/commit/{0}";
 		/// <summary>Whether to linkify the <see cref="ChangeLogMessage.Hash"/>, uses <see cref="RepositoryUrl"/></summary>
 		public bool LinkHash = true;
 		/// <summary>Whether to display the short hash.</summary>
 		public bool ShortHash = true;
 
 		/// <summary>The regular expression for recognizing issue numbers. The entire match will be substituded in argument <c>$0</c> in <see cref="IssueTrackerUrl"/>.</summary>
-		public Regex IssueNumberRegex;
+		public Regex IssueNumberRegex = new Regex(@"[a-z]{1,4}-\d{1,4}",RegexOptions.IgnoreCase);
 	}
 }

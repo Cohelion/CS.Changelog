@@ -16,8 +16,8 @@ namespace CS.Changelog.Console.Tests
 		public void GenerateChangeLogTest()
 		{
 			var solutionPath = Directory
-	.GetParent(Assembly.GetExecutingAssembly().Location)
-	.Parent.Parent.Parent.FullName;
+								.GetParent(Assembly.GetExecutingAssembly().Location)
+								.Parent.Parent.Parent.FullName;
 
 			if (!Directory.Exists(Path.Combine(solutionPath, ".git")))
 				Assert.Inconclusive($"Path {solutionPath} is not a git repository");
@@ -32,6 +32,13 @@ namespace CS.Changelog.Console.Tests
 		[TestMethod()]
 		public void GenerateChangeLogTestCSChangelog()
 		{
+			var log = GetThisRepoChangelog();
+
+			Trace.WriteLine(log);
+		}
+
+		internal static string GetThisRepoChangelog()
+		{
 			var path = thisrepopath;
 			if (!Directory.Exists(path))
 				Assert.Inconclusive($"Path {path} does not exist");
@@ -41,7 +48,7 @@ namespace CS.Changelog.Console.Tests
 
 			var log = GitExtensions.GetHistory(path);
 
-			Trace.WriteLine(log);
+			return log;
 		}
 
 		const string swissportcargodcmrepopath = @"d:\Users\Robert\Source\SwissportCargoDCM";
@@ -49,6 +56,13 @@ namespace CS.Changelog.Console.Tests
 		/// <summary>Tests <see cref="GitExtensions.GetHistory"/> using <see cref="swissportcargodcmrepopath"/>.</summary>
 		[TestMethod()]
 		public void GenerateChangeLogTestSwissport()
+		{
+			var log = GetSwissportRepoChangelog();
+
+			Trace.WriteLine(log);
+		}
+
+		internal static string GetSwissportRepoChangelog()
 		{
 			var path = swissportcargodcmrepopath;
 
@@ -59,8 +73,7 @@ namespace CS.Changelog.Console.Tests
 				Assert.Inconclusive($"Path {path} is not a git repository");
 
 			var log = GitExtensions.GetHistory(path);
-
-			Trace.WriteLine(log);
+			return log;
 		}
 	}
 }

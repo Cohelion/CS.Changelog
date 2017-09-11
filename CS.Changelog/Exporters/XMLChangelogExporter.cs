@@ -1,6 +1,5 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using System.IO;
+﻿using System.IO;
+using System.Xml.Serialization;
 
 namespace CS.Changelog.Exporters
 {
@@ -8,7 +7,7 @@ namespace CS.Changelog.Exporters
 	/// A change lo exported for JSON formatting.
 	/// </summary>
 	/// <seealso cref="CS.Changelog.Exporters.IChangelogExporter" />
-	public class JsonChangelogExporter : IChangelogExporter
+	public class XMLChangelogExporter : IChangelogExporter
 	{
 
 		/// <summary>
@@ -21,6 +20,8 @@ namespace CS.Changelog.Exporters
 		{
 			options = options ?? new ExportOptions();
 
+			var serializer = new XmlSerializer(typeof(ChangeLog));
+
 			ChangeLog log;
 
 			if (file.Exists && options.Append)
@@ -30,7 +31,7 @@ namespace CS.Changelog.Exporters
 				using (var s = file.OpenText())
 				{
 					var originalContent = s.ReadToEnd();
-					log = JsonConvert.DeserializeObject<ChangeLog>(originalContent);
+					log = (ChangeLog)serializer.Deserialize(s);
 				}
 
 				if (options.Reverse)
@@ -52,13 +53,7 @@ namespace CS.Changelog.Exporters
 
 			using (var w = file.CreateText())
 			{
-				var s = new JsonSerializer
-				{
-					Formatting = Formatting.Indented,
-					ContractResolver = new CamelCasePropertyNamesContractResolver()
-				};
-
-				s.Serialize(w, log);
+				serializer.Serialize(w, log);
 			}
 		}
 	}

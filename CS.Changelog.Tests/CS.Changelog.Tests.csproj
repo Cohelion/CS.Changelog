@@ -44,7 +44,9 @@
     <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -56,7 +58,10 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Exporters\ChangelogExporterTestsBase.cs" />
     <Compile Include="Exporters\JsonChangelogExporterTests.cs" />
+    <Compile Include="Exporters\MarkdownChangelogExporterTests.cs" />
+    <Compile Include="Exporters\XMLChangelogExporterTests.cs" />
     <Compile Include="GitExtensionsTests.cs" />
     <Compile Include="ParsingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

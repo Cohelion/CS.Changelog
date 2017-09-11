@@ -6,13 +6,13 @@ namespace CS.Changelog.Exporters.Tests
 	/// Tests <see cref="JsonChangelogExporter"/>
 	/// </summary>
 	[TestClass()]
-	public class JsonChangelogExporterTests
+	public class JsonChangelogExporterTests : ChangelogExporterTestsBase<JsonChangelogExporter>
 	{
-		/// <summary>Tests implementation of <see cref="IChangelogExporter.Export(ChangeSet, System.IO.FileInfo, ExportOptions)"/> by <see cref="JsonChangelogExporter.Export"/></summary>
-		[TestMethod()]
-		public void ExportTest()
+		/// <summary>Gets the exporter.</summary>
+		/// <returns></returns>
+		protected override JsonChangelogExporter GetExporter()
 		{
-			Assert.Inconclusive();
+			return new JsonChangelogExporter();
 		}
 	}
 }
