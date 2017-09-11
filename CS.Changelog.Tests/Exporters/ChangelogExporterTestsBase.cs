@@ -10,7 +10,7 @@ namespace CS.Changelog.Exporters.Tests
 	/// <summary>
 	/// A base class for exporter tests
 	/// </summary>
-	public abstract class GetHistoryChangelogExporterTestsBase<T> where T : IChangelogExporter
+	public abstract class ChangelogExporterTestsBase<T> where T : IChangelogExporter
 	{
 		/// <summary>Gets the exporter.</summary>
 		/// <returns></returns>
