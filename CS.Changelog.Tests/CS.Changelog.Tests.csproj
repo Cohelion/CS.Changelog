@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Exporters\ChangelogExporterTestsBase.cs" />
     <Compile Include="Exporters\ConsoleChangelogExporterTests.cs" />
+    <Compile Include="Exporters\HtmlChangelogExporterTests.cs" />
     <Compile Include="Exporters\JsonChangelogExporterTests.cs" />
     <Compile Include="Exporters\MarkdownChangelogExporterTests.cs" />
     <Compile Include="Exporters\NamespaceDoc.cs" />

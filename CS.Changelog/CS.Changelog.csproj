@@ -36,6 +36,9 @@
     <DocumentationFile>bin\Release\CS.Changelog.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Markdig, Version=0.13.3.0, Culture=neutral, PublicKeyToken=870da25a133885f8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Markdig.Signed.0.13.3\lib\net40\Markdig.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -55,6 +58,7 @@
     <Compile Include="Exporters\ChangelogExportExtensions.cs" />
     <Compile Include="Exporters\ConsoleChangelogExporter.cs" />
     <Compile Include="Exporters\ExportOptions.cs" />
+    <Compile Include="Exporters\HtmlChangelogExporter.cs" />
     <Compile Include="Exporters\IChangelogExporter.cs" />
     <Compile Include="Exporters\IOExtensions.cs" />
     <Compile Include="Exporters\JsonChangelogExporter.cs" />
@@ -76,6 +80,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="..\markdownpad-github\markdownpad-github.css">
+      <Link>Exporters\Html\markdownpad-github.css</Link>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

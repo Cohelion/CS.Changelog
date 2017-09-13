@@ -6,7 +6,7 @@ using System.Text;
 namespace CS.Changelog.Exporters
 {
 	/// <summary>
-	/// <see cref="IChangelogExporter"/> for exporting to MarkDown.
+	/// <see cref="IChangelogExporter"/> for exporting to <see cref="OutputFormat.MarkDown"/>.
 	/// </summary>
 	/// <seealso cref="IChangelogExporter" />
 	public class MarkDownChangelogExporter : IChangelogExporter
@@ -33,6 +33,31 @@ namespace CS.Changelog.Exporters
 		/// <param name="file">The file to create of append, depending on <see cref="ExportOptions.Append" />.</param>
 		/// <param name="options">The options for exporting.</param>
 		public void Export(ChangeSet changes, FileInfo file, ExportOptions options = null)
+		{
+			options = options ?? new ExportOptions();
+			StringBuilder result = WriteChanges(changes, options);
+
+			string originalContent = null;
+			if (file.Exists && options.Append && options.Reverse)
+			{
+				//Prepend content by reading entire file and then deleting the file
+
+				using (var s = file.OpenText())
+					originalContent = s.ReadToEnd();
+
+				file.Delete();
+			}
+
+			using (var w = file.AppendText())
+			{
+				w.Write(result);
+
+				if (!string.IsNullOrWhiteSpace(originalContent))
+					w.Write(originalContent);
+			}
+		}
+
+		internal static StringBuilder WriteChanges(ChangeSet changes, ExportOptions options)
 		{
 			options = options ?? new ExportOptions();
 
@@ -75,24 +100,7 @@ namespace CS.Changelog.Exporters
 				}
 			}
 
-			string originalContent = null;
-			if (file.Exists && options.Append && options.Reverse)
-			{
-				//Prepend content by reading entire file and then deleting the file
-
-				using (var s = file.OpenText())
-					originalContent = s.ReadToEnd();
-
-				file.Delete();
-			}
-
-			using (var w = file.AppendText())
-			{
-				w.Write(result);
-
-				if (!string.IsNullOrWhiteSpace(originalContent))
-					w.Write(originalContent);
-			}
+			return result;
 		}
 	}
 }
