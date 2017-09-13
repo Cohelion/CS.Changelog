@@ -12,7 +12,6 @@ namespace CS.Changelog.Exporters.Tests
 		/// <returns></returns>
 		protected override XMLChangelogExporter GetExporter()
 		{
-
 			Assert.Inconclusive("Xmlseralization incomplete");
 
 			return new XMLChangelogExporter();

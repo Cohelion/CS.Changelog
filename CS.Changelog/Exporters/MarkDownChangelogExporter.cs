@@ -5,11 +5,10 @@ using System.Text;
 
 namespace CS.Changelog.Exporters
 {
-
 	/// <summary>
 	/// <see cref="IChangelogExporter"/> for exporting to MarkDown.
 	/// </summary>
-	/// <seealso cref="CS.Changelog.Exporters.IChangelogExporter" />
+	/// <seealso cref="IChangelogExporter" />
 	public class MarkDownChangelogExporter : IChangelogExporter
 	{
 		/// <summary>

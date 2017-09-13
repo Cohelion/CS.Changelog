@@ -15,7 +15,7 @@ namespace CS.Changelog.Console
 			if (!Parser.Default.ParseArguments(args, _options))
 				return;
 
-			_options.Dump(LogLevel.Debug);
+			_options.Dump(LogLevel.Info);
 
 			var firstrun = true;
 
@@ -30,16 +30,16 @@ namespace CS.Changelog.Console
 
 				var parseOptions = new ParseOptions()
 				{
-					prefix_feature = _options.prefix_feature,
-					prefix_hotfix = _options.prefix_hotfix,
-					prefix_release = _options.prefix_release,
+					prefix_feature = _options.Prefix_feature,
+					prefix_hotfix = _options.Prefix_hotfix,
+					prefix_release = _options.Prefix_release,
 
-					branch_development = _options.branch_development,
-					branch_master = _options.branch_master,
-					branch_preview = _options.branch_preview,
+					branch_development = _options.Branch_development,
+					branch_master = _options.Branch_master,
+					branch_preview = _options.Branch_preview,
 
-					category_feature = _options.category_feature,
-					category_hotfix = _options.category_hotfix,
+					category_feature = _options.Category_feature,
+					category_hotfix = _options.Category_hotfix,
 				};
 
 				var entries = Parsing.Parse(log, parseOptions);

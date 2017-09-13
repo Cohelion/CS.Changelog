@@ -3,11 +3,11 @@
 namespace CS.Changelog.Exporters
 {
 	/// <summary>
-	/// 
+	/// Options for exporting the change log (not all options are applicable for all implementataions of <see cref="IChangelogExporter"/>).
 	/// </summary>
 	public class ExportOptions
 	{
-		/// <summary>Wether to append to an existing file, or when <c>false</c> replace any existing file.</summary>
+		/// <summary>Whether to append to an existing file, or when <c>false</c> replace any existing file.</summary>
 		public bool Append = true;
 		/// <summary>Logs changesets in reverse order, newest one on top. (default is <c>true</c>)</summary>
 		public bool Reverse = true;
@@ -26,7 +26,12 @@ namespace CS.Changelog.Exporters
 		/// <summary>Whether to display the short hash.</summary>
 		public bool ShortHash = true;
 
+		/// <summary>
+		/// The default value for <see cref="IssueNumberRegex"/>
+		/// </summary>
+		public const string IssueNumberRegexDefault = @"[a-z]{1,4}-\d{1,4}";
+
 		/// <summary>The regular expression for recognizing issue numbers. The entire match will be substituded in argument <c>$0</c> in <see cref="IssueTrackerUrl"/>.</summary>
-		public Regex IssueNumberRegex = new Regex(@"[a-z]{1,4}-\d{1,4}",RegexOptions.IgnoreCase);
+		public Regex IssueNumberRegex = new Regex(IssueNumberRegexDefault, RegexOptions.IgnoreCase);
 	}
 }

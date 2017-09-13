@@ -16,7 +16,7 @@ namespace CS.Changelog.Exporters.Tests
 		/// <returns></returns>
 		protected abstract T GetExporter();
 
-		/// <summary>Tests implementation of <see cref="IChangelogExporter.Export(ChangeSet, System.IO.FileInfo, ExportOptions)"/> by <see cref="JsonChangelogExporter.Export"/></summary>
+		/// <summary>Tests implementation of <see cref="IChangelogExporter.Export(ChangeSet, FileInfo, ExportOptions)"/> by <see cref="JsonChangelogExporter.Export"/></summary>
 		[TestMethod()]
 		public void ExportThisRepoTest()
 		{
@@ -27,7 +27,7 @@ namespace CS.Changelog.Exporters.Tests
 			Testlog(log);
 		}
 
-		/// <summary>Tests implementation of <see cref="IChangelogExporter.Export(ChangeSet, System.IO.FileInfo, ExportOptions)"/> by <see cref="JsonChangelogExporter.Export"/></summary>
+		/// <summary>Tests implementation of <see cref="IChangelogExporter.Export(ChangeSet, FileInfo, ExportOptions)"/> by <see cref="JsonChangelogExporter.Export"/></summary>
 		[TestMethod()]
 		public void ExportOtherRepoTest()
 		{
@@ -38,7 +38,7 @@ namespace CS.Changelog.Exporters.Tests
 			Testlog(log);
 		}
 
-		/// <summary>Tests implementation of <see cref="IChangelogExporter.Export(ChangeSet, System.IO.FileInfo, ExportOptions)"/> by <see cref="JsonChangelogExporter.Export"/></summary>
+		/// <summary>Tests implementation of <see cref="IChangelogExporter.Export(ChangeSet, FileInfo, ExportOptions)"/> by <see cref="JsonChangelogExporter.Export"/></summary>
 		[TestMethod()]
 		public void ExportParseTest2Test()
 		{
@@ -73,7 +73,7 @@ namespace CS.Changelog.Exporters.Tests
 
 			Assert.IsFalse(string.IsNullOrWhiteSpace(changelog), "Changelog is empty");
 
-					Trace.Write($@"{file.FullName} : 
+			Trace.Write($@"{file.FullName} : 
 /*Changelog*/
 {changelog}");
 

@@ -6,68 +6,68 @@ using System.Xml.Serialization;
 
 namespace CS.Changelog.Console
 {
-    /// <summary>
-    /// Options that can be passed to the console application:
-    /// <code>
+	/// <summary>
+	/// Options that can be passed to the console application:
+	/// <code>
 	///  -n, --releasename         (Default: '')
 	///                            The name of the release (like 'operation high ground' or 'preview')
 	///                            
-    ///  -g, --pathToGit           (Default: git)
-    ///                            Path to git
-    ///                               
-    ///  -r, --repositoryDirectory (Default: ``)
-    ///                            Path to the repository
-    ///                               
+	///  -g, --pathToGit           (Default: git)
+	///                            Path to git
+	///                               
+	///  -r, --repositoryDirectory (Default: '')
+	///                            Path to the repository
+	///                               
 	///  -a, --append              (Default: True)
 	///                            Append to the target file, instead of overwriting.
-    ///                               
-    ///  -f, --filename            (Default: Changelog)
-    ///                            The file to write to, if no file extension is specified, output-specific extension will be added.
-    ///                               
+	///                               
+	///  -f, --filename            (Default: Changelog)
+	///                            The file to write to, if no file extension is specified, output-specific extension will be added.
+	///                            
 	///  -o, --outputformat        (Default: JSON)
 	///                            The output format
 	///                               
-    ///  -v, --verbosity           (Default: Debug)
-    ///                            Prints all messages to standard output
-    ///                               
-    ///  --issueformat             (Default: \w{ 1,5}-\d{1,5})
-    ///                            Expression for recognizing issue numbers
-    ///                               
-    ///  --issuetrackerurl         (Default: https://project.cs.nl/issue/{0})
-    ///                            Url for recognizing issue numbers. '{0}' will be substituted with issue number
-    ///                               
-    ///  --repositoryurl           Url for showing commit details
-    ///                               
-    ///  --linkifyissuenumbers     (Default: True)
-    ///                            Recognized issue numbers will be converted to links
-    ///                               
-    ///  --branch_development      (Default: develop)
-    ///                            The development branch
-    ///                               
-    ///  --branch_master           (Default: master)
-    ///                            The master branch
-    ///                               
-    ///  --branch_preview          (Default: preview)
-    ///                            The preview branch
-    ///                               
-    ///  --prefix_hotfix           (Default: hotfix)
-    ///                            The prefix of hotfix branches
-    ///                               
-    ///  --prefix_release          (Default: release)
-    ///                            The prefix of release branches
-    ///                               
-    ///  --prefix_feature          (Default: feature)
-    ///                            The prefix of release ranches
-    ///                               
-    ///  --category_feature        (Default: Feature)
-    ///                            The display label of the feature category
-    ///                               
-    ///  --category_hotfix         (Default: Hotfix)
-    ///                            The display label of the hotfix category
-    ///                               
-    ///  -h, --help                Display this help screen.
-    /// </code>
-    /// </summary>
+	///  -v, --verbosity           (Default: Debug)
+	///                            Prints all messages to standard output
+	///                               
+	///  --issueformat             (Default: <see cref="Exporters.ExportOptions.IssueNumberRegexDefault"/>)
+	///                            Expression for recognizing issue numbers
+	///                               
+	///  --issuetrackerurl         (Default: https://project.cs.nl/issue/{0})
+	///                            Url for recognizing issue numbers. '{0}' will be substituted with issue number
+	///                               
+	///  --repositoryurl           Url for showing commit details
+	///                               
+	///  --linkifyissuenumbers     (Default: True)
+	///                            Recognized issue numbers will be converted to links
+	///                               
+	///  --branch_development      (Default: develop)
+	///                            The development branch
+	///                               
+	///  --branch_master           (Default: master)
+	///                            The master branch
+	///                               
+	///  --branch_preview          (Default: preview)
+	///                            The preview branch
+	///                               
+	///  --prefix_hotfix           (Default: hotfix)
+	///                            The prefix of hotfix branches
+	///                               
+	///  --prefix_release          (Default: release)
+	///                            The prefix of release branches
+	///                               
+	///  --prefix_feature          (Default: feature)
+	///                            The prefix of release ranches
+	///                               
+	///  --category_feature        (Default: Feature)
+	///                            The display label of the feature category
+	///                               
+	///  --category_hotfix         (Default: Hotfix)
+	///                            The display label of the hotfix category
+	///                               
+	///  -h, --help                Display this help screen.
+	/// </code>
+	/// </summary>
 	public class Options
 	{
 		/// <summary>Gets or sets the path to git.</summary>
@@ -86,7 +86,7 @@ namespace CS.Changelog.Console
 			"pathToGit",
 			DefaultValue = "git",
 			HelpText = "Path to git")]
-		public string PathToGit { get; set; } = "git";
+		public string PathToGit { get; set; }
 
 		/// <summary>Gets or sets the repository location, defaults to the current directory.</summary>
 		/// <value>The repository location.</value>
@@ -145,7 +145,7 @@ namespace CS.Changelog.Console
 		/// <summary>
 		/// The default issue number regular expression
 		/// </summary>
-		public const string DefaultIssueNumberRegex = @"\w{1,5}-\d{1,5}";
+		public const string DefaultIssueNumberRegex = Exporters.ExportOptions.IssueNumberRegexDefault;
 
 		/// <summary>Gets or sets the issue number regular expression.</summary>
 		/// <value>The issue number regex.</value>
@@ -208,62 +208,61 @@ namespace CS.Changelog.Console
 		/// <summary>Gets or sets the name of the development branch for GitFlow purposes</summary>
 		/// <value>The development branch name.</value>
 		[Option("branch_development", DefaultValue = "develop", HelpText = "The development branch")]
-		public string branch_development { get; set; }
+		public string Branch_development { get; set; }
 
 		/// <summary>Gets or sets the name of the master branch for GitFlow purposes</summary>
 		/// <value>The master branch name.</value>
 		[Option("branch_master", DefaultValue = "master", HelpText = "The master branch")]
-		public string branch_master { get; set; }
+		public string Branch_master { get; set; }
 
 		/// <summary>Gets or sets the name of the preview branch for GitFlow+ purposes</summary>
 		/// <value>The preview branch name.</value>
 		[Option("branch_preview", DefaultValue = "preview", HelpText = "The preview branch")]
-		public string branch_preview { get; set; }
+		public string Branch_preview { get; set; }
 
 		/// <summary>Gets or sets the prefix of the hotfix branches for GitFlow purposes</summary>
 		/// <value>The hotfix branches prefix.</value>
 		[Option("prefix_hotfix", DefaultValue = "hotfix", HelpText = "The prefix of hotfix branches")]
-		public string prefix_hotfix { get; set; }
+		public string Prefix_hotfix { get; set; }
 
 		/// <summary>Gets or sets the prefix of the release branches for GitFlow purposes</summary>
 		/// <value>The release branches prefix.</value>
 		[Option("prefix_release", DefaultValue = "release", HelpText = "The prefix of release branches")]
-		public string prefix_release { get; set; }
+		public string Prefix_release { get; set; }
 
 		/// <summary>Gets or sets the prefix of the feature branches for GitFlow purposes</summary>
 		/// <value>The feature branches prefix.</value>
 		[Option("prefix_feature ", DefaultValue = "feature", HelpText = "The prefix of release branches")]
-		public string prefix_feature { get; set; }
+		public string Prefix_feature { get; set; }
 
 		/// <summary>Gets or sets header for features in the change log.</summary>
 		/// <value>The feature-changes header text.</value>
 		[Option("category_feature", DefaultValue = "Feature", HelpText = "The display label of the feature category")]
-		public string category_feature { get; set; }
+		public string Category_feature { get; set; }
 
 		/// <summary>Gets or sets header for hotfixes in the change log.</summary>
 		/// <value>The hotfix-changes header text.</value>
 		[Option("category_hotfix", DefaultValue = "Hotfix", HelpText = "The display label of the hotfix category", Required = false)]
-		public string category_hotfix { get; set; }
+		public string Category_hotfix { get; set; }
 		#endregion
 
 		/// <summary>
-		/// Returns a <see cref="System.String" /> that represents this instance.
+		/// Returns a <see cref="string" /> that represents this instance.
 		/// </summary>
-		/// <returns>A <see cref="System.String" /> that represents this instance.</returns>
+		/// <returns>A <see cref="string" /> that represents this instance.</returns>
 		public override string ToString()
 		{
-			var s = new XmlSerializer(this.GetType());
+			var s = new XmlSerializer(GetType());
 
 			using (var t = new StringWriter())
 			{
-				var w = new XmlTextWriter(t);
-				{
-					w.Formatting = Formatting.Indented;
+				var w = new XmlTextWriter(t) {
+					Formatting = Formatting.Indented
+				};
 
-					s.Serialize(w, this);
+				s.Serialize(w, this);
 
-					return t.ToString();
-				}
+				return t.ToString();
 			}
 		}
 	}

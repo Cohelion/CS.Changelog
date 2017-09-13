@@ -49,13 +49,13 @@ namespace CS.Changelog
 		/// <param name="options">The options for parsing the log file.</param>
 		/// <returns>A changeset</returns>
 		/// <remarks>
-		/// See internals on how changelog is to be obtained (<seealso cref="GitExtensions.GetHistory"/>).
-		/// Log format is: 
+		/// See internals on how changelog is to be obtained (<seealso cref="GitExtensions.GetHistory" />).
+		/// Log format is:
 		/// <code>
 		/// HASH DATE MULTILINEMESSAGE
 		/// </code>
 		/// </remarks>
-		/// <seealso cref="GitExtensions.GetHistory"/>
+		/// <seealso cref="GitExtensions.GetHistory" />
 		public static ChangeSet Parse(string log, ParseOptions options = null)
 		{
 			//If no options are specified, use default options
@@ -91,14 +91,14 @@ namespace CS.Changelog
 							LogIgnoredCommit($"Regular commit without explicit changelog message omitted", match, ref ignored);
 						else
 						{
-							//Not an ignored commit nor a merge, see commit message hadling later on
+							//Not an ignored commit nor a merge, see commit message handling later on
 						}
 					else if (isMergeUponPull)
 						if (!messagematch.Success)
 							LogIgnoredCommit($"Merge when pulling without explicit changelog message omitted", match, ref ignored);
 						else
 						{
-							//Not an ignored commit nor a merge, see commit message hadling later on
+							//Not an ignored commit nor a merge, see commit message handling later on
 						}
 					else
 					{
@@ -138,7 +138,7 @@ namespace CS.Changelog
 								else
 								{
 									LogCommit($"Non-gitflow Branch {fromBranch} is merged directly into master!", match, level: LogLevel.Warning);
-									result.Add(hash: hash, category: "Change", message: fromBranchFullName);
+									result.Add(hash: hash, category: "Unknown", message: $"Merge from '{fromBranchFullName}'");
 								}
 							}
 							else if (toBranch.Equals(options.branch_development, c))
@@ -156,7 +156,7 @@ namespace CS.Changelog
 								else
 								{
 									LogCommit($"Branch {fromBranchPrefix} {fromBranchFullName} is completed", match, ConsoleColor.Green);
-									result.Add(hash, "Unknown", fromBranchFullName);
+									result.Add(hash, category:"Unknown", message: $"Merge from '{fromBranchFullName}'");
 								}
 							}
 							else if (toBranch.Equals(options.branch_master, c))
