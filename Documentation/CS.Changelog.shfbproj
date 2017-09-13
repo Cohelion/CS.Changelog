@@ -180,6 +180,9 @@
   <ItemGroup>
     <Folder Include="files\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="files\changelog.html" />
+  </ItemGroup>
   <!-- Import the SHFB build targets -->
   <Import Project="$(SHFBROOT)\SandcastleHelpFileBuilder.targets" />
 </Project>
