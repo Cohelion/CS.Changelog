@@ -29,10 +29,15 @@ namespace CS.Changelog
 		[JsonProperty(Order = 2)]
 		public string IssueTrackerUrl { get; internal set; }
 
+		/// <summary>Gets or sets the change sets. For serialization purposes only</summary>
+		/// <value>The change sets.</value>
 		[JsonProperty(Order = 4)]
-		private List<ChangeSet> ChangeSets {
+		private IEnumerable<ChangeSet> ChangeSets {
 			get{
-				return new List<ChangeSet>(this);
+				return ToArray();
+			}
+			set {
+				AddRange(value);
 			}
 		}
 	}

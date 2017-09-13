@@ -8,22 +8,25 @@ namespace CS.Changelog
 	/// A set of <see cref="ChangeLogMessage">changes</see>, release / deployed on a specific <see cref="Date"/>.
 	/// </summary>
 	/// <seealso cref="List{T}" />
+	[JsonObject(MemberSerialization.OptIn)]
 	public class ChangeSet : List<ChangeLogMessage>
 	{
-
 		/// <summary>The date of the release / deployment</summary>
-		[JsonProperty]
-		public DateTime? Date { get;set;} = DateTime.UtcNow;
+		[JsonProperty(Order = 1)]
+		public DateTime? Date { get; set;} = DateTime.UtcNow;
 
 		/// <summary>The name of the release</summary>
-		[JsonProperty]
-		public string Name;
+		[JsonProperty(Order = 2)]
+		public string Name { get; set; } = string.Empty;
 
-		/// <summary>The date of the release / deployment</summary>
+		/// <summary>Gets the changes, for serialization purposes only</summary>
 		/// <value>The changes.</value>
-		[JsonProperty]
-		public IEnumerable<ChangeLogMessage> Changes { get{
+		[JsonProperty(Order = 3)]
+		private IEnumerable<ChangeLogMessage> Changes { get{
 				return ToArray(); ;
+			}
+			set{
+				AddRange(value);
 			}
 		}
 

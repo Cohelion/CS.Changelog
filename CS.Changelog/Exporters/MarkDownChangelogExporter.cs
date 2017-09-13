@@ -13,6 +13,21 @@ namespace CS.Changelog.Exporters
 	public class MarkDownChangelogExporter : IChangelogExporter
 	{
 		/// <summary>
+		/// Gets a value indicating whether the change log exporter supports deserializing an existing change log, and therefore append intelligently.
+		/// </summary>
+		/// <value>
+		///   <c>false</c>
+		/// </value>
+		public bool SupportsDeserializing => false;
+		/// <summary>
+		/// Gets a value indicating whether the change log exporter supports writing to a file.
+		/// </summary>
+		/// <value>
+		///   <c>true</c>.
+		/// </value>
+		public bool SupportsWritingToFile => true;
+
+		/// <summary>
 		/// Exports the specified <paramref name="changes">changeset</paramref> to a Json <paramref name="file" />.
 		/// </summary>
 		/// <param name="changes">The changes to export.</param>

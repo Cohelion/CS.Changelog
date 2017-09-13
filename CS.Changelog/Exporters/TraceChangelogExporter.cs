@@ -11,6 +11,21 @@ namespace CS.Changelog.Exporters
 	public class TraceChangelogExporter : IChangelogExporter
 	{
 		/// <summary>
+		/// Gets a value indicating whether the change log exporter supports deserializing an existing changelog, and therefore append intelligently.
+		/// </summary>
+		/// <value>
+		///   <c>false</c> if the change log exporter supports deserializing; otherwise, <c>false</c>.
+		/// </value>
+		public bool SupportsDeserializing => false;
+		/// <summary>
+		/// Gets a value indicating whether the change log exporter supports writing to a file.
+		/// </summary>
+		/// <value>
+		///   <c>false</c>.
+		/// </value>
+		public bool SupportsWritingToFile => false;
+
+		/// <summary>
 		/// Exports the specified <paramref name="changes">changeset</paramref> to a console window, ignoring <paramref name="file"/>.
 		/// </summary>
 		/// <param name="changes">The changes to export.</param>
@@ -26,7 +41,14 @@ namespace CS.Changelog.Exporters
 				Trace.WriteLine($"[{group.Category}]");
 
 				//Group by exact change log message
-				foreach (var entry in group.Entries.GroupBy(x=>x.Message).Select(x=> new { Message = x.Key, Commits = x.Select(y=>y.Hash)}))
+				foreach (var entry in group.Entries
+										.GroupBy(x=>x.Message)
+										.Select(x=> 
+											new {
+												Message = x.Key,
+												Commits = x.Select(y=>y.Hash)})
+										)
+
 					Trace.WriteLine($" - {entry.Message} ({string.Join(",",entry.Commits.Select(x=>x.Substring(0, 8)))})");
 
 			}

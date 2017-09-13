@@ -11,6 +11,21 @@ namespace CS.Changelog.Exporters
 	public class ConsoleChangelogExporter : IChangelogExporter
 	{
 		/// <summary>
+		/// Gets a value indicating whether the change log exporter supports deserializing an existing change log, and therefore append intelligently.
+		/// </summary>
+		/// <value>
+		///   <c>false</c>
+		/// </value>
+		public bool SupportsDeserializing => false;
+		/// <summary>
+		/// Gets a value indicating whether the change log exporter supports writing to a file.
+		/// </summary>
+		/// <value>
+		///   <c>false</c>.
+		/// </value>
+		public bool SupportsWritingToFile => false;
+
+		/// <summary>
 		/// Exports the specified <paramref name="changes">changeset</paramref> to a console window, ignoring <paramref name="file"/>.
 		/// </summary>
 		/// <param name="changes">The changes to export.</param>
@@ -25,8 +40,15 @@ namespace CS.Changelog.Exporters
 
 				$"[{group.Category}]".Dump();
 
-				foreach (var entry in group.Entries)
-					$" - {entry.Message} ({entry.Hash.Substring(0, 8)})".Dump();
+				foreach (var entry in group.Entries
+										   .GroupBy(x => x.Message)
+										   .Select(x=> 
+												new {
+													Message = x.Key,
+													Hashes = string.Join(",",x.Select(y=>y.Hash.Substring(0,8)))
+											}))
+					
+					$" - {entry.Message} ({entry.Hashes})".Dump();
 
 			}
 		}

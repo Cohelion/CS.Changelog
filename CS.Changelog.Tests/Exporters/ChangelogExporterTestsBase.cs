@@ -60,21 +60,29 @@ namespace CS.Changelog.Exporters.Tests
 
 			//Assert
 			file.Refresh();
-			if (file.Exists) {
-				Assert.IsTrue(file.Exists);
+			if (!exporter.SupportsWritingToFile)
+				return;
 
-				string changelog = file.OpenText().ReadToEnd();
+			Assert.IsTrue(file.Exists);
 
+			string changelog;
+			using (var r = file.OpenText())
+				changelog = r.ReadToEnd();
 
-				if (string.IsNullOrWhiteSpace(changelog))
-					Assert.Inconclusive("Changelog is empty");
-				else {
+			Assert.IsFalse(string.IsNullOrWhiteSpace(changelog), "Changelog is empty");
 
 					Trace.Write($@"{file.FullName} : 
 /*Changelog*/
 {changelog}");
-				}
-			}
+
+			if (!exporter.SupportsDeserializing)
+				return;
+
+			//When exporter supports deserializing, and the same chages are written exporter twice, this should result in no changes
+			exporter.Export(changes, file);
+
+			Assert.AreEqual(0, changes.Count);
+
 		}
 	}
 }
