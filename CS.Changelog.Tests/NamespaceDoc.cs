@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 
-namespace CS.ChangelogConsole.Tests
+namespace CS.Changelog.Tests
 {
 	/// <summary>
 	/// Contains all tests for <see cref="CS.Changelog"/>

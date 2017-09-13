@@ -1,9 +1,8 @@
-﻿using CS.Changelog;
-using CS.Changelog.Exporters;
+﻿using CS.Changelog.Exporters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 
-namespace CS.ChangelogConsole.Tests
+namespace CS.Changelog.Tests
 {
 	/// <summary>
 	/// Tests <see cref="Parsing"/>

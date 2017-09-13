@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 
-namespace CS.Changelog.Console.Tests
+namespace CS.Changelog.Tests
 {
 	/// <summary>
 	/// Tests <see cref="GitExtensions"/>
