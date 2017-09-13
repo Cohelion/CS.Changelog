@@ -8,7 +8,8 @@ namespace CS.Changelog.Exporters
 	/// <see cref="IChangelogExporter"/> for exporting to <see cref="OutputFormat.Html"/>.
 	/// </summary>
 	/// <seealso cref="IChangelogExporter" />
-	public class HtmlChangelogExporter : IChangelogExporter {
+	public class HtmlChangelogExporter : IChangelogExporter
+	{
 
 		/// <summary>
 		/// Gets a value indicating whether the change log exporter supports deserializing an existing change log, and therefore append intelligently.
@@ -75,8 +76,8 @@ namespace CS.Changelog.Exporters
 			var resourceName = $"{assembly.GetName().Name}.Exporters.Html.markdownpad-github.css";
 
 			using (Stream stream = assembly.GetManifestResourceStream(resourceName))
-			using (StreamReader reader = new StreamReader(stream))
 			{
+				var reader = new StreamReader(stream);
 				string result = reader.ReadToEnd();
 				return result;
 			}
