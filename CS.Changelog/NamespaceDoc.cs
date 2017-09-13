@@ -18,9 +18,6 @@ namespace CS.Changelog
 	///        <description><see cref="Exporters.IChangelogExporter.Export">Export the changelog</see> to the requested <see cref="OutputFormat"/>.</description>  
 	///    </item>
 	///</list>
-	///<iframe src="../files/changelog.html">
-	///</iframe>
-	///<a href="../files/changelog.html">Changelog</a>
 	///</summary>
 	///<seealso cref="GitExtensions"/>
 	///<seealso cref="Exporters"/>

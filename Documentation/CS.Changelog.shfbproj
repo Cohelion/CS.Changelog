@@ -154,7 +154,10 @@
     <CopyrightHref>http://cs.nl</CopyrightHref>
     <ApiFilter>
     </ApiFilter>
-    <ProjectSummary>Technical documentation of the CS /webworks changelog generator, running either as a build step or manually as a part of the release procedure.</ProjectSummary>
+    <ProjectSummary>Technical documentation of the CS /webworks changelog generator, running either as a build step or manually as a part of the release procedure.
+
+&amp;lt%3bh2&amp;gt%3bChange log&amp;lt%3b/h2&amp;gt%3b
+&amp;lt%3biframe src=&amp;quot%3b../files/changelog.html&amp;quot%3b/&amp;gt%3b</ProjectSummary>
     <HelpFileVersion>1.0.0.0</HelpFileVersion>
     <SaveComponentCacheCapacity>100</SaveComponentCacheCapacity>
   </PropertyGroup>
