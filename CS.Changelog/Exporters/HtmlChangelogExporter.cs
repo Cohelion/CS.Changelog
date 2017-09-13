@@ -52,7 +52,7 @@ namespace CS.Changelog.Exporters
     </body>
 </html>";
 
-			using (var w = file.AppendText())
+			using (var w = file.CreateText())
 				w.Write(html);
 		}
 
