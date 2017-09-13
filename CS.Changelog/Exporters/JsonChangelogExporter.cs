@@ -81,6 +81,8 @@ namespace CS.Changelog.Exporters
 				ContractResolver = new CamelCasePropertyNamesContractResolver()
 			};
 
+			file.Directory.AssertExistence();
+
 			using (var w = file.CreateText())
 				serializer.Serialize(w, log);
 		}
