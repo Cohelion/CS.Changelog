@@ -1,5 +1,4 @@
-﻿using CS.Changelog.Console.Tests;
-using CS.ChangelogConsole.Tests;
+﻿using CS.Changelog.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics;
