@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using CS.Changelog.Utils;
+using System.IO;
 
 namespace CS.Changelog.Exporters
 {
@@ -7,7 +8,10 @@ namespace CS.Changelog.Exporters
 			directory.Parent?.AssertExistence();
 
 			if (!directory.Exists)
+			{
+				$"Creating {directory}".Dump();
 				directory.Create();
+			}
 		}
 	}
 }
