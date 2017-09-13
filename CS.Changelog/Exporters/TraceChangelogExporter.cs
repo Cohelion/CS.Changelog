@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
@@ -34,7 +35,7 @@ namespace CS.Changelog.Exporters
 		public void Export(ChangeSet changes, FileInfo file = null, ExportOptions options= null)
 		{
 			foreach (var group in changes
-						.GroupBy(x => x.Category)
+						.GroupBy(x => x.Category, StringComparer.InvariantCultureIgnoreCase)
 						.Select(x => new { Category = x.Key, Entries = x.ToArray() }))
 			{
 
@@ -42,7 +43,7 @@ namespace CS.Changelog.Exporters
 
 				//Group by exact change log message
 				foreach (var entry in group.Entries
-										.GroupBy(x=>x.Message)
+										.GroupBy(x=>x.Message, StringComparer.InvariantCultureIgnoreCase)
 										.Select(x=> 
 											new {
 												Message = x.Key,

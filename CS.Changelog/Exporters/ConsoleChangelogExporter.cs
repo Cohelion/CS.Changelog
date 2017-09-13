@@ -1,4 +1,5 @@
 ﻿using CS.Changelog.Utils;
+using System;
 using System.IO;
 using System.Linq;
 
@@ -36,14 +37,14 @@ namespace CS.Changelog.Exporters
 			$"==({changes.Date:d}) {changes.Name}==".Dump();
 
 			foreach (var group in changes
-						.GroupBy(x => x.Category)
+						.GroupBy(x => x.Category, StringComparer.InvariantCultureIgnoreCase)
 						.Select(x => new { Category = x.Key, Entries = x.ToArray() }))
 			{
 
 				$"[{group.Category}]".Dump();
 
 				foreach (var entry in group.Entries
-										   .GroupBy(x => x.Message)
+										   .GroupBy(x => x.Message, StringComparer.InvariantCultureIgnoreCase)
 										   .Select(x=> 
 												new {
 													Message = x.Key,
