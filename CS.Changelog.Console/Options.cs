@@ -9,18 +9,24 @@ namespace CS.Changelog.Console
     /// <summary>
     /// Options that can be passed to the console application:
     /// <code>
+	///  -n, --releasename         (Default: '')
+	///                            The name of the release (like 'operation high ground' or 'preview')
+	///                            
     ///  -g, --pathToGit           (Default: git)
     ///                            Path to git
     ///                               
     ///  -r, --repositoryDirectory (Default: ``)
     ///                            Path to the repository
     ///                               
-    ///  -o, --overwrite           (Default: False)
-    ///                            Overwrite the target file. Default is not to overwrite, but to append.
+	///  -a, --append              (Default: True)
+	///                            Append to the target file, instead of overwriting.
     ///                               
     ///  -f, --filename            (Default: Changelog)
     ///                            The file to write to, if no file extension is specified, output-specific extension will be added.
     ///                               
+	///  -o, --outputformat        (Default: JSON)
+	///                            The output format
+	///                               
     ///  -v, --verbosity           (Default: Debug)
     ///                            Prints all messages to standard output
     ///                               
@@ -64,10 +70,14 @@ namespace CS.Changelog.Console
     /// </summary>
 	public class Options
 	{
-		//[Option('r', "read",
-		//	Required = false,
-		//	HelpText = "Input file to be processed.")]
-		//public string InputFile { get; set; }
+		/// <summary>Gets or sets the path to git.</summary>
+		/// <value>The path to git, defaults to <c>git</c>.</value>
+		[Option(
+			'n',
+			"releasename",
+			DefaultValue = "",
+			HelpText = "The name ")]
+		public string ReleaseName { get; set; }
 
 		/// <summary>Gets or sets the path to git.</summary>
 		/// <value>The path to git, defaults to <c>git</c>.</value>
@@ -92,11 +102,11 @@ namespace CS.Changelog.Console
 		/// </summary>
 		/// <value><c>true</c> if the exported file should be overwritten; otherwise, the file is appended.</value>
 		[Option(
-			'o',
-			"overwrite",
-			DefaultValue = false,
-			HelpText = "Overwrite the target file. Default is not to overwrite, but to append.")]
-		public bool OverWrite { get; set; }
+			'a',
+			"append",
+			DefaultValue = true,
+			HelpText = "Append to the target file, instead of overwriting.")]
+		public bool Append { get; set; }
 
 		/// <summary>Gets or sets the target file name.</summary>
 		/// <value>The target file.</value>
@@ -107,6 +117,17 @@ namespace CS.Changelog.Console
 			DefaultValue = "Changelog",
 			HelpText = "The file to write to, if no file extension is specified, output-specific extension will be added.")]
 		public string TargetFile { get; set; }
+
+		/// <summary>The format of the changelog.</summary>
+		/// <value>The target file.</value>
+		/// <remarks>Some output formats (<see cref="OutputFormat.MarkDown"/>, <see cref="OutputFormat.Html"/>) do only correctly implement appending by when using an intermediate serializable format (JSON, XML) which is committed to the repository. </remarks>
+		/// <seealso cref="OutputFormat"/>
+		[Option(
+			'o',
+			"outputformat",
+			DefaultValue = OutputFormat.JSON,
+			HelpText = "The output format")]
+		public OutputFormat OutputFormat { get; set; }
 
 		/// <summary>Gets or sets the verbosity.</summary>
 		/// <value>The verbosity.</value>

@@ -52,10 +52,12 @@ namespace CS.Changelog.Exporters.Tests
 		private void Testlog(string log)
 		{
 			var changes = Parsing.Parse(log);
+			var id = Guid.NewGuid();
+			changes.Name = $"Funky release name : {id}";
 			var exporter = GetExporter();
 
 			//Act
-			var file = new FileInfo($"{Guid.NewGuid()}");
+			var file = new FileInfo($"Release_{id}");
 			exporter.Export(changes, file);
 
 			//Assert

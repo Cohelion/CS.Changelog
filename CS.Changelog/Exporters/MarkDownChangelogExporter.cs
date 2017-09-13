@@ -39,7 +39,7 @@ namespace CS.Changelog.Exporters
 
 			var result = new StringBuilder();
 
-			result.AppendLine($"# ({DateTime.Now:d}) #");
+			result.AppendLine($"# ({changes.Date:d}) {changes.Name}#");
 			result.AppendLine();
 
 			foreach (var group in changes

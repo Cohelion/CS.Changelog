@@ -33,6 +33,8 @@ namespace CS.Changelog.Exporters
 		/// <param name="options">The options for exporting.</param>
 		public void Export(ChangeSet changes, FileInfo file, ExportOptions options = null)
 		{
+			$"==({changes.Date:d}) {changes.Name}==".Dump();
+
 			foreach (var group in changes
 						.GroupBy(x => x.Category)
 						.Select(x => new { Category = x.Key, Entries = x.ToArray() }))

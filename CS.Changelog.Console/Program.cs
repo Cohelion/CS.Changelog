@@ -43,11 +43,12 @@ namespace CS.Changelog.Console
 				};
 
 				var entries = Parsing.Parse(log, parseOptions);
+				entries.Name = _options.ReleaseName;
 
 				//
 				var exportOptions = new ExportOptions()
 				{
-					Append = !_options.OverWrite,
+					Append = _options.Append,
 					Reverse = true,
 					ResolveIssueNumbers = _options.LinkifyIssueNumbers,
 					IssueTrackerUrl = _options.IssueTrackerUrl,
@@ -61,7 +62,7 @@ namespace CS.Changelog.Console
 				entries.Export(OutputFormat.Console, _options.TargetFile, exportOptions);
 
 				System.Console.WriteLine();
-				var file = entries.Export(OutputFormat.JSON, _options.TargetFile, exportOptions);
+				var file = entries.Export(_options.OutputFormat, _options.TargetFile, exportOptions);
 
 				if (!System.Console.IsInputRedirected)
 				{
