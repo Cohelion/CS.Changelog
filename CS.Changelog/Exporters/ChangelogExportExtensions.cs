@@ -46,6 +46,9 @@ namespace CS.Changelog.Exporters
 					break;
 
 				case OutputFormat.XML:
+					exporter = new XMLChangelogExporter();
+					break;
+
 				case OutputFormat.Html:
 				default:
 					throw new NotImplementedException($"Export to {format} is not yet implemented");
