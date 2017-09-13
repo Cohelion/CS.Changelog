@@ -79,9 +79,7 @@ namespace CS.Changelog.Exporters
 			{
 				Formatting = Formatting.Indented,
 				ContractResolver = new CamelCasePropertyNamesContractResolver()
-			};
-
-			file.Directory.AssertExistence();
+			};	
 
 			using (var w = file.CreateText())
 				serializer.Serialize(w, log);

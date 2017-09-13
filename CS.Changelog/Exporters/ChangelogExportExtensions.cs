@@ -51,6 +51,8 @@ namespace CS.Changelog.Exporters
 					throw new NotImplementedException($"Export to {format} is not yet implemented");
 			}
 
+			file.Directory.AssertExistence();
+
 			exporter.Export(changes, file, exportOptions);
 
 			return file;

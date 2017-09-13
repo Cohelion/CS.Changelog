@@ -88,8 +88,6 @@ namespace CS.Changelog.Exporters
 				file.Delete();
 			}
 
-			file.Directory.AssertExistence();
-
 			using (var w = file.AppendText())
 			{
 				w.Write(result);

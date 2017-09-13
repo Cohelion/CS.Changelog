@@ -74,9 +74,7 @@ namespace CS.Changelog.Exporters
 			log.IssueNumberRegex = options?.IssueNumberRegex.ToString();
 			log.IssueTrackerUrl = options?.IssueTrackerUrl;
 			log.RepositoryUrl = options?.RepositoryUrl;
-
-			file.Directory.AssertExistence();
-
+			
 			using (var w = file.CreateText())
 				serializer.Serialize(w, log);
 		}
