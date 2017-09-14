@@ -15,6 +15,7 @@ namespace CS.Changelog.Exporters
 		/// <param name="targetFile">The target file (when applicable).</param>
 		/// <param name="exportOptions">The export options.</param>
 		/// <exception cref="NotImplementedException">When an export format (<paramref name="format"/>) is not supported yet</exception>
+		/// <returns>A <see cref="FileInfo"/> referring to the exported file (when applicable).</returns>
 		public static FileInfo Export(
 			this ChangeSet changes,
 			OutputFormat format,

@@ -67,9 +67,9 @@ namespace CS.Changelog.Exporters
 		}
 
 		/// <summary>
-		/// Gets the CSS.
+		/// Gets the CSS from the embedded resource.
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>The CSS as string to use for formatting MarkDown.</returns>
 		public static string GetCss()
 		{
 			var assembly = Assembly.GetExecutingAssembly();

@@ -9,7 +9,7 @@ namespace CS.Changelog.Exporters.Tests
 	public class ConsoleChangelogExporterTests : ChangelogExporterTestsBase<ConsoleChangelogExporter>
 	{
 		/// <summary>Gets the exporter.</summary>
-		/// <returns></returns>
+		/// <returns>A <see cref="ConsoleChangelogExporter"/>.</returns>
 		protected override ConsoleChangelogExporter GetExporter()
 		{
 			return new ConsoleChangelogExporter();

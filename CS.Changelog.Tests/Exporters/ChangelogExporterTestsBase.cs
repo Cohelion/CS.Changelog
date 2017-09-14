@@ -6,13 +6,12 @@ using System.IO;
 
 namespace CS.Changelog.Exporters.Tests
 {
-	/// <summary>
-	/// A base class for exporter tests
-	/// </summary>
+	/// <summary>A base class for exporter tests</summary>
+	/// <typeparam name="T">The type of the change log exporter (implementing <see cref="IChangelogExporter"/>).</typeparam>
 	public abstract class ChangelogExporterTestsBase<T> where T : IChangelogExporter
 	{
 		/// <summary>Gets the exporter.</summary>
-		/// <returns></returns>
+		/// <returns>The implementation of <see cref="IChangelogExporter"/> being tested.</returns>
 		protected abstract T GetExporter();
 
 		/// <summary>Tests implementation of <see cref="IChangelogExporter.Export(ChangeSet, FileInfo, ExportOptions)"/> by <see cref="JsonChangelogExporter.Export"/></summary>

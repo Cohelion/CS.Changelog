@@ -186,7 +186,7 @@ Some more lines containing release information regarding this commit";
 		[TestMethod()]
 		public void ParseTest1()
 		{
-			//Just a log from Swissport Cargo DCM
+			
 			const string log = @"f4451af20c0f4023d7d785a6e7f647e43bc64fa2 '2017-06-27T12:28:01+02:00'  Merge branch 'feature/updatecubes' into develop
 e226d3ad1c5f49caaaddf3e6e43135f092cc3c5e '2017-06-26T15:09:24+02:00'  cDCM-704 - Enabled InActive selection in reporting
 324e6f2fcdca54f24a07864a8ccf7a10717345ce '2017-06-26T11:58:57+02:00'  Merge branch 'feature/cDCM-785_pivotedWoReview_remove_cache_option' into develop
@@ -304,8 +304,8 @@ d0f0c6e80284de11a6b067fa0bd0e14f3a7a5f3a '2017-05-30T08:38:16+02:00'  Merge bran
 			IChangelogExporter e = new TraceChangelogExporter();
 			e.Export(changeset, null);
 		}
-
-		//Just a log from Swissport Cargo DCM
+		
+		/// <summary>Just a log from Swissport Cargo DCM</summary>
 		internal const string logParseTest2 = @"7ba108c90a435353c909ad71b9d125de7971c251 '2017-09-07T14:55:52+02:00' Merge branch 'feature/cDCM-811_BudgetPrep_Finance_HQ' into preview
 65f5d69e6802403bd77c56b8b6d0ba2f5779d1ae '2017-09-07T14:51:45+02:00' cDCM-811 - Budget prep report - Ramp/Overhead tabs renamed
 d6c103879bd984e56de4c8a689da3a8cd153e6a5 '2017-09-07T11:06:24+02:00' Merge branch 'feature/cDCM-811_BudgetPrep_Finance_HQ' into preview

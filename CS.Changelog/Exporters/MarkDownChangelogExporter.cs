@@ -57,6 +57,10 @@ namespace CS.Changelog.Exporters
 			}
 		}
 
+		/// <summary>Writes the changes to s <see cref="StringBuilder"/>.</summary>
+		/// <param name="changes">The changes to write.</param>
+		/// <param name="options">The options (for formatting text mainly).</param>
+		/// <returns>A <see cref="StringBuilder"/> containing the MarkDown.</returns>
 		internal static StringBuilder WriteChanges(ChangeSet changes, ExportOptions options)
 		{
 			options = options ?? new ExportOptions();

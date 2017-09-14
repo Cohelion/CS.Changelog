@@ -9,7 +9,7 @@ namespace CS.Changelog.Exporters.Tests
 	public class JsonChangelogExporterTests : ChangelogExporterTestsBase<JsonChangelogExporter>
 	{
 		/// <summary>Gets the exporter.</summary>
-		/// <returns></returns>
+		/// <returns>A <see cref="JsonChangelogExporter"/>.</returns>
 		protected override JsonChangelogExporter GetExporter()
 		{
 			return new JsonChangelogExporter();

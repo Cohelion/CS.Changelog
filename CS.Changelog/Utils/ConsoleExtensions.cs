@@ -33,7 +33,7 @@ namespace CS.Changelog.Utils
 
 		/// <summary>Converts <paramref name="level"/> to <see cref="System.ConsoleColor"/>.</summary>
 		/// <param name="level">The level.</param>
-		/// <returns></returns>
+		/// <returns>A <see cref="System.ConsoleColor"/> for the specified <paramref name="level"/>.</returns>
 		/// <exception cref="ArgumentOutOfRangeException">level</exception>
 		public static System.ConsoleColor ToConsoleColor(this LogLevel level)
 		{

@@ -27,7 +27,7 @@ namespace CS.Changelog.Tests
 			Trace.WriteLine(log);
 		}
 
-		private const string thisrepopath = @"D:\Users\Robert\Source\CS.Changelog";
+		internal const string thisrepopath = @"D:\Users\Robert\Source\CS.Changelog";
 		/// <summary>Tests <see cref="GitExtensions.GetHistory"/> using <see cref="thisrepopath"/>.</summary>
 		[TestMethod()]
 		public void GenerateChangeLogTestCSChangelog()
@@ -37,6 +37,8 @@ namespace CS.Changelog.Tests
 			Trace.WriteLine(log);
 		}
 
+		/// <summary>Gets the this repo changelog.</summary>
+		/// <returns>The changes for <see cref="thisrepopath"/> obtained using <see cref="GitExtensions.GetHistory"/></returns>
 		internal static string GetThisRepoChangelog()
 		{
 			var path = thisrepopath;
@@ -51,7 +53,7 @@ namespace CS.Changelog.Tests
 			return log;
 		}
 
-		const string swissportcargodcmrepopath = @"d:\Users\Robert\Source\SwissportCargoDCM";
+		internal const string swissportcargodcmrepopath = @"d:\Users\Robert\Source\SwissportCargoDCM";
 
 		/// <summary>Tests <see cref="GitExtensions.GetHistory"/> using <see cref="swissportcargodcmrepopath"/>.</summary>
 		[TestMethod()]
@@ -62,6 +64,8 @@ namespace CS.Changelog.Tests
 			Trace.WriteLine(log);
 		}
 
+		/// <summary>Gets the swissport repo changelog.</summary>
+		/// <returns>The changes for <see cref="swissportcargodcmrepopath"/> obtained using <see cref="GitExtensions.GetHistory"/></returns>
 		internal static string GetSwissportRepoChangelog()
 		{
 			var path = swissportcargodcmrepopath;

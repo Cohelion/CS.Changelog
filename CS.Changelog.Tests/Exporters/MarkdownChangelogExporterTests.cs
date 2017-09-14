@@ -9,7 +9,7 @@ namespace CS.Changelog.Exporters.Tests
 	public class MarkdownChangelogExporterTests : ChangelogExporterTestsBase<MarkDownChangelogExporter>
 	{
 		/// <summary>Gets the exporter.</summary>
-		/// <returns></returns>
+		/// <returns>A <see cref="MarkDownChangelogExporter"/>.</returns>
 		protected override MarkDownChangelogExporter GetExporter()
 		{
 			return new MarkDownChangelogExporter();

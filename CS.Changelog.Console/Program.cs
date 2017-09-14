@@ -6,8 +6,26 @@ using System.Text.RegularExpressions;
 
 namespace CS.Changelog.Console
 {
+	/// <summary>
+	/// A console application for generating a change log, performs the following steps:
+	/// <list type="number">  
+	///    <item>  
+	///        <term>Read history</term>  
+	///        <description><see cref="GitExtensions.GetHistory">Obtain commit history, based on git commits</see></description>  
+	///    </item>  
+	///    <item>  
+	///        <term>Interpreting history</term>  
+	///        <description><see cref="Parsing.Parse">Interpret commits</see> based on <see cref="ParseOptions"/>.</description>  
+	///    </item>  
+	///    <item>  
+	///        <term>Writing or appending the changelog</term>  
+	///        <description><see cref="IChangelogExporter.Export">Export the changelog</see> to the requested <see cref="OutputFormat"/>.</description>  
+	///    </item>
+	///</list>
+	/// </summary>
 	class Program
 	{
+		/// <summary>The options to be passed to the program</summary>
 		internal static readonly Options _options = new Options();
 
 		static void Main(string[] args)

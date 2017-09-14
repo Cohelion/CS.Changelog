@@ -5,11 +5,11 @@ namespace CS.Changelog.Exporters.Tests
 	/// <summary>
 	/// Tests <see cref="XMLChangelogExporter"/>
 	/// </summary>
-	[TestClass()]
+	[TestClass(), Ignore] //Xml exporter not yet implemneted
 	public class XMLChangelogExporterTests : ChangelogExporterTestsBase<XMLChangelogExporter>
 	{
 		/// <summary>Gets the exporter.</summary>
-		/// <returns></returns>
+		/// <returns>A <see cref="XMLChangelogExporter"/>.</returns>
 		protected override XMLChangelogExporter GetExporter()
 		{
 			Assert.Inconclusive("Xmlseralization incomplete");

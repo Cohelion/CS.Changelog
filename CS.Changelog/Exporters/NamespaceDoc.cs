@@ -10,4 +10,13 @@ namespace CS.Changelog.Exporters
 	{
 		//Empty non-public class with name 'NamespaceDoc', with CompilerGenerated attribute can be used to document the namespace it is in.		
 	}
+
+	/// <summary>
+	/// See <see cref="CS.Changelog.Exporters"/>
+	///</summary>
+	[CompilerGenerated]
+	class NamespaceGroupDoc
+	{
+		//Empty non-public class with name 'NamespaceDoc', with CompilerGenerated attribute can be used to document the namespace it is in.		
+	}
 }
