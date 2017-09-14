@@ -27,9 +27,13 @@ namespace CS.Changelog.Tests
 			Trace.WriteLine(log);
 		}
 
+		/// <summary>
+		/// The path to this repository
+		/// </summary>
+		/// <remarks>This was fun while developing locally, anywhere else this is totally useless.</remarks>
 		internal const string thisrepopath = @"D:\Users\Robert\Source\CS.Changelog";
 		/// <summary>Tests <see cref="GitExtensions.GetHistory"/> using <see cref="thisrepopath"/>.</summary>
-		[TestMethod()]
+		[TestMethod(), TestCategory("ignoreonbuildserver")]
 		public void GenerateChangeLogTestCSChangelog()
 		{
 			var log = GetThisRepoChangelog();
@@ -53,10 +57,14 @@ namespace CS.Changelog.Tests
 			return log;
 		}
 
+		/// <summary>
+		/// The path to the Swissport Cargo DCM repository
+		/// </summary>
+		/// <remarks>This was fun while developing locally, anywhere else this is totally useless.</remarks>
 		internal const string swissportcargodcmrepopath = @"d:\Users\Robert\Source\SwissportCargoDCM";
 
 		/// <summary>Tests <see cref="GitExtensions.GetHistory"/> using <see cref="swissportcargodcmrepopath"/>.</summary>
-		[TestMethod()]
+		[TestMethod(), TestCategory("ignoreonbuildserver")]
 		public void GenerateChangeLogTestSwissport()
 		{
 			var log = GetSwissportRepoChangelog();
