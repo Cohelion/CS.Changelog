@@ -44,6 +44,16 @@ namespace CS.Changelog.Exporters
 <html>
     <head>
         <title>Changelog for {changes.Name}</title>
+
+		<!-- Custom CSS -->
+		<style>
+			/* Enable line-breaks withing change log messages */
+			li {{
+				white-space:pre-line;
+			}}
+		</style>
+
+		<!-- CSS from markdownpad-github -->
         <style>
 {Css}
         </style>
