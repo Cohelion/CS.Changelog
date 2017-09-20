@@ -1,5 +1,6 @@
 ﻿using CS.Changelog.Exporters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics;
 using System.Linq;
 
 namespace CS.Changelog.Tests
@@ -126,6 +127,42 @@ Some more lines containing release information regarding this commit";
 			}
 		}
 
+		/// <summary>Tests <see cref="Parsing.Parse(string, ParseOptions)"/> by parsing a commit message multiple change log messages and comments that should be ignored.</summary>
+		[TestMethod()]
+		public void ParseRegularCommitWithMultipleReleaseMessages()
+		{
+			var category1 = "feature";
+			var expectedMessage1 = @"cDCM-704 - Enabled InActive selection in reporting
+Some more lines containing release information regarding this commit";
+
+			var category2 = "rambling category";
+			var expectedMessage2 = @"Some other message";
+
+			//Arrange
+			var cases = new[]{
+				new {log = $@"e226d3ad1c5f49caaaddf3e6e43135f092cc3c5e '2017-06-26T15:09:24+02:00' [{category1}]{expectedMessage1}
+[{category2}]{expectedMessage2}
+#Comment that should be ignored"}
+			};
+
+			foreach (var @case in cases)
+			{
+				var entries = AssertOneOrMoreChange(@case.log);
+
+				Trace.WriteLine(string.Empty);
+				Trace.WriteLine("Changeset:");
+				(new TraceChangelogExporter()).Export(entries);
+
+				Assert.AreEqual(2, entries.Count);
+
+				Assert.AreEqual(1, entries.Count(x => (x.Category.Equals(category1))));
+				Assert.AreEqual(expectedMessage1, entries.Single(x => (x.Category.Equals(category1))).Message);
+
+				Assert.AreEqual(1, entries.Count(x => (x.Category.Equals(category2))));
+				Assert.AreEqual(expectedMessage2, entries.Single(x => (x.Category.Equals(category2))).Message);
+			}
+		}
+
 		/// <summary>Tests <see cref="Parsing.Parse(string, ParseOptions)"/> by parsing a commit message without a change log message.</summary>
 		[TestMethod()]
 		public void ParseCommitWithChangelogMessage()
@@ -180,6 +217,20 @@ Some more lines containing release information regarding this commit";
 			Assert.AreEqual(change.Category, category);
 
 			return change;
+		}
+
+		private static ChangeSet AssertOneOrMoreChange(string log)
+		{
+			//Arrange
+			ParseOptions options = new ParseOptions();
+
+			//Act
+			var changeset = Parsing.Parse(log, options);
+
+			//Assert
+			Assert.IsTrue(changeset.Any());
+
+			return changeset;
 		}
 
 		/// <summary>Tests <see cref="Parsing.Parse(string, ParseOptions)"/>.</summary>

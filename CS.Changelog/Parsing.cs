@@ -38,11 +38,34 @@ namespace CS.Changelog
 			)?
 		)?
 		(?<remainder>(?:.(?!\n[\w\d]{40}))*)
-	)", RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace | RegexOptions.Multiline | RegexOptions.Singleline);
+	)", RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace | RegexOptions.Multiline | RegexOptions.Singleline | RegexOptions.ExplicitCapture);
 
-		private static readonly Regex commitMessageRegex = new Regex(@"\[(?<category>[^\]]+)\](?<message>.+)", RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace | RegexOptions.Multiline | RegexOptions.Singleline);
+		private static readonly Regex commitMessageRegex = new Regex(@"
+#the message category is anything (but a newline) in brackets
+\[
+	(?<category>[^\]\n]+)
+\]
 
-		private static readonly Regex branchNameRegex = new Regex(@"((?<prefix>.*)\/)?(?<fullname>(?<issuenumber>[a-z0-9]+-\d+)?(?<name>.*))", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+#the message can contain anything but the start of a new message, or a comment
+(?<message>
+(?:
+	(?!
+		\n
+		(?:
+			#indicates the start of a new message
+			\[[^\]\n]+\]
+
+			|
+
+			#message comments (like merge conflict resolutions are to be ignored)
+			\#
+		)
+	)
+.
+)+
+)", RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace | RegexOptions.Multiline | RegexOptions.Singleline | RegexOptions.ExplicitCapture);
+
+		private static readonly Regex branchNameRegex = new Regex(@"((?<prefix>.*)\/)?(?<fullname>(?<issuenumber>[a-z0-9]+-\d+)?(?<name>.*))", RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.ExplicitCapture);
 
 		/// <summary>Parses the specified log.</summary>
 		/// <param name="log">The log to parse</param>
@@ -80,22 +103,22 @@ namespace CS.Changelog
 
 				//Parse message to see if it was useful
 				var message = match.Groups["message"].Value.Trim();
-				var messagematch = commitMessageRegex.Match(message);
+				var messagematches = commitMessageRegex.Matches(message);
 
 				try
 				{
 					bool ignored = false;
 
 					if (!isMerge)
-						if (!messagematch.Success)
-							LogIgnoredCommit($"Regular commit without explicit changelog message omitted", match, ref ignored);
+						if (messagematches.Count==0)
+							LogIgnoredCommit($"Regular commit without explicit changelog messages omitted", match, ref ignored);
 						else
 						{
 							//Not an ignored commit nor a merge, see commit message handling later on
 						}
 					else if (isMergeUponPull)
-						if (!messagematch.Success)
-							LogIgnoredCommit($"Merge when pulling without explicit changelog message omitted", match, ref ignored);
+						if (messagematches.Count == 0)
+							LogIgnoredCommit($"Merge when pulling without explicit changelog messages omitted", match, ref ignored);
 						else
 						{
 							//Not an ignored commit nor a merge, see commit message handling later on
@@ -206,10 +229,13 @@ namespace CS.Changelog
 					}
 
 					//If entire commit is not ignore, append any categorized release message
-					if (!ignored && messagematch.Success)
+					if (!ignored && messagematches.Count>0)
 					{
-						LogCommit($"Commit with changelog category added : {message}", match, level: LogLevel.Info);
-						result.Add(hash, messagematch.Groups["category"].Value, messagematch.Groups["message"].Value);
+						foreach (Match messagematch in messagematches)
+						{
+							LogCommit($"Commit with changelog category added : {message}", match, level: LogLevel.Info);
+							result.Add(hash, messagematch.Groups["category"].Value, messagematch.Groups["message"].Value);
+						}
 					}
 				}
 				catch (Exception ex)
@@ -227,10 +253,8 @@ namespace CS.Changelog
 			LogCommitMessage(match.Groups["remainder"].Value, color);
 		}
 
-		static void LogCommitMessage(string message, System.ConsoleColor? color = null, LogLevel level = LogLevel.Info)
+		static void LogCommitMessage(string message, ConsoleColor? color = null, LogLevel level = LogLevel.Info)
 		{
-			var commitMessageRegex = new Regex(".+", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-
 			var i = 0;
 			foreach (Match match in commitMessageRegex.Matches(message))
 			{
