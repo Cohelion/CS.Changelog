@@ -14,15 +14,21 @@ namespace CS.Changelog
 		/// </summary>
 		/// <param name="workingDirectory">The working directory, should be the git repository directory.</param>
 		/// <param name="pathToGit">The path to git, defaults to 'git', which should suffice. Usually git is a PATH variable.</param>
+		/// <param name="incremental">if set to <c>true</c> obtains changes since the last release.</param>
 		/// <returns>The log message in custom prettyprint format</returns>
 		/// <exception cref="System.Exception">An error occurred whele reading the log.</exception>
 		public static string GetHistory(
 			string workingDirectory,
-			string pathToGit = "git")
+			string pathToGit = "git",
+			bool incremental = true)
 		{
+
 			const string gitGetStartArgument = @"describe --tags --abbrev=0";
 
-			string start;
+			$@"Getting history from git repository at working directory: {workingDirectory}
+Using git path : {pathToGit}
+Obtaining latest release using : {gitGetStartArgument}"
+				.Dump(LogLevel.Debug);
 
 			var psi = new ProcessStartInfo(pathToGit)
 			{
@@ -34,31 +40,42 @@ namespace CS.Changelog
 				WindowStyle = ProcessWindowStyle.Hidden
 			};
 
-			psi.Arguments = gitGetStartArgument;
-			using (var p = Process.Start(psi))
+
+			string start = string.Empty;
+
+			if (incremental)
 			{
-				p.WaitForExit();
-
-				start = p.StandardOutput.ReadToEnd().Trim();
-
-				if (p.ExitCode != 0)
+				psi.Arguments = gitGetStartArgument;
+				using (var p = Process.Start(psi))
 				{
-					string errorMessage = p.StandardError.ReadToEnd();
+					p.WaitForExit();
 
-					switch (errorMessage.Trim())
+					start = p.StandardOutput.ReadToEnd().Trim();
+
+					$"Output : {start}".Dump(LogLevel.Debug);
+
+					if (p.ExitCode != 0)
 					{
-						case "fatal: No names found, cannot describe anything.":
-							break;
-						default:
-							throw new System.Exception($"Error while obtaining the previous release name : {errorMessage}");
+						string errorMessage = p.StandardError.ReadToEnd();
+
+						switch (errorMessage.Trim())
+						{
+							case "fatal: No names found, cannot describe anything.":
+								break;
+							default:
+								throw new System.Exception($"Error while obtaining the previous release name : {errorMessage}");
+						}
 					}
 				}
-			}
 
 			(string.IsNullOrWhiteSpace(start)
 				? $"Reading the entire history: no previous tagged release was found."
 				: $"Reading history since tag : '{start}'"
 				).Dump();
+			}
+			else {
+				$"Reading entire history".Dump();
+			}
 
 			//Switches:
 			//H  = full hash

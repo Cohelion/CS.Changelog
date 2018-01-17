@@ -18,8 +18,8 @@ namespace CS.Changelog.Console
 	///  -r, --repositoryDirectory (Default: '')
 	///                            Path to the repository
 	///                               
-	///  -a, --append              (Default: True)
-	///                            Append to the target file, instead of overwriting.
+	///      --replace             (Default: False)
+	///                            When set replaces the target file, instead of appending.
 	///                               
 	///  -f, --filename            (Default: Changelog)
 	///                            The file to write to, if no file extension is specified, output-specific extension will be added.
@@ -29,6 +29,9 @@ namespace CS.Changelog.Console
 	///                               
 	///  -v, --verbosity           (Default: Debug)
 	///                            Prints all messages to standard output
+	///                            
+	///      --full     		   (Default: False)
+	///                            By default only changes since the last release need to be included, when set includes all changes.
 	///                               
 	///  --issueformat             (Default: <see cref="Exporters.ExportOptions.IssueNumberRegexDefault"/>)
 	///                            Expression for recognizing issue numbers
@@ -38,8 +41,8 @@ namespace CS.Changelog.Console
 	///                               
 	///  --repositoryurl           Url for showing commit details
 	///                               
-	///  --linkifyissuenumbers     (Default: True)
-	///                            Recognized issue numbers will be converted to links
+	///  --dontlinkifyissuenumbers (Default: False)
+	///                            When set recognized issue numbers will be not converted to links
 	///                               
 	///  --branch_development      (Default: develop)
 	///                            The development branch
@@ -66,6 +69,8 @@ namespace CS.Changelog.Console
 	///                            The display label of the hotfix category
 	///                               
 	///  -h, --help                Display this help screen.
+	///  
+	///  --openfile				  Open file after generation
 	/// </code>
 	/// </summary>
 	public class Options
@@ -88,25 +93,32 @@ namespace CS.Changelog.Console
 			HelpText = "Path to git")]
 		public string PathToGit { get; set; }
 
+		/// <summary>Indicated wether to generate an incremental change log.</summary>
+		/// <value>Default to <c>true</c>.</value>
+		[Option(
+			"full",
+			DefaultValue = false,
+			HelpText = "false when only changes since the last release need to be included, true to include all changes.")]
+		public bool Complete { get; set; }
+
 		/// <summary>Gets or sets the repository location, defaults to the current directory.</summary>
 		/// <value>The repository location.</value>
 		[Option(
 			'r',
 			"repositoryDirectory",
-			DefaultValue = @"D:\Users\Robert\Documents\SwissportCargoDCM",
+			DefaultValue = @"",
 			HelpText = "Path to the repository")]
 		public string RepositoryLocation { get; set; }
 
 		/// <summary>
-		/// Overwrite the target file. Default is not to overwrite, but to append.
+		/// Replace the target file. Default is not to overwrite, but to append.
 		/// </summary>
 		/// <value><c>true</c> if the exported file should be overwritten; otherwise, the file is appended.</value>
 		[Option(
-			'a',
-			"append",
-			DefaultValue = true,
-			HelpText = "Append to the target file, instead of overwriting.")]
-		public bool Append { get; set; }
+			"replace",
+			DefaultValue = false,
+			HelpText = "Replace the target file, instead of appending.")]
+		public bool Replace { get; set; }
 
 		/// <summary>Gets or sets the target file name.</summary>
 		/// <value>The target file.</value>
@@ -117,6 +129,15 @@ namespace CS.Changelog.Console
 			DefaultValue = "Changelog",
 			HelpText = "The file to write to, if no file extension is specified, output-specific extension will be added.")]
 		public string TargetFile { get; set; }
+
+		/// <summary>When set opens the file after creation</summary>
+		/// <value>Whether to open the generated file or not.</value>
+		/// <remarks>Only works in interactive mode</remarks>
+		[Option(
+			"openfile",
+			DefaultValue = false,
+			HelpText = "When set, opens the file after the changelog has been generated")]
+		public bool OpenFile { get; set; }
 
 		/// <summary>The format of the changelog.</summary>
 		/// <value>The target file.</value>
@@ -129,13 +150,13 @@ namespace CS.Changelog.Console
 			HelpText = "The output format")]
 		public OutputFormat OutputFormat { get; set; }
 
-		/// <summary>Gets or sets the verbosity.</summary>
-		/// <value>The verbosity.</value>
+		/// <summary>Gets or sets the <see cref="LogLevel">verbosity</see> of the output.</summary>
+		/// <value>The verbosity. Default to <see cref="Utils.ConsoleExtensions.Verbosity"/>.</value>
 		[Option(
 			'v',
 			"verbosity",
 			DefaultValue = Utils.ConsoleExtensions.DefaultVerbosity,
-			HelpText = "Prints all messages to standard output")]
+			HelpText = "The threshold for printing messages to standard output")]
 		public LogLevel Verbosity
 		{
 			get { return Utils.ConsoleExtensions.Verbosity; }
@@ -150,7 +171,7 @@ namespace CS.Changelog.Console
 		/// <summary>Gets or sets the issue number regular expression.</summary>
 		/// <value>The issue number regex.</value>
 		/// <remarks>Defaults to <see cref="DefaultIssueNumberRegex"/>.</remarks>
-		/// <seealso cref="LinkifyIssueNumbers"/> 
+		/// <seealso cref="DontLinkifyIssueNumbers"/> 
 		/// <seealso cref="IssueTrackerUrl"/> 
 		[Option(
 		 	"issueformat",
@@ -160,7 +181,7 @@ namespace CS.Changelog.Console
 
 		/// <summary>Gets or sets the issue tracker URL, for linkifying issue numbers.</summary>
 		/// <value>The issue tracker URL.</value>
-		/// <seealso cref="LinkifyIssueNumbers"/> 
+		/// <seealso cref="DontLinkifyIssueNumbers"/> 
 		/// <seealso cref="IssueNumberRegex"/> 
 		[Option(
 		 	"issuetrackerurl",
@@ -184,10 +205,10 @@ namespace CS.Changelog.Console
 		/// <seealso cref="IssueNumberRegex"/> 
 		/// <seealso cref="IssueTrackerUrl"/> 
 		[Option(
-		 	"linkifyissuenumbers",
-			DefaultValue = true,
-			HelpText = "Recognized issue numbers will be converted to links")]
-		public bool LinkifyIssueNumbers { get; set; }
+		 	"dontlinkifyissuenumbers",
+			DefaultValue = false,
+			HelpText = "Recognized issue numbers will be converted to links when set to false")]
+		public bool DontLinkifyIssueNumbers { get; set; }
 
 		/// <summary>Gets or sets the last state of the parser.</summary>
 		/// <value>The last state of the parser.</value>

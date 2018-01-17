@@ -42,7 +42,7 @@ namespace CS.Changelog.Console
 			{
 				firstrun = false;
 
-				var log = GitExtensions.GetHistory(_options.RepositoryLocation, _options.PathToGit);
+				var log = GitExtensions.GetHistory(_options.RepositoryLocation, _options.PathToGit, !_options.Complete);
 
 				$"Raw log : {log}".Dump(loglevel: LogLevel.Debug);
 
@@ -63,12 +63,12 @@ namespace CS.Changelog.Console
 				var entries = Parsing.Parse(log, parseOptions);
 				entries.Name = _options.ReleaseName;
 
-				//
+				//A lot of options can only be specific with negative default values when passed as command argument, hence the double negation
 				var exportOptions = new ExportOptions()
 				{
-					Append = _options.Append,
+					Append = !_options.Replace,
 					Reverse = true,
-					ResolveIssueNumbers = _options.LinkifyIssueNumbers,
+					ResolveIssueNumbers = !_options.DontLinkifyIssueNumbers,
 					IssueTrackerUrl = _options.IssueTrackerUrl,
 					RepositoryUrl = _options.CommitDetailsUrl,
 					LinkHash = !string.IsNullOrWhiteSpace(_options.CommitDetailsUrl),
@@ -86,8 +86,13 @@ namespace CS.Changelog.Console
 				{
 					if (file.Exists)
 					{
-						$"Opening file: {file.FullName}".Dump();
-						System.Diagnostics.Process.Start(file.FullName);
+						if (_options.OpenFile)
+						{
+							$"Opening file: {file.FullName}".Dump();
+							System.Diagnostics.Process.Start(file.FullName);
+						}
+						else
+							$"Not opening file: {file.FullName}".Dump();
 					}
 					else
 						$"Changelog does not exist at: {file.FullName}".Dump();
