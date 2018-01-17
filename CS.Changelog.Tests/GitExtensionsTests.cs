@@ -69,7 +69,10 @@ namespace CS.Changelog.Tests
 		{
 			var log = GetSwissportRepoChangelog();
 
-			Trace.WriteLine(log);
+			Trace.WriteLine(
+				string.IsNullOrEmpty(log)
+				? "empty log"
+				: log);
 		}
 
 		/// <summary>Gets the swissport repo changelog.</summary>

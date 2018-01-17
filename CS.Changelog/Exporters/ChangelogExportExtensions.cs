@@ -64,6 +64,8 @@ namespace CS.Changelog.Exporters
 
 			exporter.Export(changes, file, exportOptions);
 
+			file.Refresh();
+
 			return file;
 		}
 	}
