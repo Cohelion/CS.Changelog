@@ -11,6 +11,7 @@
 
 		/// <summary>Gets or sets the hash of the commit.</summary>
 		/// <value>The hash.</value>
+        /// <remarks>In the serialized change log the hash may be empty, for not referring to a commit, but just adding a change log entry.</remarks>
 		public string Hash { get; set; }
 
 		/// <summary>Gets or sets the message.</summary>
