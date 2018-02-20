@@ -53,7 +53,9 @@ namespace CS.Changelog.Exporters
                                                                                .Select(y => y.Hash.Substring(0, 8)))
                                                 }))
 
-                    $" - {entry.Message}{(string.IsNullOrWhiteSpace(entry.Hashes) ? " ({entry.Hashes})" : "")}".Dump();
+                    $@" - {entry.Message}{(string.IsNullOrWhiteSpace(entry.Hashes) 
+                                            ? $" ({entry.Hashes})"
+                                            : string.Empty)}".Dump();
 
             }
         }

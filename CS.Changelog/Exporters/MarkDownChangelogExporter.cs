@@ -105,7 +105,9 @@ namespace CS.Changelog.Exporters
                                 .Replace(@"_", @"\_")
                                 .Replace(@"#", @"\#");
 
-                    result.AppendLine($"- {message}{(hashes.Any() ? $"({string.Join(", ", hashes)}" : "")}");
+                    result.AppendLine($@"- {message}{(hashes.Any()
+                                                        ? $" ({string.Join(", ", hashes)})"
+                                                        : string.Empty)}");
                 }
             }
 

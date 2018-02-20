@@ -53,7 +53,9 @@ namespace CS.Changelog.Exporters
                                             })
                                         )
 
-                    Trace.WriteLine($" - {entry.Message} ({string.Join(",", entry.Commits.Select(x => x.Substring(0, 8)))})");
+                    Trace.WriteLine($@" - {entry.Message}{(entry.Commits.Any()
+                                                            ? $" ({string.Join(",", entry.Commits.Select(x => x.Substring(0, 8)))})"
+                                                            : string.Empty)}");
 
             }
         }
