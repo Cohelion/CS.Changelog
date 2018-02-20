@@ -29,9 +29,9 @@ namespace CS.Changelog.Exporters
 		/// <summary>
 		/// The default value for <see cref="IssueNumberRegex"/>
 		/// </summary>
-		public const string IssueNumberRegexDefault = @"[a-z]{1,4}-\d{1,4}";
+		public const string IssueNumberRegexDefault = @"[a-zA-Z]{1,4}-\d{1,4}";
 
-		/// <summary>The regular expression for recognizing issue numbers. The entire match will be substituded in argument <c>$0</c> in <see cref="IssueTrackerUrl"/>.</summary>
+		/// <summary>The regular expression for recognizing issue numbers. The entire match will be substituted in argument <c>$0</c> in <see cref="IssueTrackerUrl"/>.</summary>
 		public Regex IssueNumberRegex = new Regex(IssueNumberRegexDefault, RegexOptions.IgnoreCase);
 	}
 }
