@@ -84,12 +84,18 @@ namespace CS.Changelog.Exporters
                                                 {
                                                     Message = x.Key,
                                                     Commits = x.Select(y => y.Hash)
+                                                               .Where(y => !string.IsNullOrWhiteSpace(y))
                                                 }
                                             )
                                         )
                 {
                     //Change log messages are grouped by message, commits are appended
-                    var hashes = entry.Commits.Select(x => options.LinkHash ? $"[{(options.ShortHash ? x.Substring(0, 8) : x)}]({string.Format(options.RepositoryUrl, x)})" : options.ShortHash ? x.Substring(0, 8) : x);
+                    var hashes = entry.Commits
+                                            .Select(x => options.LinkHash
+                                                                ? $"[{(options.ShortHash ? x.Substring(0, 8) : x)}]({string.Format(options.RepositoryUrl, x)})"
+                                                                : options.ShortHash
+                                                                    ? x.Substring(0, 8)
+                                                                    : x);
 
                     var message = string.IsNullOrWhiteSpace(entry.Message)
                         ? string.Empty
@@ -101,7 +107,9 @@ namespace CS.Changelog.Exporters
                                 .Replace(@"_", @"\_")
                                 .Replace(@"#", @"\#");
 
-                    result.AppendLine($"- {message} ({string.Join(", ", hashes)})");
+                    result.AppendLine($@"- {message}{(hashes.Any()
+                                                        ? $" ({string.Join(", ", hashes)})"
+                                                        : string.Empty)}");
                 }
             }
 
