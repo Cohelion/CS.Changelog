@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace CS.Changelog
 {
@@ -13,16 +14,19 @@ namespace CS.Changelog
 	{
 		/// <summary>The date of the release / deployment</summary>
 		[JsonProperty(Order = 1)]
-		public DateTime? Date { get; set;} = DateTime.UtcNow;
+        [XmlAttribute]
+        public DateTime? Date { get; set;} = DateTime.UtcNow;
 
 		/// <summary>The name of the release</summary>
 		[JsonProperty(Order = 2)]
-		public string Name { get; set; } = string.Empty;
+        [XmlAttribute]
+        public string Name { get; set; } = string.Empty;
 
 		/// <summary>Gets the changes, for serialization purposes only</summary>
 		/// <value>The changes.</value>
 		[JsonProperty(Order = 3)]
-		private IEnumerable<ChangeLogMessage> Changes { get{
+        [XmlArrayItem("Change")]
+        private IEnumerable<ChangeLogMessage> Changes { get{
 				return ToArray(); ;
 			}
 			set{

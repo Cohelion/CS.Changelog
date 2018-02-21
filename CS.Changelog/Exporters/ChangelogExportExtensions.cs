@@ -48,7 +48,7 @@ namespace CS.Changelog.Exporters
 
 				case OutputFormat.XML:
 
-					exporter = new XMLChangelogExporter();
+					exporter = new XmlChangelogExporter();
 					break;
 
 				case OutputFormat.Html:

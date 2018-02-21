@@ -43,7 +43,8 @@ namespace CS.Changelog.Exporters
 
 				//Group by exact change log message
 				foreach (var entry in group.Entries
-										.GroupBy(x=>x.Message, StringComparer.InvariantCultureIgnoreCase)
+                                        .Where(x => !x.Ignored)
+                                        .GroupBy(x=>x.Message, StringComparer.InvariantCultureIgnoreCase)
 										.Select(x=> 
 											new {
 												Message = x.Key,

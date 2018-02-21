@@ -8,7 +8,7 @@ namespace CS.Changelog.Exporters
 	/// A change lo exported for JSON formatting.
 	/// </summary>
 	/// <seealso cref="CS.Changelog.Exporters.IChangelogExporter" />
-	public class XMLChangelogExporter : IChangelogExporter
+	public class XmlChangelogExporter : IChangelogExporter
 	{
 		/// <summary>
 		/// Gets a value indicating whether the change log exporter supports deserializing an existing change log, and therefore append intelligently.

@@ -3,18 +3,18 @@
 namespace CS.Changelog.Exporters.Tests
 {
 	/// <summary>
-	/// Tests <see cref="XMLChangelogExporter"/>
+	/// Tests <see cref="XmlChangelogExporter"/>
 	/// </summary>
 	[TestClass(), Ignore] //Xml exporter not yet implemneted
-	public class XMLChangelogExporterTests : ChangelogExporterTestsBase<XMLChangelogExporter>
+	public class XMLChangelogExporterTests : ChangelogExporterTestsBase<XmlChangelogExporter>
 	{
 		/// <summary>Gets the exporter.</summary>
-		/// <returns>A <see cref="XMLChangelogExporter"/>.</returns>
-		protected override XMLChangelogExporter GetExporter()
+		/// <returns>A <see cref="XmlChangelogExporter"/>.</returns>
+		protected override XmlChangelogExporter GetExporter()
 		{
 			Assert.Inconclusive("Xmlseralization incomplete");
 
-			return new XMLChangelogExporter();
+			return new XmlChangelogExporter();
 
 		}
 	}
