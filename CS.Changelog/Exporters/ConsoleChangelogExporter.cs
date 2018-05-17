@@ -37,7 +37,7 @@ namespace CS.Changelog.Exporters
             $"==({changes.Date:d}) {changes.Name}==".Dump();
 
 			foreach (var group in changes
-                        .Where(x => !x.Ignored)
+                        .Where(x => !x.Ignore)
                         .GroupBy(x => x.Category, StringComparer.InvariantCultureIgnoreCase)
 						.Select(x => new { Category = x.Key, Entries = x.ToArray() }))
 			{

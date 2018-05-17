@@ -77,7 +77,7 @@ namespace CS.Changelog.Exporters
                 result.AppendLine($"## {group.Category} ##");
 
                 foreach (var entry in group.Entries
-                                            .Where(x => !x.Ignored)
+                                            .Where(x => !x.Ignore)
                                             .GroupBy(x => x.Message, StringComparer.InvariantCultureIgnoreCase)
                                             .Select(x =>
                                                 new
