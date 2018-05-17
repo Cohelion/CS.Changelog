@@ -32,5 +32,20 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.1.3.0")]
-[assembly: AssemblyFileVersion("1.1.3.0")]
+[assembly: AssemblyVersion(CS.Changelog.Constants.Version)]
+[assembly: AssemblyFileVersion(CS.Changelog.Constants.Version)]
+
+namespace CS.Changelog {
+
+	/// <summary>
+	/// Reusable constant values
+	/// </summary>
+	public class Constants
+	{
+		/// <summary>
+		/// The version number of CS.Changelog
+		/// </summary>
+		/// <remarks>When changing, also change the version number in the installer.</remarks>
+		public const string Version = "1.1.4.0";
+	}
+}
