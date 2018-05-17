@@ -1,4 +1,5 @@
 ﻿using CS.Changelog.Utils;
+using System;
 using System.Diagnostics;
 using System.Text;
 
@@ -19,7 +20,7 @@ namespace CS.Changelog
 		/// <exception cref="System.Exception">An error occurred whele reading the log.</exception>
 		public static string GetHistory(
 			string workingDirectory,
-			string pathToGit = "git",
+			string pathToGit = "git", //path to git is not checks as it may be part of %path% environment variable
 			bool incremental = true)
 		{
 
@@ -40,41 +41,47 @@ Obtaining latest release using : {gitGetStartArgument}"
 				WindowStyle = ProcessWindowStyle.Hidden
 			};
 
-
 			string start = string.Empty;
 
-			if (incremental)
+			try
 			{
-				psi.Arguments = gitGetStartArgument;
-				using (var p = Process.Start(psi))
+				if (incremental)
 				{
-					p.WaitForExit();
-
-					start = p.StandardOutput.ReadToEnd().Trim();
-
-					$"Output : {start}".Dump(LogLevel.Debug);
-
-					if (p.ExitCode != 0)
+					psi.Arguments = gitGetStartArgument;
+					using (var p = Process.Start(psi))
 					{
-						string errorMessage = p.StandardError.ReadToEnd();
+						p.WaitForExit();
 
-						switch (errorMessage.Trim())
+						start = p.StandardOutput.ReadToEnd().Trim();
+
+						$"Output : {start}".Dump(LogLevel.Debug);
+
+						if (p.ExitCode != 0)
 						{
-							case "fatal: No names found, cannot describe anything.":
-								break;
-							default:
-								throw new System.Exception($"Error while obtaining the previous release name : {errorMessage}");
+							string errorMessage = p.StandardError.ReadToEnd();
+
+							switch (errorMessage.Trim())
+							{
+								case "fatal: No names found, cannot describe anything.":
+									break;
+								default:
+									throw new Exception($"Error while obtaining the previous release name : {errorMessage}");
+							}
 						}
 					}
-				}
 
-			(string.IsNullOrWhiteSpace(start)
-				? $"Reading the entire history: no previous tagged release was found."
-				: $"Reading history since tag : '{start}'"
-				).Dump();
+					(string.IsNullOrWhiteSpace(start)
+						? $"Reading the entire history: no previous tagged release was found."
+						: $"Reading history since tag : '{start}'"
+						).Dump();
+				}
+				else
+				{
+					$"Reading entire history".Dump();
+				}
 			}
-			else {
-				$"Reading entire history".Dump();
+			catch (Exception ex) {
+				throw new Exception($"Error while obtaining the previous release name using git at `{pathToGit}` : {ex.Message}");
 			}
 
 			//Switches:
