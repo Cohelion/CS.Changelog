@@ -38,7 +38,7 @@ namespace CS.Changelog
         /// <summary>Indicated whether <see cref="Ignore"/> should be serialized</summary>
         /// <returns><c>false</c> unless <see cref="Ignore"/> is <c>true</c>.</returns>
         /// <remarks>This applied to both <see cref="XmlChangelogExporter"/> and <see cref="JsonChangelogExporter"/></remarks>
-        public bool ShouldSerializeIgnored() {
+        public bool ShouldSerializeIgnore() {
             return Ignore;
         }
 

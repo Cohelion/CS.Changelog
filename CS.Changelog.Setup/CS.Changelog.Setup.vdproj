@@ -76,19 +76,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_EDBA503E3C9426EB37FFC6E7AB912DC1"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C85B0249AA0D9EE394FBC552F4687D3D"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_B836FA97564F9173195981BDAB9BE00A"
+        "OwnerKey" = "8:_BA45F7A6E209087FEDD52A9831A3A6FF"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -100,7 +88,19 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_BA45F7A6E209087FEDD52A9831A3A6FF"
+        "OwnerKey" = "8:_B836FA97564F9173195981BDAB9BE00A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_C85B0249AA0D9EE394FBC552F4687D3D"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_EDBA503E3C9426EB37FFC6E7AB912DC1"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -225,11 +225,6 @@
             "AssemblyAsmDisplayName" = "8:Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_B836FA97564F9173195981BDAB9BE00A"
-                    {
-                    "Name" = "8:Newtonsoft.Json.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Newtonsoft.Json.dll"
             "TargetName" = "8:"
@@ -256,11 +251,6 @@
             "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
                 "ScatterAssemblies"
                 {
-                    "_BA45F7A6E209087FEDD52A9831A3A6FF"
-                    {
-                    "Name" = "8:System.Net.Http.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:System.Net.Http.dll"
             "TargetName" = "8:"
@@ -287,11 +277,6 @@
             "AssemblyAsmDisplayName" = "8:CS.Changelog, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_C85B0249AA0D9EE394FBC552F4687D3D"
-                    {
-                    "Name" = "8:CS.Changelog.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:CS.Changelog.dll"
             "TargetName" = "8:"
@@ -318,11 +303,6 @@
             "AssemblyAsmDisplayName" = "8:Markdig, Version=0.13.3.0, Culture=neutral, PublicKeyToken=870da25a133885f8, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_DB7BAB1C0CF31E6EB5E8E3C0E38F8127"
-                    {
-                    "Name" = "8:Markdig.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Markdig.dll"
             "TargetName" = "8:"
@@ -349,11 +329,6 @@
             "AssemblyAsmDisplayName" = "8:CommandLine, Version=1.9.71.2, Culture=neutral, PublicKeyToken=de6f01bd326f8c32, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_EDBA503E3C9426EB37FFC6E7AB912DC1"
-                    {
-                    "Name" = "8:CommandLine.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:CommandLine.dll"
             "TargetName" = "8:"
@@ -429,15 +404,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Change log generator"
-        "ProductCode" = "8:{DC924427-254A-402C-AD70-A36A15335011}"
-        "PackageCode" = "8:{E31AA297-F455-4571-B15D-5B3BC1087FEB}"
+        "ProductCode" = "8:{AC8D7ADF-67E8-48CE-9CB0-D1FB0F5BB933}"
+        "PackageCode" = "8:{5CBC7272-D751-46FF-AE0C-7B582AD4D2A4}"
         "UpgradeCode" = "8:{71F333AA-4A78-46C0-8C20-6D81B83D9998}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.1.4"
+        "ProductVersion" = "8:1.1.5"
         "Manufacturer" = "8:CS webworks"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
