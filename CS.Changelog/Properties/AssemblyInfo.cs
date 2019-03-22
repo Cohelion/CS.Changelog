@@ -46,6 +46,6 @@ namespace CS.Changelog {
 		/// The version number of CS.Changelog
 		/// </summary>
 		/// <remarks>When changing, also change the version number in the installer.</remarks>
-		public const string Version = "1.1.5.0";
+		public const string Version = "1.1.6.0";
 	}
 }
