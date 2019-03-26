@@ -72,9 +72,9 @@ namespace CS.Changelog.Console
     ///  --category_hotfix         (Default: Hotfix)
     ///                            The display label of the hotfix category
     ///                               
-    ///  -h, --help                Display this help screen.
+    ///  --help                    Display this help screen.
     ///  
-    ///  --openfile				  Open file after generation
+    ///  --openfile				   Open file after generation
     /// </code>
     /// </summary>
     public class Options
@@ -84,7 +84,7 @@ namespace CS.Changelog.Console
         [Option(
             'n',
             "releasename",
-            DefaultValue = "",
+            Default = "",
             HelpText = "The name ")]
         public string ReleaseName { get; set; }
 
@@ -93,7 +93,7 @@ namespace CS.Changelog.Console
         [Option(
             'g',
             "pathToGit",
-            DefaultValue = "git",
+            Default = "git",
             HelpText = "Path to git")]
         public string PathToGit { get; set; }
 
@@ -101,7 +101,7 @@ namespace CS.Changelog.Console
         /// <value>Default to <c>false</c>.</value>
         [Option(
             "full",
-            DefaultValue = false,
+            Default = false,
             HelpText = "false when only changes since the last release need to be included, true to include all changes.")]
         public bool Full { get; set; }
 
@@ -112,7 +112,7 @@ namespace CS.Changelog.Console
         [Option(
             's',
             "startTag",
-            DefaultValue = "",
+            Default = "",
             HelpText = "The starting tag to use when making getting incremental history, overriding option 'full'.")]
         public string StartTag
         {
@@ -130,7 +130,7 @@ namespace CS.Changelog.Console
         [Option(
             'r',
             "repositoryDirectory",
-            DefaultValue = @"",
+            Default = @"",
             HelpText = "Path to the repository")]
         public string RepositoryLocation { get; set; }
 
@@ -140,7 +140,7 @@ namespace CS.Changelog.Console
         /// <value><c>true</c> if the exported file should be overwritten; otherwise, the file is appended.</value>
         [Option(
             "replace",
-            DefaultValue = false,
+            Default = false,
             HelpText = "Replace the target file, instead of appending.")]
         public bool Replace { get; set; }
 
@@ -150,7 +150,7 @@ namespace CS.Changelog.Console
         [Option(
             'f',
             "filename",
-            DefaultValue = "Changelog",
+            Default = "Changelog",
             HelpText = "The file to write to, if no file extension is specified, output-specific extension will be added.")]
         public string TargetFile { get; set; }
 
@@ -159,7 +159,7 @@ namespace CS.Changelog.Console
         /// <remarks>Only works in interactive mode</remarks>
         [Option(
             "openfile",
-            DefaultValue = false,
+            Default = false,
             HelpText = "When set, opens the file after the changelog has been generated")]
         public bool OpenFile { get; set; }
 
@@ -170,8 +170,8 @@ namespace CS.Changelog.Console
         [Option(
             'o',
             "outputformat",
-            DefaultValue = OutputFormat.JSON,
-            HelpText = "The output format")]
+            Default = OutputFormat.JSON,
+            HelpText = "The output format, choose between: Console, MarkDown, Html, Json or Xml")]
         public OutputFormat OutputFormat { get; set; }
 
         /// <summary>Gets or sets the <see cref="LogLevel">verbosity</see> of the output.</summary>
@@ -179,7 +179,7 @@ namespace CS.Changelog.Console
         [Option(
             'v',
             "verbosity",
-            DefaultValue = Utils.ConsoleExtensions.DefaultVerbosity,
+            Default = Utils.ConsoleExtensions.DefaultVerbosity,
             HelpText = "The threshold for printing messages to standard output")]
         public LogLevel Verbosity
         {
@@ -199,7 +199,7 @@ namespace CS.Changelog.Console
         /// <seealso cref="IssueTrackerUrl"/> 
         [Option(
              "issueformat",
-            DefaultValue = DefaultIssueNumberRegex,
+            Default = DefaultIssueNumberRegex,
             HelpText = "Expression for recognizing issue numbers")]
         public string IssueNumberRegex { get; set; }
 
@@ -209,7 +209,7 @@ namespace CS.Changelog.Console
         /// <seealso cref="IssueNumberRegex"/> 
         [Option(
              "issuetrackerurl",
-            DefaultValue = @"https://project.cs.nl/issue/{0}",
+            Default = @"https://project.cs.nl/issue/{0}",
             HelpText = "Url for recognizing issue numbers. '{0}' will be substituted with issue number")]
         public string IssueTrackerUrl { get; set; }
 
@@ -218,7 +218,7 @@ namespace CS.Changelog.Console
         /// <value>The commit details URL.</value>
         [Option(
              "repositoryurl",
-            DefaultValue = @"https://tfs.cs.nl/tfs/DefaultCollection/_git/Swissport%20Cargo%20DCM/commit/{0}",
+            Default = @"https://tfs.cs.nl/tfs/DefaultCollection/_git/Swissport%20Cargo%20DCM/commit/{0}",
             HelpText = "Url for showing commit details")]
         public string CommitDetailsUrl { get; set; }
 
@@ -230,64 +230,64 @@ namespace CS.Changelog.Console
         /// <seealso cref="IssueTrackerUrl"/> 
         [Option(
              "dontlinkifyissuenumbers",
-            DefaultValue = false,
+            Default = false,
             HelpText = "Recognized issue numbers will be converted to links when set to false")]
         public bool DontLinkifyIssueNumbers { get; set; }
 
-        /// <summary>Gets or sets the last state of the parser.</summary>
-        /// <value>The last state of the parser.</value>
-        [ParserState, XmlIgnore]
-        public IParserState LastParserState { get; set; }
+        ///// <summary>Gets or sets the last state of the parser.</summary>
+        ///// <value>The last state of the parser.</value>
+        //[ParserState, XmlIgnore]
+        //public IParserState LastParserState { get; set; }
 
-        /// <summary>Gets the instructions for these parameters when used in a console application.</summary>
-        /// <returns>A help text explaining how to use the application.</returns>
-        [HelpOption('h', "help")]
-        public string GetUsage()
-        {
-            return HelpText.AutoBuild(this,
-              (HelpText current) => HelpText.DefaultParsingErrorsHandler(this, current));
-        }
+        ///// <summary>Gets the instructions for these parameters when used in a console application.</summary>
+        ///// <returns>A help text explaining how to use the application.</returns>
+        //[Option('h', "help")]
+        //public string GetUsage()
+        //{
+        //    return HelpText.AutoBuild(this,
+        //      (HelpText current) => HelpText.DefaultParsingErrorsHandler(this, current));
+        //}
 
         //CS-enhanced Gitflow branches
         #region Gitflow settings
         /// <summary>Gets or sets the name of the development branch for GitFlow purposes</summary>
         /// <value>The development branch name.</value>
-        [Option("branch_development", DefaultValue = "develop", HelpText = "The development branch")]
+        [Option("branch_development", Default = "develop", HelpText = "The development branch")]
         public string Branch_development { get; set; }
 
         /// <summary>Gets or sets the name of the master branch for GitFlow purposes</summary>
         /// <value>The master branch name.</value>
-        [Option("branch_master", DefaultValue = "master", HelpText = "The master branch")]
+        [Option("branch_master", Default = "master", HelpText = "The master branch")]
         public string Branch_master { get; set; }
 
         /// <summary>Gets or sets the name of the preview branch for GitFlow+ purposes</summary>
         /// <value>The preview branch name.</value>
-        [Option("branch_preview", DefaultValue = "preview", HelpText = "The preview branch")]
+        [Option("branch_preview", Default = "preview", HelpText = "The preview branch")]
         public string Branch_preview { get; set; }
 
         /// <summary>Gets or sets the prefix of the hotfix branches for GitFlow purposes</summary>
         /// <value>The hotfix branches prefix.</value>
-        [Option("prefix_hotfix", DefaultValue = "hotfix", HelpText = "The prefix of hotfix branches")]
+        [Option("prefix_hotfix", Default = "hotfix", HelpText = "The prefix of hotfix branches")]
         public string Prefix_hotfix { get; set; }
 
         /// <summary>Gets or sets the prefix of the release branches for GitFlow purposes</summary>
         /// <value>The release branches prefix.</value>
-        [Option("prefix_release", DefaultValue = "release", HelpText = "The prefix of release branches")]
+        [Option("prefix_release", Default = "release", HelpText = "The prefix of release branches")]
         public string Prefix_release { get; set; }
 
         /// <summary>Gets or sets the prefix of the feature branches for GitFlow purposes</summary>
         /// <value>The feature branches prefix.</value>
-        [Option("prefix_feature ", DefaultValue = "feature", HelpText = "The prefix of release branches")]
+        [Option("prefix_feature ", Default = "feature", HelpText = "The prefix of release branches")]
         public string Prefix_feature { get; set; }
 
         /// <summary>Gets or sets header for features in the change log.</summary>
         /// <value>The feature-changes header text.</value>
-        [Option("category_feature", DefaultValue = "Feature", HelpText = "The display label of the feature category")]
+        [Option("category_feature", Default = "Feature", HelpText = "The display label of the feature category")]
         public string Category_feature { get; set; }
 
         /// <summary>Gets or sets header for hotfixes in the change log.</summary>
         /// <value>The hotfix-changes header text.</value>
-        [Option("category_hotfix", DefaultValue = "Hotfix", HelpText = "The display label of the hotfix category", Required = false)]
+        [Option("category_hotfix", Default = "Hotfix", HelpText = "The display label of the hotfix category", Required = false)]
         public string Category_hotfix { get; set; }
         #endregion
 
