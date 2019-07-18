@@ -75,7 +75,7 @@ namespace CS.Changelog.Exporters.Tests
 /*Changelog*/
 {changelog}");
 
-			if (!exporter.SupportsDeserializing)
+			if (!exporter.SupportsDeserializing())
 				return;
 
 			//When exporter supports deserializing, and the same chages are written exporter twice, this should result in no changes

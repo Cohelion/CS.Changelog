@@ -9,16 +9,8 @@ namespace CS.Changelog.Exporters
     /// A change log exported for JSON formatting.
     /// </summary>
     /// <seealso cref="IChangelogExporter" />
-    public class JsonChangelogExporter : IChangelogExporter
+    public class JsonChangelogExporter : IChangelogExporter, IChangelogDeserializer
     {
-        /// <summary>
-        /// Gets a value indicating whether the change log exporter supports deserializing an existing change log, and therefore append intelligently.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c>
-        /// </value>
-        public bool SupportsDeserializing => true;
-
         /// <summary>
         /// Gets a value indicating whether the change log exporter supports writing to a file.
         /// </summary>
@@ -26,6 +18,16 @@ namespace CS.Changelog.Exporters
         ///   <c>true</c>.
         /// </value>
         public bool SupportsWritingToFile => true;
+
+        /// <summary>
+        /// Deserializes the specified data to a <see cref="ChangeLog" />
+        /// </summary>
+        /// <param name="data">The data in JSON format.</param>
+        /// <returns></returns>
+        public ChangeLog Deserialize(string data)
+        {
+            return JsonConvert.DeserializeObject<ChangeLog>(data);
+        }
 
         /// <summary>
         /// Exports the specified <paramref name="changes">changeset</paramref> to a MarkDown <paramref name="file" />.
@@ -45,7 +47,7 @@ namespace CS.Changelog.Exporters
                 using (var s = file.OpenText())
                 {
                     var originalContent = s.ReadToEnd();
-                    log = JsonConvert.DeserializeObject<ChangeLog>(originalContent);
+                    log = Deserialize(originalContent);
                 }
 
                 //Do not log a single commit more than once

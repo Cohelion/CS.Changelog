@@ -1,31 +1,39 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace CS.Changelog.Exporters
 {
-	/// <summary>
-	/// A change lo exported for JSON formatting.
-	/// </summary>
-	/// <seealso cref="CS.Changelog.Exporters.IChangelogExporter" />
-	public class XmlChangelogExporter : IChangelogExporter
-	{
-		/// <summary>
-		/// Gets a value indicating whether the change log exporter supports deserializing an existing change log, and therefore append intelligently.
-		/// </summary>
-		/// <value>
-		///   <c>true</c>
-		/// </value>
-		public bool SupportsDeserializing => true;
-		/// <summary>
-		/// Gets a value indicating whether the change log exporter supports writing to a file.
-		/// </summary>
-		/// <value>
-		///   <c>true</c>.
-		/// </value>
-		public bool SupportsWritingToFile => true;
+    /// <summary>
+    /// A change log exported for JSON formatting.
+    /// </summary>
+    /// <seealso cref="CS.Changelog.Exporters.IChangelogExporter" />
+    public class XmlChangelogExporter : IChangelogExporter, IChangelogDeserializer
+    {
+        /// <summary>
+        /// Gets a value indicating whether the change log exporter supports writing to a file.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c>.
+        /// </value>
+        public bool SupportsWritingToFile => true;
 
+        private static readonly XmlSerializer _serializer = new XmlSerializer(typeof(ChangeLog));
+
+        /// <summary>
+        /// Deserializes the specified data to a <see cref="ChangeLog" />
+        /// </summary>
+        /// <param name="data">The data in Xml format.</param>
+        /// <returns></returns>
+        [SuppressMessage("Security", "CA5369:Use XmlReader For Deserialize", Justification = "Postponing code change")]
+        public ChangeLog Deserialize(string data)
+        {
+            using (TextReader r = new StringReader(data))
+            using (var x = XmlReader.Create(r))
+                return (ChangeLog)_serializer.Deserialize(x);
+        }
 
         /// <summary>
         /// Exports the specified <paramref name="changes">changeset</paramref> to a MarkDown <paramref name="file" />.
@@ -33,12 +41,9 @@ namespace CS.Changelog.Exporters
         /// <param name="changes">The changes to export.</param>
         /// <param name="file">The file to create of append, depending on <see cref="ExportOptions.Append" />.</param>
         /// <param name="options">The options for exporting.</param>
-        [SuppressMessage("Security", "CA5369:Use XmlReader For Deserialize", Justification = "Postponing code change")]
         public void Export(ChangeSet changes, FileInfo file, ExportOptions options = null)
         {
             options = options ?? new ExportOptions();
-
-            var serializer = new XmlSerializer(typeof(ChangeLog));
 
             ChangeLog log;
 
@@ -46,10 +51,7 @@ namespace CS.Changelog.Exporters
             {
                 //Append/Prepend content by reading entire file and then deleting the file
                 using (var s = file.OpenText())
-                {
-                    var originalContent = s.ReadToEnd();
-                    log = (ChangeLog)serializer.Deserialize(s);
-                }
+                    log = Deserialize(s.ReadToEnd());//This can likely be done much more efficient.
 
                 //Do not log a single commit more than once
                 var loggedCommits = log
@@ -81,7 +83,7 @@ namespace CS.Changelog.Exporters
             log.RepositoryUrl = options?.RepositoryUrl;
 
             using (var w = file.CreateText())
-                serializer.Serialize(w, log);
+                _serializer.Serialize(w, log);
         }
     }
 }

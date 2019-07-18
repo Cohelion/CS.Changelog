@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Reflection;
 
@@ -10,14 +11,6 @@ namespace CS.Changelog.Exporters
     /// <seealso cref="IChangelogExporter" />
     public class HtmlChangelogExporter : IChangelogExporter
     {
-
-        /// <summary>
-        /// Gets a value indicating whether the change log exporter supports deserializing an existing change log, and therefore append intelligently.
-        /// </summary>
-        /// <value>
-        ///   <c>false</c>
-        /// </value>
-        public bool SupportsDeserializing => false;
 
         /// <summary>
         /// Gets a value indicating whether the change log exporter supports writing to a file.
@@ -86,8 +79,7 @@ namespace CS.Changelog.Exporters
             var resourceName = $"{assembly.GetName().Name}.Exporters.Html.markdownpad-github.css";
 
             using (Stream stream = assembly.GetManifestResourceStream(resourceName))
-            using (StreamReader reader = new StreamReader(stream))
-            {
+            using (StreamReader reader = new StreamReader(stream)) { 
                 string result = reader.ReadToEnd();
                 return result;
             }

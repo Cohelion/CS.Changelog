@@ -12,13 +12,6 @@ namespace CS.Changelog.Exporters
     public class TraceChangelogExporter : IChangelogExporter
     {
         /// <summary>
-        /// Gets a value indicating whether the change log exporter supports deserializing an existing changelog, and therefore append intelligently.
-        /// </summary>
-        /// <value>
-        ///   <c>false</c> if the change log exporter supports deserializing; otherwise, <c>false</c>.
-        /// </value>
-        public bool SupportsDeserializing => false;
-        /// <summary>
         /// Gets a value indicating whether the change log exporter supports writing to a file.
         /// </summary>
         /// <value>
