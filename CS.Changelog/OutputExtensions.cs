@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CS.Changelog
 {
@@ -8,11 +9,12 @@ namespace CS.Changelog
 	public static class OutputExtensions
 	{
 
-		/// <summary>Returns the file extension for the specified <see cref="OutputFormat"/>.</summary>
-		/// <param name="format">The format.</param>
-		/// <returns>A file extension, excluding the dot.</returns>
-		/// <exception cref="NotImplementedException">When <paramref name="format"/> is not handled.</exception>
-		public static string FileExtension(this OutputFormat format)
+        /// <summary>Returns the file extension for the specified <see cref="OutputFormat"/>.</summary>
+        /// <param name="format">The format.</param>
+        /// <returns>A file extension, excluding the dot.</returns>
+        /// <exception cref="NotImplementedException">When <paramref name="format"/> is not handled.</exception>
+        [SuppressMessage("Globalization", "CA1308:Normalize strings to uppercase", Justification = "I want file extensions to be in lowercase")]
+        public static string FileExtension(this OutputFormat format)
 		{
 			switch (format)
 			{
@@ -23,7 +25,7 @@ namespace CS.Changelog
 				case OutputFormat.JSON:
 				case OutputFormat.XML:
 				case OutputFormat.Html:
-					return format.ToString().ToLower();
+					return format.ToString().ToLowerInvariant();
 				default:
 					throw new NotImplementedException($"Format {format} has no default file extension");
 			}

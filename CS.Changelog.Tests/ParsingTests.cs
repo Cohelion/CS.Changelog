@@ -155,11 +155,11 @@ Some more lines containing release information regarding this commit";
 
 				Assert.AreEqual(2, entries.Count);
 
-				Assert.AreEqual(1, entries.Count(x => (x.Category.Equals(category1))));
-				Assert.AreEqual(expectedMessage1, entries.Single(x => (x.Category.Equals(category1))).Message);
+				Assert.AreEqual(1, entries.Count(x => x.Category.Equals(category1, System.StringComparison.InvariantCulture)));
+				Assert.AreEqual(expectedMessage1, entries.Single(x => x.Category.Equals(category1, System.StringComparison.InvariantCulture)).Message);
 
-				Assert.AreEqual(1, entries.Count(x => (x.Category.Equals(category2))));
-				Assert.AreEqual(expectedMessage2, entries.Single(x => (x.Category.Equals(category2))).Message);
+				Assert.AreEqual(1, entries.Count(x => x.Category.Equals(category2, System.StringComparison.InvariantCulture)));
+				Assert.AreEqual(expectedMessage2, entries.Single(x => x.Category.Equals(category2, System.StringComparison.InvariantCulture)).Message);
 			}
 		}
 

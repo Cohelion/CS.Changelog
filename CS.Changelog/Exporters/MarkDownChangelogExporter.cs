@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -92,7 +93,7 @@ namespace CS.Changelog.Exporters
                     //Change log messages are grouped by message, commits are appended
                     var hashes = entry.Commits
                                             .Select(x => options.LinkHash
-                                                                ? $"[{(options.ShortHash ? x.Substring(0, 8) : x)}]({string.Format(options.RepositoryUrl, x)})"
+                                                                ? $"[{(options.ShortHash ? x.Substring(0, 8) : x)}]({string.Format(CultureInfo.InvariantCulture, options.RepositoryUrl, x)})"
                                                                 : options.ShortHash
                                                                     ? x.Substring(0, 8)
                                                                     : x);
@@ -100,7 +101,7 @@ namespace CS.Changelog.Exporters
                     var message = string.IsNullOrWhiteSpace(entry.Message)
                         ? string.Empty
                         : options.ResolveIssueNumbers
-                            ? options.IssueNumberRegex.Replace(entry.Message, $"[$0]({string.Format(options.IssueTrackerUrl, "$0")})")
+                            ? options.IssueNumberRegex.Replace(entry.Message, $"[$0]({string.Format(CultureInfo.InvariantCulture, options.IssueTrackerUrl, "$0")})")
                             : entry.Message;
 
                     message = message

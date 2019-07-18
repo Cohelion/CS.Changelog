@@ -18,7 +18,7 @@ namespace CS.Changelog.Utils
 #endif
 
 		/// <summary>The verbosity, by deafult uses <see cref="DefaultVerbosity"/>.</summary>
-		public static LogLevel Verbosity = DefaultVerbosity;
+		public static LogLevel Verbosity { get; set; } = DefaultVerbosity;
 
 		/// <summary>Dumps the specified <paramref name="trash"/> to a console window, either for development purposes or to use the programs' verbosity.</summary>
 		/// <param name="trash">The 'trash', the object or text to dump.</param>

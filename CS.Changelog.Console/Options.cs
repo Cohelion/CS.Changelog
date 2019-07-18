@@ -1,5 +1,6 @@
 ﻿using CommandLine;
 using CommandLine.Text;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
@@ -77,6 +78,7 @@ namespace CS.Changelog.Console
     ///  --openfile				   Open file after generation
     /// </code>
     /// </summary>
+    [SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "Option names follow naming conventions for command-line input")]
     public class Options
     {
         /// <summary>Gets or sets the path to git.</summary>
@@ -181,6 +183,7 @@ namespace CS.Changelog.Console
             "verbosity",
             Default = Utils.ConsoleExtensions.DefaultVerbosity,
             HelpText = "The threshold for printing messages to standard output")]
+        [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "DTO for commandline input (it may be possible to make static though: untested)")]
         public LogLevel Verbosity
         {
             get { return Utils.ConsoleExtensions.Verbosity; }
@@ -211,6 +214,7 @@ namespace CS.Changelog.Console
              "issuetrackerurl",
             Default = @"https://project.cs.nl/issue/{0}",
             HelpText = "Url for recognizing issue numbers. '{0}' will be substituted with issue number")]
+        [SuppressMessage("Design", "CA1056:Uri properties should not be strings", Justification = "DTO for commandline input cannot accepts urls")]
         public string IssueTrackerUrl { get; set; }
 
 
@@ -220,6 +224,7 @@ namespace CS.Changelog.Console
              "repositoryurl",
             Default = @"https://tfs.cs.nl/tfs/DefaultCollection/_git/Swissport%20Cargo%20DCM/commit/{0}",
             HelpText = "Url for showing commit details")]
+        [SuppressMessage("Design", "CA1056:Uri properties should not be strings", Justification = "DTO for commandline input cannot accepts urls")]
         public string CommitDetailsUrl { get; set; }
 
         /// <summary>
@@ -300,11 +305,11 @@ namespace CS.Changelog.Console
             var s = new XmlSerializer(GetType());
 
             using (var t = new StringWriter())
-            {
-                var w = new XmlTextWriter(t)
+            using (var w = new XmlTextWriter(t)
                 {
                     Formatting = Formatting.Indented
-                };
+                })
+            {
 
                 s.Serialize(w, this);
 

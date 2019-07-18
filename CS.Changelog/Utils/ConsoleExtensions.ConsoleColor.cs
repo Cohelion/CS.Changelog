@@ -1,56 +1,70 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CS.Changelog.Utils
 {
-	public static partial class ConsoleExtensions
-	{
-		/// <summary>
-		/// Trick for changing the console color and reverting to the original color upon disposal.
-		/// </summary>
-		/// <seealso cref="IDisposable" />
-		public sealed class ConsoleColor : IDisposable
-		{
-			private readonly System.ConsoleColor _originalColor;
-			/// <summary>
-			/// Initializes a new instance of the <see cref="ConsoleColor"/> class, setting the console color and remembering the current color for reverting to upon disposing.
-			/// </summary>
-			/// <param name="color">The color.</param>
-			public ConsoleColor(System.ConsoleColor color)
-			{
-				_originalColor = Console.ForegroundColor;
-				Console.ForegroundColor = color;
-			}
+    public static partial class ConsoleExtensions
+    {
+        /// <summary>
+        /// Trick for changing the console color and reverting to the original color upon disposal.
+        /// </summary>
+        /// <seealso cref="IDisposable" />
+        [SuppressMessage("Design", "CA1034:Nested types should not be visible", Justification = "<Pending>")]
+        private sealed class ConsoleColor : IDisposable
+        {
+            private readonly System.ConsoleColor _originalColor;
+            /// <summary>
+            /// Initializes a new instance of the <see cref="ConsoleColor"/> class, setting the console color and remembering the current color for reverting to upon disposing.
+            /// </summary>
+            /// <param name="color">The color.</param>
+            public ConsoleColor(System.ConsoleColor color)
+            {
+                _originalColor = Console.ForegroundColor;
+                Console.ForegroundColor = color;
+            }
 
-			/// <summary>
-			/// Finalizes an instance of the <see cref="ConsoleColor"/> class.
-			/// </summary>
-			~ConsoleColor() {
-				Dispose(false);
-			}
+            /// <summary>
+            /// Finalizes an instance of the <see cref="ConsoleColor"/> class.
+            /// </summary>
+            ~ConsoleColor()
+            {
+                Dispose(false);
+            }
 
-			/// <summary>
-			/// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-			/// </summary>
-			public void Dispose()
-			{
-				Dispose(true);
-			}
+            /// <summary>
+            /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            /// </summary>
+            public void Dispose()
+            {
+                Dispose(true);
+                GC.SuppressFinalize(this);
+            }
 
-			void Dispose(bool disposing) {
-				if (disposing) {
-					Console.ForegroundColor = _originalColor;
-				}
-			}
+            void Dispose(bool disposing)
+            {
+                if (disposing)
+                    Console.ForegroundColor = _originalColor;
+            }
 
-			/// <summary>
-			/// Performs an implicit conversion from <see cref="System.ConsoleColor"/> to <see cref="ConsoleColor"/>.
-			/// </summary>
-			/// <param name="color">The color.</param>
-			/// <returns>The result of the conversion.</returns>
-			public static implicit operator ConsoleColor(System.ConsoleColor color)
-			{
-				return new ConsoleColor(color);
-			}
-		}
-	}
+            /// <summary>
+            /// Performs an implicit conversion from <see cref="System.ConsoleColor"/> to <see cref="ConsoleColor"/>.
+            /// </summary>
+            /// <param name="color">The color.</param>
+            /// <returns>The result of the conversion.</returns>
+            public static implicit operator ConsoleColor(System.ConsoleColor color)
+            {
+                return new ConsoleColor(color);
+            }
+
+            /// <summary>
+            /// Converts <paramref name="color"/> to <see cref="ConsoleColor"/>.
+            /// </summary>
+            /// <param name="color">The color.</param>
+            /// <returns></returns>
+            public static ConsoleColor ToConsoleColor(System.ConsoleColor color)
+            {
+                return color;
+            }
+        }
+    }
 }

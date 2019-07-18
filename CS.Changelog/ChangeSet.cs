@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 
 namespace CS.Changelog
@@ -10,7 +11,8 @@ namespace CS.Changelog
 	/// </summary>
 	/// <seealso cref="List{T}" />
 	[JsonObject(MemberSerialization.OptIn)]
-	public class ChangeSet : List<ChangeLogMessage>
+    [SuppressMessage("Naming", "CA1710:Identifiers should have correct suffix", Justification = "Name implies collection")]
+    public class ChangeSet : List<ChangeLogMessage>
 	{
 		/// <summary>The date of the release / deployment</summary>
 		[JsonProperty(Order = 1)]

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
 
@@ -25,12 +26,14 @@ namespace CS.Changelog.Exporters
 		/// </value>
 		public bool SupportsWritingToFile => true;
 
+
         /// <summary>
         /// Exports the specified <paramref name="changes">changeset</paramref> to a MarkDown <paramref name="file" />.
         /// </summary>
         /// <param name="changes">The changes to export.</param>
         /// <param name="file">The file to create of append, depending on <see cref="ExportOptions.Append" />.</param>
         /// <param name="options">The options for exporting.</param>
+        [SuppressMessage("Security", "CA5369:Use XmlReader For Deserialize", Justification = "Postponing code change")]
         public void Export(ChangeSet changes, FileInfo file, ExportOptions options = null)
         {
             options = options ?? new ExportOptions();
