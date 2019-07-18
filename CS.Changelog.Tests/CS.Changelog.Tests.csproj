@@ -72,7 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CS.Changelog\CS.Changelog.csproj">
-      <Project>{ff3e8efa-7842-4399-b920-6ffe03ca7ad4}</Project>
+      <Project>{e85d22d2-9549-4d4f-b655-22c7f27c81fb}</Project>
       <Name>CS.Changelog</Name>
     </ProjectReference>
   </ItemGroup>
