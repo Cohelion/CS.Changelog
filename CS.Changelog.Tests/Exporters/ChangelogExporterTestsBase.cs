@@ -1,8 +1,8 @@
 ﻿using CS.Changelog.Tests;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics;
 using System.IO;
+using Xunit;
 
 namespace CS.Changelog.Exporters.Tests
 {
@@ -15,7 +15,7 @@ namespace CS.Changelog.Exporters.Tests
 		protected abstract T GetExporter();
 
 		/// <summary>Tests implementation of <see cref="IChangelogExporter.Export(ChangeSet, FileInfo, ExportOptions)"/> by <see cref="JsonChangelogExporter.Export"/></summary>
-		[TestMethod()]
+		[Fact]
 		public void ExportThisRepoTest()
 		{
 			//Arrange
@@ -26,7 +26,7 @@ namespace CS.Changelog.Exporters.Tests
 		}
 
 		/// <summary>Tests implementation of <see cref="IChangelogExporter.Export(ChangeSet, FileInfo, ExportOptions)"/> by <see cref="JsonChangelogExporter.Export"/></summary>
-		[TestMethod()]
+		[Fact]
 		public void ExportOtherRepoTest()
 		{
 			//Arrange
@@ -37,7 +37,7 @@ namespace CS.Changelog.Exporters.Tests
 		}
 
 		/// <summary>Tests implementation of <see cref="IChangelogExporter.Export(ChangeSet, FileInfo, ExportOptions)"/> by <see cref="JsonChangelogExporter.Export"/></summary>
-		[TestMethod()]
+		[Fact]
 		public void ExportParseTest2Test()
 		{
 			//Arrange
@@ -63,13 +63,13 @@ namespace CS.Changelog.Exporters.Tests
 			if (!exporter.SupportsWritingToFile)
 				return;
 
-			Assert.IsTrue(file.Exists);
+			Assert.True(file.Exists);
 
 			string changelog;
 			using (var r = file.OpenText())
 				changelog = r.ReadToEnd();
 
-			Assert.IsFalse(string.IsNullOrWhiteSpace(changelog), "Changelog is empty");
+			Assert.False(string.IsNullOrWhiteSpace(changelog), "Changelog is empty");
 
 			Trace.Write($@"{file.FullName} : 
 /*Changelog*/
@@ -81,7 +81,7 @@ namespace CS.Changelog.Exporters.Tests
 			//When exporter supports deserializing, and the same chages are written exporter twice, this should result in no changes
 			exporter.Export(changes, file);
 
-			Assert.AreEqual(0, changes.Count);
+			Assert.Empty(changes);
 
 		}
 	}

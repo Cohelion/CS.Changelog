@@ -1,5 +1,5 @@
 ﻿using CS.Changelog.Exporters;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using System.Diagnostics;
 using System.Linq;
 
@@ -8,11 +8,10 @@ namespace CS.Changelog.Tests
 	/// <summary>
 	/// Tests <see cref="Parsing"/>
 	/// </summary>
-	[TestClass()]
 	public class ParsingTests
 	{
 		/// <summary>Tests <see cref="Parsing.Parse(string, ParseOptions)"/> by parsing a feature completion.</summary>
-		[TestMethod()]
+		[Fact]
 		public void ParseFeatureCompletion()
 		{
 			//Arrange
@@ -28,7 +27,7 @@ namespace CS.Changelog.Tests
 		}
 
 		/// <summary>Tests <see cref="Parsing.Parse(string, ParseOptions)"/> by parsing a hotfix merge back into the development branch.</summary>
-		[TestMethod()]
+		[Fact]
 		public void ParseCatchup()
 		{
 			//Arrange
@@ -44,7 +43,7 @@ namespace CS.Changelog.Tests
 		}
 
 		/// <summary>Tests <see cref="Parsing.Parse(string, ParseOptions)"/> by parsing a hotfix merge back into the development branch.</summary>
-		[TestMethod()]
+		[Fact]
 		public void ParseHotfixCatchup()
 		{
 			//Arrange
@@ -60,7 +59,7 @@ namespace CS.Changelog.Tests
 		}
 
 		/// <summary>Tests <see cref="Parsing.Parse(string, ParseOptions)"/> by parsing a merge from master back into the development branch (or anything else).</summary>
-		[TestMethod()]
+		[Fact]
 		public void ParseMasterSync()
 		{
 			//Arrange
@@ -76,7 +75,7 @@ namespace CS.Changelog.Tests
 		}
 
 		/// <summary>Tests <see cref="Parsing.Parse(string, ParseOptions)"/> by parsing a hotfix completion.</summary>
-		[TestMethod()]
+		[Fact]
 		public void ParseHotfixCompletion()
 		{
 			//Arrange
@@ -92,7 +91,7 @@ namespace CS.Changelog.Tests
 		}
 
 		/// <summary>Tests <see cref="Parsing.Parse(string, ParseOptions)"/> by parsing a commit message without a change log message.</summary>
-		[TestMethod()]
+		[Fact]
 		public void ParseIgnoredCommit()
 		{
 			//Arrange
@@ -110,7 +109,7 @@ This reverts commit 3c14f373aff2dc280907c4ee3878107f0a05b527."
 		}
 
 		/// <summary>Tests <see cref="Parsing.Parse(string, ParseOptions)"/> by parsing a commit message without a change log message.</summary>
-		[TestMethod()]
+		[Fact]
 		public void ParseRegularCommitWithReleaseMessage()
 		{
 			var expectedMessage = @"cDCM-704 - Enabled InActive selection in reporting
@@ -123,12 +122,12 @@ Some more lines containing release information regarding this commit";
 			foreach (var @case in cases)
 			{
 				var entry = AssertChange(@case.log, "category");
-				Assert.AreEqual(expectedMessage, entry.Message.Trim());
+				Assert.Equal(expectedMessage, entry.Message.Trim());
 			}
 		}
 
 		/// <summary>Tests <see cref="Parsing.Parse(string, ParseOptions)"/> by parsing a commit message multiple change log messages and comments that should be ignored.</summary>
-		[TestMethod()]
+		[Fact]
 		public void ParseRegularCommitWithMultipleReleaseMessages()
 		{
 			var category1 = "feature";
@@ -153,18 +152,18 @@ Some more lines containing release information regarding this commit";
 				Trace.WriteLine("Changeset:");
 				(new TraceChangelogExporter()).Export(entries);
 
-				Assert.AreEqual(2, entries.Count);
+				Assert.Equal(2, entries.Count);
 
-				Assert.AreEqual(1, entries.Count(x => x.Category.Equals(category1, System.StringComparison.InvariantCulture)));
-				Assert.AreEqual(expectedMessage1, entries.Single(x => x.Category.Equals(category1, System.StringComparison.InvariantCulture)).Message);
+				Assert.Equal(1, entries.Count(x => x.Category.Equals(category1, System.StringComparison.InvariantCulture)));
+				Assert.Equal(expectedMessage1, entries.Single(x => x.Category.Equals(category1, System.StringComparison.InvariantCulture)).Message);
 
-				Assert.AreEqual(1, entries.Count(x => x.Category.Equals(category2, System.StringComparison.InvariantCulture)));
-				Assert.AreEqual(expectedMessage2, entries.Single(x => x.Category.Equals(category2, System.StringComparison.InvariantCulture)).Message);
+				Assert.Equal(1, entries.Count(x => x.Category.Equals(category2, System.StringComparison.InvariantCulture)));
+				Assert.Equal(expectedMessage2, entries.Single(x => x.Category.Equals(category2, System.StringComparison.InvariantCulture)).Message);
 			}
 		}
 
 		/// <summary>Tests <see cref="Parsing.Parse(string, ParseOptions)"/> by parsing a commit message without a change log message.</summary>
-		[TestMethod()]
+		[Fact]
 		public void ParseCommitWithChangelogMessage()
 		{
 			//Arrange
@@ -176,7 +175,7 @@ Some more lines containing release information regarding this commit";
 		}
 
 		/// <summary>Tests <see cref="Parsing.Parse(string, ParseOptions)"/> by parsing a merge upon pull.</summary>
-		[TestMethod()]
+		[Fact]
 		public void ParsePull()
 		{
 			//Arrange
@@ -199,7 +198,7 @@ Some more lines containing release information regarding this commit";
 			var changeset = Parsing.Parse(log, options);
 
 			//Assert
-			Assert.IsFalse(changeset.Any(), $"Log entry should lead to ignored commit. Entry: {log} caused change log message :  {(changeset.Any() ? changeset.First().Message : null)} ({(changeset.Any() ? changeset.First().Hash : null)})");
+			Assert.False(changeset.Any(), $"Log entry should lead to ignored commit. Entry: {log} caused change log message :  {(changeset.Any() ? changeset.First().Message : null)} ({(changeset.Any() ? changeset.First().Hash : null)})");
 		}
 
 		private static ChangeLogMessage AssertChange(string log, string category)
@@ -211,10 +210,10 @@ Some more lines containing release information regarding this commit";
 			var changeset = Parsing.Parse(log, options);
 
 			//Assert
-			Assert.AreEqual(1, changeset.Count());
+			Assert.Single(changeset);
 			var change = changeset.Single();
 
-			Assert.AreEqual(change.Category, category);
+			Assert.Equal(change.Category, category);
 
 			return change;
 		}
@@ -228,13 +227,13 @@ Some more lines containing release information regarding this commit";
 			var changeset = Parsing.Parse(log, options);
 
 			//Assert
-			Assert.IsTrue(changeset.Any());
+			Assert.True(changeset.Any());
 
 			return changeset;
 		}
 
 		/// <summary>Tests <see cref="Parsing.Parse(string, ParseOptions)"/>.</summary>
-		[TestMethod()]
+		[Fact]
 		public void ParseTest1()
 		{
 			
@@ -350,7 +349,7 @@ d0f0c6e80284de11a6b067fa0bd0e14f3a7a5f3a '2017-05-30T08:38:16+02:00'  Merge bran
 
 			var changeset = Parsing.Parse(log, new ParseOptions());
 
-			Assert.IsTrue(changeset.Any());
+			Assert.True(changeset.Any());
 
 			IChangelogExporter e = new TraceChangelogExporter();
 			e.Export(changeset, null);
@@ -442,12 +441,12 @@ f42120d9b82fd6bd33479aeffd5a252749ebfdef '2017-07-16T12:27:53+02:00' Merge branc
 1d9b3be59d0df38bd1f237b69bf86bdae2be2ad5 '2017-07-12T09:13:52+02:00' Merge branch 'feature/CSPM-15_Swagger_API_Docs' into preview";
 
 		/// <summary>Tests <see cref="Parsing.Parse(string, ParseOptions)"/>.</summary>
-		[TestMethod()]
+		[Fact]
 		public void ParseTest2()
 		{
 			var changeset = Parsing.Parse(logParseTest2, new ParseOptions());
 
-			Assert.IsTrue(changeset.Any());
+			Assert.True(changeset.Any());
 
 			IChangelogExporter e = new TraceChangelogExporter();
 			e.Export(changeset, null);
