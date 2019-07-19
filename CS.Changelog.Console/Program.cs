@@ -33,9 +33,15 @@ namespace CS.Changelog.Console
             $"CS /webworks changelog generator, version {Constants.Version}".Dump(LogLevel.Info);
 
             bool optionsParsed = true;
-            var pr = Parser.Default.ParseArguments<Options>(args)
+
+            using (var p = new Parser(settings =>
+            {
+                settings.CaseSensitive = false;
+                settings.CaseInsensitiveEnumValues = true;
+            }))
+                p.ParseArguments<Options>(args)
                             .WithParsed((opts) => _options = opts)
-                            .WithNotParsed((errs) =>optionsParsed = false);
+                            .WithNotParsed((errs) => optionsParsed = false);
 
             if (!optionsParsed)
                 return;
