@@ -150,8 +150,12 @@
 See: &amp;lt%3ba href=&amp;quot%3b../files/changelog.html&amp;quot%3b&amp;gt%3bchangelog.html&amp;lt%3b/a&amp;gt%3b
 
 &amp;lt%3bh2&amp;gt%3bInstall&amp;lt%3b/h2&amp;gt%3b
+&amp;lt%3bh3&amp;gt%3bOption 1: Installer %28outdated%29&amp;lt%3bh3&amp;gt%3b
 Download the next-next-next &amp;lt%3ba href=&amp;quot%3b../files/CS.Changelog.Setup.msi&amp;quot%3b&amp;gt%3binstaller&amp;lt%3b/a&amp;gt%3b.
-&amp;lt%3bbr/&amp;gt%3b&amp;lt%3bem&amp;gt%3bthis installer does not add the changelog creator to your &amp;lt%3bpre style=&amp;quot%3bdisplay:inline&amp;quot%3b&amp;gt%3b%25PATH%25&amp;lt%3b/pre&amp;gt%3b yet.&amp;lt%3b/em&amp;gt%3b</ProjectSummary>
+&amp;lt%3bbr/&amp;gt%3b&amp;lt%3bem&amp;gt%3bthis installer does not add the changelog creator to your &amp;lt%3bpre style=&amp;quot%3bdisplay:inline&amp;quot%3b&amp;gt%3b%25PATH%25&amp;lt%3b/pre&amp;gt%3b yet.&amp;lt%3b/em&amp;gt%3b
+
+&amp;lt%3bh3&amp;gt%3bOption 2: Latest successful build&amp;lt%3bh3&amp;gt%3b
+Download a zip containing &amp;lt%3ba href=&amp;quot%3bhttp://teamcity:88/viewLog.html%3fbuildTypeId=CsToolset_CsChangelog_Develop&amp;amp%3bbuildId=lastSuccessful&amp;amp%3btab=artifacts&amp;quot%3b&amp;gt%3blatest successful build&amp;lt%3b/a&amp;gt%3b</ProjectSummary>
     <HelpFileVersion>1.0.0.0</HelpFileVersion>
     <SaveComponentCacheCapacity>100</SaveComponentCacheCapacity>
   </PropertyGroup>
