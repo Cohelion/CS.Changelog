@@ -12,7 +12,7 @@ namespace CS.Changelog.Tests
     public class GitExtensionsTests
     {
         /// <summary>Tests <see cref="GitExtensions.GetHistory"/></summary>
-        [Fact]
+        [SkippableFact]
         public void GenerateChangeLogTest()
         {
             var solutionPath = Directory
@@ -65,7 +65,7 @@ namespace CS.Changelog.Tests
         internal const string swissportcargodcmrepopath = @"d:\Users\Robert\Source\SwissportCargoDCM";
 
         /// <summary>Tests <see cref="GitExtensions.GetHistory"/> using <see cref="swissportcargodcmrepopath"/>.</summary>
-        [Fact(Skip = "ignoreonbuildserver")]
+        [SkippableFact(Skip = "ignoreonbuildserver")]
         public void GenerateChangeLogTestSwissport()
         {
             var log = GetSwissportRepoChangelog();
