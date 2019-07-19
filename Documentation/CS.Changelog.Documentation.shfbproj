@@ -129,7 +129,18 @@
           </deploymentLocation>
         </configuration>
       </PlugInConfig>
-<PlugInConfig id="Assembly Binding Redirection" enabled="True"><configuration useGAC="false"><assemblyBinding></assemblyBinding><ignoreIfUnresolved><assemblyIdentity name="BusinessObjects.Licensing.KeycodeDecoder" /><assemblyIdentity name="Microsoft.VisualStudio.TestTools.UITest.Playback" /><assemblyIdentity name="xunit.core" /></ignoreIfUnresolved></configuration></PlugInConfig></PlugInConfigurations>
+      <PlugInConfig id="Assembly Binding Redirection" enabled="True">
+        <configuration useGAC="false">
+          <assemblyBinding>
+          </assemblyBinding>
+          <ignoreIfUnresolved>
+            <assemblyIdentity name="BusinessObjects.Licensing.KeycodeDecoder" />
+            <assemblyIdentity name="Microsoft.VisualStudio.TestTools.UITest.Playback" />
+            <assemblyIdentity name="xunit.core" />
+          </ignoreIfUnresolved>
+        </configuration>
+      </PlugInConfig>
+    </PlugInConfigurations>
     <WebsiteSdkLinkType>Msdn</WebsiteSdkLinkType>
     <HtmlSdkLinkType>Msdn</HtmlSdkLinkType>
     <IncludeFavorites>True</IncludeFavorites>
