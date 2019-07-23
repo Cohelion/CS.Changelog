@@ -8,7 +8,7 @@ Following a few commit-message and branching conventions, this utility creates o
 
 1. Write your change log message in commit messages like:
 
-   > [change log category] ABC-123 human-friendly message 
+   > [hotfix] ABC-123 human-friendly message 
 
 2. Name your feature and hotfix branches following [Gitflow](https://nvie.com/posts/a-successful-git-branching-model/) standards, with features/fixes optionally containing issue numbers:
 
@@ -150,3 +150,10 @@ You can generate a preview by changing the output type to html.
 ### Ignoring commits
 
 When a commit is detected to be changelog-worthy, but you think otherwise, you can add the attribute ` ignore=true` , instructing any UI generators to ignore the commit. This only effective in `Json` and `XML`, but will be honoured when `Html` output will support intermediate format.
+
+## Example
+
+`Html` output, based in this repository:
+
+![Example output](Changelog_Example.png)
+
