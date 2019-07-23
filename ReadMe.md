@@ -4,20 +4,28 @@
 
 ## TLDR;
 
-Write your change log message in commit messages like:
+Following a few commit-message and branching conventions, this utility creates or appends a change log.
 
-> [change log category] ABC-123 human-friendly message
+1. Write your change log message in commit messages like:
 
-Name your feature and hotfix branches following Gitflow standards, with feature/fix optionally containing issue numbers:
+   > [change log category] ABC-123 human-friendly message 
 
-> feature/abc-123_Buttons_with_expected_long_operation_now_waiting_animation
+2. Name your feature and hotfix branches following [Gitflow](https://nvie.com/posts/a-successful-git-branching-model/) standards, with features/fixes optionally containing issue numbers:
 
-Create or update an existing changelog in Json, XML, Markdown. Suggestion do this when starting a new release branch.
-Html format only support creation.
+   > feature/abc-123_Buttons_with_expected_long_operation_now_waiting_animation 
+
+3. Create or append to an existing changelog in ` Json`, `XML`, `Markdown` or `Html`.
+   *Suggestion: do this when starting a new release branch.*
+   NB: `Html`  For now format only supports creation, not appending.
 
 ## Usage
 
-`cs.changelog.console.exe` + optional arguments:
+Switch to the branch you are creating a changelog for, usually this is a release or hotfix branch.
+Run `cs.changelog.console.exe`. 
+This will generate a Json-based changelog, creating or appending to an existing changelog, named ` changelog.json`. Changes will contain the change since the last change on the `master` branch.
+Feature analysis (to determine if features or hotfixes are added) is based on default Gitflow branching names and commit messages.
+
+### Optional arguments:
 
 ```
 -n, --releasename         (Default: '')
