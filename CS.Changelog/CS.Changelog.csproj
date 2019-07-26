@@ -10,8 +10,8 @@
     <!-- Waiting for c# 8 for checking of null-references -->
     <NoWarn>CA1062</NoWarn>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>1.2.0.0</AssemblyVersion>
-    <FileVersion>1.2.0.0</FileVersion>
+    <AssemblyVersion>1.2.0.1</AssemblyVersion>
+    <FileVersion>1.2.0.1</FileVersion>
     <Copyright>CS /webworks 2019</Copyright>
     <Authors>Robert Sirre</Authors>
     <Company>CS /webworks</Company>
@@ -22,14 +22,13 @@ Can also be used for changelog deserialization.
 High-level functional documentation:
 https://cswebworks.atlassian.net/wiki/spaces/CSComponents/pages/679903307/Change+log+generator
 
-Command-line installer (&amp; technical documentation) can be found here:
-http://documentation.hq.local/CSToolset/CS.Changelog
-</Description>
+Command-line installer (&amp; technical documentation &amp; changelog) can be found here:
+http://documentation.hq.local/CSToolset/CS.Changelog</Description>
     <PackageProjectUrl>https://cswebworks.atlassian.net/wiki/spaces/CSComponents/pages/679903307/Change+log+generator</PackageProjectUrl>
     <RepositoryUrl>https://tfs.cs.nl/tfs/DefaultCollection/_git/CS.Changelog</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageLicenseExpression>UNLICENSED</PackageLicenseExpression>
-    <Version>1.2.0.0</Version>
+    <Version>1.2.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
