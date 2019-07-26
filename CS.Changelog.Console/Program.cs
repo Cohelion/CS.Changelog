@@ -38,6 +38,7 @@ namespace CS.Changelog.Console
             {
                 settings.CaseSensitive = false;
                 settings.CaseInsensitiveEnumValues = true;
+                settings.HelpWriter = System.Console.Out;
             }))
                 p.ParseArguments<Options>(args)
                             .WithParsed((opts) => _options = opts)
