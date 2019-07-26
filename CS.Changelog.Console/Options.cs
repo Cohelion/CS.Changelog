@@ -218,12 +218,14 @@ namespace CS.Changelog.Console
         public string IssueTrackerUrl { get; set; }
 
 
-        /// <summary>Gets or sets the commit details URL, used when commit hashes are to be linkified.</summary>
+        /// <summary>Gets or sets the commit details URL, used when commit hashes are to be linkified.
+        /// <c>{0}</c> will be replaced with the commit hash.
+        /// </summary>
         /// <value>The commit details URL.</value>
         [Option(
              "repositoryurl",
-            Default = @"https://tfs.cs.nl/tfs/DefaultCollection/_git/Swissport%20Cargo%20DCM/commit/{0}",
-            HelpText = "Url for showing commit details")]
+            Default = "",
+            HelpText = "Url for showing commit details, {0} will be substituted by the commit hash.")]
         [SuppressMessage("Design", "CA1056:Uri properties should not be strings", Justification = "DTO for commandline input cannot accepts urls")]
         public string CommitDetailsUrl { get; set; }
 
