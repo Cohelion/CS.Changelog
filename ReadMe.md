@@ -153,7 +153,11 @@ When a commit is detected to be changelog-worthy, but you think otherwise, you c
 
 ## Example
 
-`Html` output, based in this repository:
+See actual [changelog.md](changelog.md).
+
+or
+
+`Html` output, based in this repository: 
 
 ![Example output](Changelog_Example.png)
 
