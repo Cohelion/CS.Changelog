@@ -13,6 +13,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CS.Changelog.Tests", "CS.Ch
 EndProject
 Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "CS.Changelog.Documentation", "Documentation\CS.Changelog.Documentation.shfbproj", "{758B80A9-73FC-418D-B49B-2656A38C1CEB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4BAC1286-F67D-44A1-B53A-03307405F420}"
+	ProjectSection(SolutionItems) = preProject
+		Changelog.bat = Changelog.bat
+		Changelog.md = Changelog.md
+		ReadMe.md = ReadMe.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
