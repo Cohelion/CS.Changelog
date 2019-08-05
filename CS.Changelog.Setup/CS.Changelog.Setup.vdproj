@@ -21,7 +21,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_7CBB76900A2B48A5A6EB59101BB77341"
+        "MsmKey" = "8:_DD8C3EE64C0C48DA9FBB4AABA8EFBF8B"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -84,10 +84,10 @@
             "ComponentsUrl" = "8:"
                 "Items"
                 {
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
                     {
-                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
-                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
                     }
                 }
             }
@@ -197,7 +197,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Change log generator"
         "ProductCode" = "8:{5373A6F0-27DE-4CE4-ACB7-E031FBB849CE}"
-        "PackageCode" = "8:{8ACB6CF8-1A77-4BDE-838D-F1ABC3D18B27}"
+        "PackageCode" = "8:{E67CC27D-D502-4DFC-BE36-2A966FE823E7}"
         "UpgradeCode" = "8:{71F333AA-4A78-46C0-8C20-6D81B83D9998}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -716,9 +716,9 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_7CBB76900A2B48A5A6EB59101BB77341"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_DD8C3EE64C0C48DA9FBB4AABA8EFBF8B"
             {
-            "SourcePath" = "8:..\\CS.Changelog.Console\\obj\\Release\\netcoreapp2.2\\CS.Changelog.Console.dll"
+            "SourcePath" = "8:..\\CS.Changelog.Console\\obj\\Release\\netcoreapp2.1\\CS.Changelog.Console.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_70EA3C3575B247D58E52837CD8DF53A5"
