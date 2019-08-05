@@ -6,6 +6,12 @@
 
 Following a few commit-message and branching conventions, this utility creates or appends a change log.
 
+1. Install from nuget:
+   ```dotnet tool install -g CS.Changelog.Console```
+2. Run: `changelog` in the directory where your git repository is.
+
+## Naming conventions:
+
 1. Write your change log message in commit messages like:
 
    > [hotfix] ABC-123 human-friendly message 
@@ -20,8 +26,12 @@ Following a few commit-message and branching conventions, this utility creates o
 
 ## Usage
 
+Install from NuGet using:
+
+> ```dotnet tool install -g CS.Changelog.Console```
+
 Switch to the branch you are creating a changelog for, usually this is a release or hotfix branch.
-Run `cs.changelog.console.exe`. 
+Run `changelog` (or `cs.changelog.console.exe` when downloaded from GitHub or built yourself) . 
 This will generate a Json-based changelog, creating or appending to an existing changelog, named ` changelog.json`. Changes will contain the change since the last change on the `master` branch.
 Feature analysis (to determine if features or hotfixes are added) is based on default Gitflow branching names and commit messages.
 

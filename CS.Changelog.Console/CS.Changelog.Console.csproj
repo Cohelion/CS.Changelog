@@ -11,19 +11,28 @@
     <!-- Waiting for c# 8 for checking of null-references -->
     <NoWarn>CA1062</NoWarn>
     <Authors>Robert Sirre</Authors>
+    <Owner>CS /webworks</Owner>
     <Company>CS /webworks</Company>
     <Product>Changelog generator</Product>
-    <Description>Git commit history-based changelog generator.</Description>
-    <AssemblyVersion>1.2.0.0</AssemblyVersion>
-    <Version>1.2.0</Version>
+    <Title>Changelog generator</Title>
+    <Description>A git-commit based changelog generator.
+Can also be used for changelog deserialization.
+</Description>
+    <AssemblyVersion>1.2.0.1</AssemblyVersion>
+    <Version>1.2.0.1</Version>
     <Copyright>CS /webworks 2019</Copyright>
-    <PackageLicenseExpression>UNLICENSED</PackageLicenseExpression>
-    <PackageProjectUrl>https://cswebworks.atlassian.net/wiki/spaces/CSComponents/pages/679903307/Change+log+generator</PackageProjectUrl>
-    <RepositoryUrl>https://tfs.cs.nl/tfs/DefaultCollection/_git/CS.Changelog</RepositoryUrl>
+    <PackageLicenseExpression>MS-PL</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/cswebworks/CS.Changelog</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/cswebworks/CS.Changelog</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageReleaseNotes>Migrated to .Net core</PackageReleaseNotes>
     <ApplicationIcon />
     <StartupObject />
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>changelog</ToolCommandName>
+    <PackageTags>git changelog generator</PackageTags>
+    <NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
 
   <ItemGroup>

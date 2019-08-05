@@ -17,15 +17,9 @@
     <Company>CS /webworks</Company>
     <Product>CS.Changelog generator</Product>
     <Description>A git-commit based changelog generator.
-Can also be used for changelog deserialization.
-    
-High-level functional documentation:
-https://cswebworks.atlassian.net/wiki/spaces/CSComponents/pages/679903307/Change+log+generator
-
-Command-line installer (&amp; technical documentation &amp; changelog) can be found here:
-http://documentation.hq.local/CSToolset/CS.Changelog</Description>
-    <PackageProjectUrl>https://cswebworks.atlassian.net/wiki/spaces/CSComponents/pages/679903307/Change+log+generator</PackageProjectUrl>
-    <RepositoryUrl>https://tfs.cs.nl/tfs/DefaultCollection/_git/CS.Changelog</RepositoryUrl>
+Can also be used for changelog deserialization.</Description>
+    <PackageProjectUrl>https://github.com/cswebworks/CS.Changelog</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/cswebworks/CS.Changelog</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageLicenseExpression>UNLICENSED</PackageLicenseExpression>
     <Version>1.2.0.1</Version>
