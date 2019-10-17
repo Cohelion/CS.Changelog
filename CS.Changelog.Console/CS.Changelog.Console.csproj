@@ -28,11 +28,16 @@ Can also be used for changelog deserialization.
     <PackageReleaseNotes>Migrated to .Net core</PackageReleaseNotes>
     <ApplicationIcon />
     <StartupObject />
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackAsTool>true</PackAsTool>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackAsTool>false</PackAsTool>
     <ToolCommandName>changelog</ToolCommandName>
     <PackageTags>git changelog generator</PackageTags>
     <NeutralLanguage>en</NeutralLanguage>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Tool'">
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackAsTool>true</PackAsTool>
   </PropertyGroup>
 
   <ItemGroup>
