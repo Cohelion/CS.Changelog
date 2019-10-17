@@ -109,7 +109,7 @@
               <userCredentials useDefault="true" userName="" password="" />
             </proxyCredentials>
           </deploymentLocation>
-          <deploymentLocation id="website" location="\\webtest2\d$\WWW\documentation\CSToolset\CS.Changelog">
+          <deploymentLocation id="website" location="\\documentation.hq.local\WWW\documentation\CSToolset\CS.Changelog">
             <userCredentials useDefault="true" userName="" password="" />
             <proxyCredentials useProxy="false" proxyServer="">
               <userCredentials useDefault="true" userName="" password="" />
