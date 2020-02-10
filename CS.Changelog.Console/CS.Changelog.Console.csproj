@@ -7,7 +7,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
-    <LangVersion>7.1</LangVersion>
+    <LangVersion>8</LangVersion>
     <!-- Waiting for c# 8 for checking of null-references -->
     <NoWarn>CA1062</NoWarn>
     <Authors>Robert Sirre</Authors>
@@ -15,17 +15,20 @@
     <Company>CS /webworks</Company>
     <Product>Changelog generator</Product>
     <Title>Changelog generator</Title>
-    <Description>A git-commit based changelog generator.
-Can also be used for changelog deserialization.
-</Description>
-    <AssemblyVersion>1.2.0.1</AssemblyVersion>
-    <Version>1.2.0.1</Version>
+    <Description>
+      A git-commit based changelog generator.
+      Can also be used for changelog deserialization.
+    </Description>
+    <Version>1.2.0.3</Version>
     <Copyright>CS /webworks 2019</Copyright>
     <PackageLicenseExpression>MS-PL</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/cswebworks/CS.Changelog</PackageProjectUrl>
     <RepositoryUrl>https://github.com/cswebworks/CS.Changelog</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
-    <PackageReleaseNotes>Migrated to .Net core</PackageReleaseNotes>
+    <PackageReleaseNotes>
+      1.2.0.3: Fixed ignoring of startTag argument.
+      1.2.0.2: Migrated to .Net core
+    </PackageReleaseNotes>
     <ApplicationIcon />
     <StartupObject />
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
