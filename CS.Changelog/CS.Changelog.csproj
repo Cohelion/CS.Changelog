@@ -10,8 +10,6 @@
     <!-- Waiting for c# 8 for checking of null-references -->
     <NoWarn>CA1062</NoWarn>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>1.2.0.1</AssemblyVersion>
-    <FileVersion>1.2.0.1</FileVersion>
     <Copyright>CS /webworks 2019</Copyright>
     <Authors>Robert Sirre</Authors>
     <Company>CS /webworks</Company>
@@ -22,7 +20,8 @@ Can also be used for changelog deserialization.</Description>
     <RepositoryUrl>https://github.com/cswebworks/CS.Changelog</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageLicenseExpression>UNLICENSED</PackageLicenseExpression>
-    <Version>1.2.0.1</Version>
+    <Version>1.2.0.2</Version>
+    <PackageReleaseNotes>1.2.0.2: Fixed a bug related to the use of startTag</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
