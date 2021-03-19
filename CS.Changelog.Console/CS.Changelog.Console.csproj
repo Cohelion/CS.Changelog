@@ -19,13 +19,13 @@
       A git-commit based changelog generator.
       Can also be used for changelog deserialization.
     </Description>
-    <Version>1.2.0.3</Version>
+    <Version>1.2.0.4</Version>
     <Copyright>CS /webworks 2019</Copyright>
     <PackageLicenseExpression>MS-PL</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/cswebworks/CS.Changelog</PackageProjectUrl>
     <RepositoryUrl>https://github.com/cswebworks/CS.Changelog</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
-    <PackageReleaseNotes>
+    <PackageReleaseNotes>1.2.0.4: Set default json output indentation character to tabs (no config option yet)
       1.2.0.3: Fixed ignoring of startTag argument.
       1.2.0.2: Migrated to .Net core
     </PackageReleaseNotes>

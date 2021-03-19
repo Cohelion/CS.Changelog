@@ -20,8 +20,9 @@ Can also be used for changelog deserialization.</Description>
     <RepositoryUrl>https://github.com/cswebworks/CS.Changelog</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageLicenseExpression>UNLICENSED</PackageLicenseExpression>
-    <Version>1.2.0.3</Version>
-    <PackageReleaseNotes>1.2.0.3: Fixed ignoring of startTag argument.</PackageReleaseNotes>
+    <Version>1.2.0.4</Version>
+    <PackageReleaseNotes>1.2.0.4: Set default json output indentation character to tabs (no config option yet)
+1.2.0.3: Fixed a bug related to the use of startTag</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
