@@ -1,3 +1,12 @@
+# v1.2.0.4 (22/03/2021)  #
+- Set default json output indentation character to tabs (no config option yet)
+
+# v1.2.0.3  #
+1.2.0.3: Fixed ignoring of startTag argument.
+
+# v1.2.0.2  #
+1.2.0.2: Migrated console to .Net core
+
 # v1.2.0.1 (26/07/2019)  #
 
 ## Fix ##
