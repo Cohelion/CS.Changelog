@@ -9,9 +9,9 @@
 		<LangVersion>8</LangVersion>
 		<NoWarn>CA1062</NoWarn>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Copyright>CS /webworks 2019</Copyright>
+		<Copyright>Cohelion 2021</Copyright>
 		<Authors>Robert Sirre</Authors>
-		<Company>CS /webworks</Company>
+		<Company>Cohelion</Company>
 		<Product>CS.Changelog generator</Product>
 		<Description>
 			A git-commit based changelog generator.
@@ -21,25 +21,34 @@
 		<RepositoryUrl>https://github.com/cswebworks/CS.Changelog</RepositoryUrl>
 		<RepositoryType>Git</RepositoryType>
 		<PackageLicenseExpression>UNLICENSED</PackageLicenseExpression>
-		<Version>1.2.0.4</Version>
+		<Version>1.2.0.5</Version>
 		<PackageReleaseNotes>
 			<![CDATA[
+1.2.0.5: Added icon
+         Updated a handful of dependencies
+         Converted CS /webworks to Cohelion
 1.2.0.4: Set default json output indentation character to tabs (no config option yet)
 1.2.0.3: Fixed a bug related to the use of startTag
 			]]>
 		</PackageReleaseNotes>
+		<PackageIcon>cohelion.png</PackageIcon>
+		<ApplicationIcon>..\SolutionItems\cohelion.ico</ApplicationIcon>
 		<AnalysisLevel>latest</AnalysisLevel>
 	</PropertyGroup>
 
 	<ItemGroup>
+		<None Include="..\SolutionItems\cohelion.png">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
 		<EmbeddedResource Include="..\markdownpad-github\markdownpad-github.css" Link="Exporters\Html\markdownpad-github.css" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Markdig.Signed" Version="0.24.0" />
 		<PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="5.0.3">
-		  <PrivateAssets>all</PrivateAssets>
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
 	</ItemGroup>

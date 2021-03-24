@@ -15,7 +15,7 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_0541B574E8344187A425657A7143E559"
+        "MsmKey" = "8:_7730021AC58C45D481CA7348D4CFCED9"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -108,6 +108,16 @@
         {
             "LaunchCondition"
             {
+                "{A06ECF26-33A3-4562-8140-9B0E340D4F24}:_447D9443D7DC422BB99C6FDBBA8BF70B"
+                {
+                "Name" = "8:.NET Core"
+                "Message" = "8:[VSDNETCOREMSG]"
+                "AllowLaterVersions" = "11:FALSE"
+                "InstallUrl" = "8:https://dotnet.microsoft.com/download/dotnet-core/[NetCoreVerMajorDotMinor]"
+                "IsNETCore" = "11:TRUE"
+                "Architecture" = "2:0"
+                "Runtime" = "2:0"
+                }
                 "{A06ECF26-33A3-4562-8140-9B0E340D4F24}:_498FEB33065F46618B0042B546DD2144"
                 {
                 "Name" = "8:.NET Framework"
@@ -120,10 +130,10 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0541B574E8344187A425657A7143E559"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7730021AC58C45D481CA7348D4CFCED9"
             {
-            "SourcePath" = "8:..\\solutionitems\\cs.ico"
-            "TargetName" = "8:cs.ico"
+            "SourcePath" = "8:..\\solutionitems\\cohelion.png"
+            "TargetName" = "8:cohelion.png"
             "Tag" = "8:"
             "Folder" = "8:_70EA3C3575B247D58E52837CD8DF53A5"
             "Condition" = "8:"
@@ -718,7 +728,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_DD8C3EE64C0C48DA9FBB4AABA8EFBF8B"
             {
-            "SourcePath" = "8:..\\CS.Changelog.Console\\obj\\Release\\netcoreapp2.1\\CS.Changelog.Console.dll"
+            "SourcePath" = "8:..\\CS.Changelog.Console\\obj\\Debug\\netcoreapp3.1\\CS.Changelog.Console.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_70EA3C3575B247D58E52837CD8DF53A5"

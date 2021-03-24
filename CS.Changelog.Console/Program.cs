@@ -30,7 +30,7 @@ namespace CS.Changelog.Console
 
         static void Main(string[] args)
         {
-            $"CS /webworks changelog generator, version {Constants.Version}".Dump(LogLevel.Info);
+            $"Cohelion changelog generator, version {Constants.Version}".Dump(LogLevel.Info);
 
             bool optionsParsed = true;
 

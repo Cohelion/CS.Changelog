@@ -10,22 +10,25 @@
 		<LangVersion>8</LangVersion>
 		<NoWarn>CA1062</NoWarn>
 		<Authors>Robert Sirre</Authors>
-		<Owner>CS /webworks</Owner>
-		<Company>CS /webworks</Company>
+		<Owner>Cohelion</Owner>
+		<Company>Cohelion</Company>
 		<Product>Changelog generator</Product>
 		<Title>Changelog generator</Title>
 		<Description>
 			A git-commit based changelog generator.
 			Can also be used for changelog deserialization.
 		</Description>
-		<Version>1.2.0.4</Version>
-		<Copyright>CS /webworks 2019</Copyright>
+		<Version>1.2.0.5</Version>
+		<Copyright>Cohelion 2021</Copyright>
 		<PackageLicenseExpression>MS-PL</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/cswebworks/CS.Changelog</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/cswebworks/CS.Changelog</RepositoryUrl>
 		<RepositoryType>Git</RepositoryType>
 		<PackageReleaseNotes>
 			<![CDATA[
+1.2.0.5: Added icon
+         Updated a handful of dependencies
+         Converted CS /webworks to Cohelion
 1.2.0.4: Set default json output indentation character to tabs (no config option yet)
 1.2.0.3: Fixed ignoring of startTag argument.
 1.2.0.2: Migrated to .Net core
@@ -39,12 +42,21 @@
 		<PackageTags>git changelog generator</PackageTags>
 		<NeutralLanguage>en</NeutralLanguage>
 		<AnalysisLevel>latest</AnalysisLevel>
+		<PackageIcon>cohelion.png</PackageIcon>
+		<ApplicationIcon>..\SolutionItems\cohelion.ico</ApplicationIcon>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)'=='Tool'">
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackAsTool>true</PackAsTool>
 	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\SolutionItems\cohelion.png">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="CommandLineParser" Version="2.8.0" />
