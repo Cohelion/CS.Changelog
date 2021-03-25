@@ -97,6 +97,7 @@ namespace CS.Changelog.Exporters
 			using (var jtw = new JsonTextWriter(w))
 			{
 				jtw.IndentChar = IndentChar;
+				jtw.Indentation = 1;
 				serializer.Serialize(jtw, log);
 			}
 		}

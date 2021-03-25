@@ -21,9 +21,10 @@
 		<RepositoryUrl>https://github.com/cswebworks/CS.Changelog</RepositoryUrl>
 		<RepositoryType>Git</RepositoryType>
 		<PackageLicenseExpression>UNLICENSED</PackageLicenseExpression>
-		<Version>1.2.0.5</Version>
+		<Version>1.2.0.6</Version>
 		<PackageReleaseNotes>
 			<![CDATA[
+1.2.0.6: Used only one tab for indentation
 1.2.0.5: Added icon
          Updated a handful of dependencies
          Converted CS /webworks to Cohelion

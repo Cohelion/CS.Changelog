@@ -18,7 +18,7 @@
 			A git-commit based changelog generator.
 			Can also be used for changelog deserialization.
 		</Description>
-		<Version>1.2.0.5</Version>
+		<Version>1.2.0.6</Version>
 		<Copyright>Cohelion 2021</Copyright>
 		<PackageLicenseExpression>MS-PL</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/cswebworks/CS.Changelog</PackageProjectUrl>
@@ -26,6 +26,7 @@
 		<RepositoryType>Git</RepositoryType>
 		<PackageReleaseNotes>
 			<![CDATA[
+1.2.0.6: Used only one tab for indentation
 1.2.0.5: Added icon
          Updated a handful of dependencies
          Converted CS /webworks to Cohelion
