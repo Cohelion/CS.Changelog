@@ -45,7 +45,7 @@ namespace CS.Changelog.Exporters
 		/// <param name="options">The options for exporting.</param>
 		public void Export(ChangeSet changes, FileInfo file, ExportOptions options = null)
 		{
-			options = options ?? new ExportOptions();
+			options ??= new ExportOptions();
 
 			ChangeLog log;
 
@@ -93,13 +93,11 @@ namespace CS.Changelog.Exporters
 				ContractResolver = new CamelCasePropertyNamesContractResolver(),
 			};
 
-			using (var w = file.CreateText())
-			using (var jtw = new JsonTextWriter(w))
-			{
-				jtw.IndentChar = IndentChar;
-				jtw.Indentation = 1;
-				serializer.Serialize(jtw, log);
-			}
+			using var w = file.CreateText();
+			using var jtw = new JsonTextWriter(w);
+			jtw.IndentChar = IndentChar;
+			jtw.Indentation = 1;
+			serializer.Serialize(jtw, log);
 		}
 	}
 }

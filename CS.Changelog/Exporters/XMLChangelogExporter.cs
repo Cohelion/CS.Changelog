@@ -30,10 +30,10 @@ namespace CS.Changelog.Exporters
         [SuppressMessage("Security", "CA5369:Use XmlReader For Deserialize", Justification = "Postponing code change")]
         public ChangeLog Deserialize(string data)
         {
-            using (TextReader r = new StringReader(data))
-            using (var x = XmlReader.Create(r))
-                return (ChangeLog)_serializer.Deserialize(x);
-        }
+			using TextReader r = new StringReader(data);
+			using var x = XmlReader.Create(r);
+			return (ChangeLog)_serializer.Deserialize(x);
+		}
 
         /// <summary>
         /// Exports the specified <paramref name="changes">changeset</paramref> to a MarkDown <paramref name="file" />.
@@ -43,7 +43,7 @@ namespace CS.Changelog.Exporters
         /// <param name="options">The options for exporting.</param>
         public void Export(ChangeSet changes, FileInfo file, ExportOptions options = null)
         {
-            options = options ?? new ExportOptions();
+            options ??= new ExportOptions();
 
             ChangeLog log;
 
@@ -82,8 +82,8 @@ namespace CS.Changelog.Exporters
             log.IssueTrackerUrl = options?.IssueTrackerUrl;
             log.RepositoryUrl = options?.RepositoryUrl;
 
-            using (var w = file.CreateText())
-                _serializer.Serialize(w, log);
-        }
+			using var w = file.CreateText();
+			_serializer.Serialize(w, log);
+		}
     }
 }
