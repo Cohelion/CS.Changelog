@@ -1,3 +1,15 @@
+# v1.3.0.0 (08/09/2021)  #
+
+## Feature ##
+- Added multi-file parsing and filtering functionality ([297de634](https://github.com/cswebworks/CS.Changelog/commit/297de634313cc5ef9c1115db68372715ac1c6884))
+
+## Rebranding ##
+- Converted CS /webworks to Cohelion
+- Added application and package icon ([2e334593](https://github.com/cswebworks/CS.Changelog/commit/2e334593618579abb4ff7a6b53464036f344bb51))
+
+# v1.2.0.6 #
+- Used only one tab for indentation
+
 # v1.2.0.4 (22/03/2021)  #
 - Set default json output indentation character to tabs (no config option yet)
 
