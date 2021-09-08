@@ -41,7 +41,7 @@ namespace CS.Changelog.Console
     ///  --issueformat             (Default: <see cref="Exporters.ExportOptions.IssueNumberRegexDefault"/>)
     ///                            Expression for recognizing issue numbers
     ///                               
-    ///  --issuetrackerurl         (Default: https://project.cs.nl/issue/{0})
+    ///  --issuetrackerurl         (Default: https://projects.cohelion.com/issue/{0})
     ///                            Url for recognizing issue numbers. '{0}' will be substituted with issue number
     ///                               
     ///  --repositoryurl           Url for showing commit details
@@ -212,7 +212,7 @@ namespace CS.Changelog.Console
         /// <seealso cref="IssueNumberRegex"/> 
         [Option(
              "issuetrackerurl",
-            Default = @"https://project.cs.nl/issue/{0}",
+            Default = @"https://projects.cohelion.com/issue/{0}",
             HelpText = "Url for recognizing issue numbers. '{0}' will be substituted with issue number")]
         [SuppressMessage("Design", "CA1056:Uri properties should not be strings", Justification = "DTO for commandline input cannot accepts urls")]
         public string IssueTrackerUrl { get; set; }

@@ -69,7 +69,7 @@ Feature analysis (to determine if features or hotfixes are added) is based on de
 --issueformat             (Default: IssueNumberRegexDefault)
                           Expression for recognizing issue numbers
 
---issuetrackerurl         (Default: https://project.cs.nl/issue/{0})
+--issuetrackerurl         (Default: https://projects.cohelion.com/issue/{0})
                           Url for recognizing issue numbers. '{0}' will be substituted with issue number
 
 --repositoryurl           Url for showing commit details
