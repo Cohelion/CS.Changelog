@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
@@ -47,6 +47,7 @@
 		<AnalysisLevel>latest</AnalysisLevel>
 		<AnalysisMode>AllEnabledByDefault</AnalysisMode>
 		<DebugType>embedded</DebugType>
+		<PackageReadmeFile>ReadMe.md</PackageReadmeFile>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)'=='Tool'">
@@ -55,6 +56,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<None Include="..\ReadMe.md">
+		  <Pack>True</Pack>
+		  <PackagePath></PackagePath>
+		</None>
 		<None Include="..\SolutionItems\cohelion.png">
 			<Pack>True</Pack>
 			<PackagePath></PackagePath>
