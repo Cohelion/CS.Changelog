@@ -38,7 +38,7 @@ namespace CS.Changelog.Console
     ///                            In order to make an incremental change log since a specified tag. If no tag is specified auto-detects the last release tag.
     ///                            If a tag is specified, overrides option --full
     ///                               
-    ///  --issueformat             (Default: <see cref="Exporters.ExportOptions.IssueNumberRegexDefault"/>)
+    ///  --issueformat             (Default: <see cref="Exporters.BaseOptions.IssueNumberRegexDefault"/>)
     ///                            Expression for recognizing issue numbers
     ///                               
     ///  --issuetrackerurl         (Default: https://projects.cohelion.com/issue/{0})

@@ -24,7 +24,7 @@ namespace CS.Changelog
 			  this IReadOnlyCollection<FileInfo> changelogs
 			, bool hideIssueTrackerInfo = false
 			, bool hideCommitDetails = false
-			, List<string> ignoredCategories = null
+			, IEnumerable<string> ignoredCategories = null
 			, IChangelogDeserializer deserializer = null)
 		{
 			return changelogs
@@ -44,7 +44,7 @@ namespace CS.Changelog
 		public static ChangelogReadResult GetChangelogs(
 			  bool hideIssueTrackerInfo = false
 			, bool hideCommitDetails = false
-			, List<string> ignoredCategories = null
+			, IEnumerable<string> ignoredCategories = null
 			, IChangelogDeserializer deserializer = null
 			, params FileInfo[] changelogs
 			 )
@@ -67,7 +67,7 @@ namespace CS.Changelog
 			this IReadOnlyDictionary<FileInfo, IChangelogDeserializer> changelogs
 			, bool hideIssueTrackerInfo
 			, bool hideCommitDetails
-			, List<string> ignoredCategories = null)
+			, IEnumerable<string> ignoredCategories = null)
 		{
 
 			var result = new ChangelogReadResult();

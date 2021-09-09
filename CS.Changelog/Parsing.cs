@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace CS.Changelog
@@ -238,7 +239,8 @@ namespace CS.Changelog
                         foreach (Match messagematch in messagematches)
                         {
                             LogCommit($"Commit with changelog category added : {message}", match, level: LogLevel.Info);
-                            result.Add(hash, messagematch.Groups["category"].Value, messagematch.Groups["message"].Value);
+							var messageText = CleanMessage(messagematch.Groups["message"].Value, options.IssueNumberRegex);
+                            result.Add(hash, messagematch.Groups["category"].Value, messageText);
                         }
                     }
                 }
@@ -277,5 +279,35 @@ namespace CS.Changelog
             LogCommit($"{reason} : {match.Groups["message"].Value}", match, level: LogLevel.Debug);
             ignored = true;
         }
+
+		private static string CleanMessage(string message, Regex IssueFormat)
+		{
+			var matches = IssueFormat.Matches(message);
+
+			if (message.EndsWith('\r'))
+			{
+				message = message.Remove(message.Length -1, 1);
+			}
+
+			if (matches.Any())
+			{
+				//	If multiple matches are found, then leave the message as is
+				if (matches.Count > 1) return message;
+
+				//	Else, replace underscores with spaces
+				//	Then, move the issue number to the end of the message
+				//	E.G.: UNL-111 This is a fix for a panel.
+				//	Result: This is a fix for a panel. (UNL-111)
+				var issueMessage = IssueFormat.Split(message.Replace("_", " ", StringComparison.OrdinalIgnoreCase))
+											  .Where(x => !string.IsNullOrWhiteSpace(x))
+											  .First();
+				var issueNumber = matches.First().Value;
+				var result = $"{issueMessage}{(issueMessage.Last() != '.' ? "." : string.Empty)} ({issueNumber})";
+				return result;
+			}
+
+			return message;
+
+		}
     }
 }

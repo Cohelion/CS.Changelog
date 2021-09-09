@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Xml;
@@ -47,7 +48,7 @@ namespace CS.Changelog.Exporters
 
             ChangeLog log;
 
-            if (file.Exists && options.Append)
+            if (file != null && file.Exists && options.Append)
             {
                 //Append/Prepend content by reading entire file and then deleting the file
                 using (var s = file.OpenText())
@@ -60,8 +61,8 @@ namespace CS.Changelog.Exporters
                                         .Where(x => !string.IsNullOrWhiteSpace(x)) //it is possible that the serialized change log contains commit / entries without a hash
                                         .Distinct();
 
-                changes.RemoveAll(change =>
-                    loggedCommits.Any(h => h.Equals(change.Hash, System.StringComparison.InvariantCultureIgnoreCase))
+                changes?.RemoveAll(change =>
+                    loggedCommits.Any(h => h.Equals(change.Hash, StringComparison.OrdinalIgnoreCase))
                     );
 
                 //Only append or write changeset when there are unlogged commits
@@ -79,10 +80,10 @@ namespace CS.Changelog.Exporters
                 log = new ChangeLog { changes };
 
             log.IssueNumberRegex = options?.IssueNumberRegex.ToString();
-            log.IssueTrackerUrl = options?.IssueTrackerUrl;
-            log.RepositoryUrl = options?.RepositoryUrl;
+            log.IssueTrackerUrl = new Uri(options?.IssueTrackerUrl);
+            log.RepositoryUrl = new Uri(options?.RepositoryUrl);
 
-			using var w = file.CreateText();
+			using var w = file?.CreateText();
 			_serializer.Serialize(w, log);
 		}
     }

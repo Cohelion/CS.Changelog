@@ -24,6 +24,9 @@ namespace CS.Changelog.Exporters
 		{
 			IChangelogExporter exporter = null;
 
+			// Clean the changes
+			//CleanChangeSet(ref changes, exportOptions);
+
 			var file = new FileInfo(targetFile);
 
 			if (string.IsNullOrWhiteSpace(file.Extension))
@@ -68,5 +71,18 @@ namespace CS.Changelog.Exporters
 
 			return file;
 		}
+
+		///// <summary>
+		///// Cleans the change set.
+		///// </summary>
+		///// <param name="changes">The changes.</param>
+		///// <param name="options">The options.</param>
+		//private static void CleanChangeSet(ref ChangeSet changes, ExportOptions options)
+		//{
+		//	foreach (var change in changes)
+		//	{
+		//		change.
+		//	}
+		//}
 	}
 }

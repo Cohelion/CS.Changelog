@@ -18,6 +18,8 @@ namespace CS.Changelog.Exporters
         [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Pending more eloquent failure-reponse signature")]
         public static bool TryDeserialize(this IChangelogDeserializer deserializer, string data, out ChangeLog changelog)
         {
+			if (deserializer == null) throw new ArgumentNullException(nameof(deserializer));
+
             changelog = null;
             if (string.IsNullOrWhiteSpace(data))
                 return false;

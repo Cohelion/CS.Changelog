@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System;
 using System.IO;
 using System.Linq;
 
@@ -49,7 +50,7 @@ namespace CS.Changelog.Exporters
 
 			ChangeLog log;
 
-			if (file.Exists && options.Append)
+			if (file != null && file.Exists && options.Append)
 			{
 				//Append/Prepend content by reading entire file and then deleting the file
 				using (var s = file.OpenText())
@@ -66,8 +67,8 @@ namespace CS.Changelog.Exporters
 										.Distinct();
 
 
-				changes.RemoveAll(change =>
-					loggedCommits.Any(h => h.Equals(change.Hash, System.StringComparison.InvariantCultureIgnoreCase))
+				changes?.RemoveAll(change =>
+					loggedCommits.Any(h => h.Equals(change.Hash, System.StringComparison.OrdinalIgnoreCase))
 					);
 
 				//Only append or write changeset when there are unlogged commits
@@ -84,8 +85,8 @@ namespace CS.Changelog.Exporters
 				log = new ChangeLog { changes };
 
 			log.IssueNumberRegex = options?.IssueNumberRegex.ToString();
-			log.IssueTrackerUrl = options?.IssueTrackerUrl;
-			log.RepositoryUrl = options?.RepositoryUrl;
+			log.IssueTrackerUrl = new Uri(options?.IssueTrackerUrl);
+			log.RepositoryUrl = new Uri(options?.RepositoryUrl);
 
 			var serializer = new JsonSerializer
 			{
@@ -93,7 +94,7 @@ namespace CS.Changelog.Exporters
 				ContractResolver = new CamelCasePropertyNamesContractResolver(),
 			};
 
-			using var w = file.CreateText();
+			using var w = file?.CreateText();
 			using var jtw = new JsonTextWriter(w);
 			jtw.IndentChar = IndentChar;
 			jtw.Indentation = 1;
