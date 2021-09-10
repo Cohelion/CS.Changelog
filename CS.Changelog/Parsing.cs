@@ -283,30 +283,41 @@ namespace CS.Changelog
 		private static string CleanMessage(string message, Regex IssueFormat)
 		{
 			var matches = IssueFormat.Matches(message);
+			var result = message;
 
-			if (message.EndsWith('\r'))
-			{
-				message = message.Remove(message.Length -1, 1);
-			}
+			//	Remove Line Feed character at the end of the message if any
+			//	Because the end of the message will be changed if there's any issue number present in the 
+			if (message.EndsWith('\r'))	message = message.Remove(message.Length -1, 1);
 
 			if (matches.Any())
 			{
 				//	If multiple matches are found, then leave the message as is
-				if (matches.Count > 1) return message;
+				if (matches.Count > 1) return result;
 
-				//	Else, replace underscores with spaces
-				//	Then, move the issue number to the end of the message
+				var issueNumber = matches.First().Value;
+
+				//	If message doesn't contain spaces, suspect the message is the branch name, replace underscores with spaces
+				if (!message.Contains(" ", StringComparison.OrdinalIgnoreCase))
+					message = message.Replace("_", " ", StringComparison.OrdinalIgnoreCase);
+
+				//	Only if the message starts with the issue number, move it to the end.
 				//	E.G.: UNL-111 This is a fix for a panel.
 				//	Result: This is a fix for a panel. (UNL-111)
-				var issueMessage = IssueFormat.Split(message.Replace("_", " ", StringComparison.OrdinalIgnoreCase))
-											  .Where(x => !string.IsNullOrWhiteSpace(x))
-											  .First();
-				var issueNumber = matches.First().Value;
-				var result = $"{issueMessage}{(issueMessage.Last() != '.' ? "." : string.Empty)} ({issueNumber})";
-				return result;
+				if (message.StartsWith(issueNumber, StringComparison.OrdinalIgnoreCase))
+				{
+					//	There should only be one message with text after splitting by the issue number.
+					var issueMessage = IssueFormat.Split(message)
+												  .Where(x => !string.IsNullOrWhiteSpace(x))
+												  .First();
+
+					//	Assamble the message with the issue number at the end, check if message ends with a period at the end, if not, add it.
+					result = $"{issueMessage}{(issueMessage.Last() != '.' ? "." : string.Empty)} ({issueNumber})";
+					return result;
+				}
+				
 			}
 
-			return message;
+			return result;
 
 		}
     }
