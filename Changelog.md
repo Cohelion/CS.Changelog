@@ -1,3 +1,12 @@
+# (13/09/2021)  #
+
+## Feature ##
+- Now underscores are replaced with spaces in the message when suspected usage of feature branch name as message. 
+
+- Now issue number will me moved to the end of the message when available at the beginning. ([e916b596](https://github.com/cswebworks/CS.Changelog/commit/e916b596ab3f954528b2245cd539969f8a66b0af))
+
+  
+
 # v1.3.0.0 (08/09/2021)  #
 
 ## Feature ##
