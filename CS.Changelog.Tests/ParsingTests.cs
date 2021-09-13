@@ -112,11 +112,31 @@ This reverts commit 3c14f373aff2dc280907c4ee3878107f0a05b527."
 		[Fact]
 		public void ParseRegularCommitWithReleaseMessage()
 		{
-			var expectedMessage = @"cDCM-704 - Enabled InActive selection in reporting
+			var message = @"cDCM-704 - Enabled InActive selection in reporting
 Some more lines containing release information regarding this commit";
+			var expectedMessage = @"- Enabled InActive selection in reporting
+Some more lines containing release information regarding this commit. (cDCM-704)";
 			//Arrange
 			var cases = new[]{
-				new {log = $@"e226d3ad1c5f49caaaddf3e6e43135f092cc3c5e '2017-06-26T15:09:24+02:00' [category]{expectedMessage}"}
+				new {log = $@"e226d3ad1c5f49caaaddf3e6e43135f092cc3c5e '2017-06-26T15:09:24+02:00' [category]{message}"}
+			};
+
+			foreach (var @case in cases)
+			{
+				var entry = AssertChange(@case.log, "category");
+				Assert.Equal(expectedMessage, entry.Message.Trim());
+			}
+		}
+
+		/// <summary>Tests <see cref="Parsing.Parse(string, ParseOptions)"/> by parsing a commit message without a change log message.</summary>
+		[Fact]
+		public void ParseRegularCommitWithBranchAsReleaseMessage()
+		{
+			var message = @"cDCM-704_Enable_InActive_in_reporting";
+			var expectedMessage = @"Enable InActive in reporting. (cDCM-704)";
+			//Arrange
+			var cases = new[]{
+				new {log = $@"e226d3ad1c5f49caaaddf3e6e43135f092cc3c5e '2017-06-26T15:09:24+02:00' [category]{message}"}
 			};
 
 			foreach (var @case in cases)
@@ -131,17 +151,26 @@ Some more lines containing release information regarding this commit";
 		public void ParseRegularCommitWithMultipleReleaseMessages()
 		{
 			var category1 = "feature";
-			var expectedMessage1 = @"cDCM-704 - Enabled InActive selection in reporting
+			var message1 = @"cDCM-704 - Enabled InActive selection in reporting
 Some more lines containing release information regarding this commit";
+			var expectedMessage1 = @"- Enabled InActive selection in reporting
+Some more lines containing release information regarding this commit. (cDCM-704)";
 
 			var category2 = "rambling category";
 			var expectedMessage2 = @"Some other message";
 
+			var message3 = @"cDCM-911 - Enabled InActive selection in reporting
+Some more lines containing release information regarding this commit";
+			var expectedMessage3 = @"- Enabled InActive selection in reporting
+Some more lines containing release information regarding this commit. (cDCM-911)";
+
 			//Arrange
 			var cases = new[]{
-				new {log = $@"e226d3ad1c5f49caaaddf3e6e43135f092cc3c5e '2017-06-26T15:09:24+02:00' [{category1}]{expectedMessage1}
+				new {log = $@"e226d3ad1c5f49caaaddf3e6e43135f092cc3c5e '2017-06-26T15:09:24+02:00' [{category1}]{message1}
 [{category2}]{expectedMessage2}
-#Comment that should be ignored"}
+#Comment that should be ignored
+e226d3ad1c5f49caaaddf3e6e43135f092cc3c5e '2017-06-26T15:09:24+02:00' [{category1}]{message3}"}
+
 			};
 
 			foreach (var @case in cases)
@@ -152,10 +181,11 @@ Some more lines containing release information regarding this commit";
 				Trace.WriteLine("Changeset:");
 				(new TraceChangelogExporter()).Export(entries);
 
-				Assert.Equal(2, entries.Count);
+				Assert.Equal(3, entries.Count);
 
-				Assert.Equal(1, entries.Count(x => x.Category.Equals(category1, System.StringComparison.InvariantCulture)));
-				Assert.Equal(expectedMessage1, entries.Single(x => x.Category.Equals(category1, System.StringComparison.InvariantCulture)).Message);
+				Assert.Equal(2, entries.Count(x => x.Category.Equals(category1, System.StringComparison.InvariantCulture)));
+				Assert.Equal(expectedMessage1, entries.First(x => x.Category.Equals(category1, System.StringComparison.InvariantCulture)).Message);
+				Assert.Equal(expectedMessage3, entries.Last(x => x.Category.Equals(category1, System.StringComparison.InvariantCulture)).Message);
 
 				Assert.Equal(1, entries.Count(x => x.Category.Equals(category2, System.StringComparison.InvariantCulture)));
 				Assert.Equal(expectedMessage2, entries.Single(x => x.Category.Equals(category2, System.StringComparison.InvariantCulture)).Message);

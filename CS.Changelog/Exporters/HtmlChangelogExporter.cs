@@ -29,6 +29,9 @@ namespace CS.Changelog.Exporters
         /// <exception cref="NotImplementedException"></exception>
         public void Export(ChangeSet changes, FileInfo file, ExportOptions options = null)
         {
+			//	If changes are empty there's nothing to export, return.
+			if (changes == null) return;
+
             var markdown = MarkDownChangelogExporter.WriteChanges(changes, options);
 
             var changesAsHtml = Markdig.Markdown.ToHtml(markdown.ToString());
@@ -56,7 +59,7 @@ namespace CS.Changelog.Exporters
     </body>
 </html>";
 
-            using (var w = file.CreateText())
+            using (var w = file?.CreateText())
                 w.Write(html);
         }
 

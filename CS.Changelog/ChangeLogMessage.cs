@@ -13,10 +13,15 @@ namespace CS.Changelog
         [XmlAttribute]
         public string Category { get; set; }
 
+		/// <summary>Indicated whether <see cref="Hash"/> should be serialized</summary>
+		/// <returns><c>false</c> unless <see cref="Hash"/> has been specified.</returns>
+		/// <remarks>This applies to both <see cref="XmlChangelogExporter"/> and <see cref="JsonChangelogExporter"/></remarks>
+		public bool ShouldSerializeHash() => !string.IsNullOrEmpty(Hash);
+
 		/// <summary>Gets or sets the hash of the commit.</summary>
 		/// <value>The hash.</value>
-        /// <remarks>In the serialized change log the hash may be empty, for not referring to a commit, but just adding a change log entry.</remarks>
-        [XmlAttribute]
+		/// <remarks>In the serialized change log the hash may be empty, for not referring to a commit, but just adding a change log entry.</remarks>
+		[XmlAttribute]
 		public string Hash { get; set; }
 
         /// <summary>Gets or sets the message.</summary>
@@ -35,20 +40,15 @@ namespace CS.Changelog
         [XmlAttribute]
         public bool Ignore { get; set; }
 
-        /// <summary>Indicated whether <see cref="Ignore"/> should be serialized</summary>
-        /// <returns><c>false</c> unless <see cref="Ignore"/> is <c>true</c>.</returns>
-        /// <remarks>This applied to both <see cref="XmlChangelogExporter"/> and <see cref="JsonChangelogExporter"/></remarks>
-        public bool ShouldSerializeIgnore() {
-            return Ignore;
-        }
+		/// <summary>Indicated whether <see cref="Ignore"/> should be serialized</summary>
+		/// <returns><c>false</c> unless <see cref="Ignore"/> is <c>true</c>.</returns>
+		/// <remarks>This applied to both <see cref="XmlChangelogExporter"/> and <see cref="JsonChangelogExporter"/></remarks>
+		public bool ShouldSerializeIgnore() => Ignore;
 
 		/// <summary>
 		/// Returns a <see cref="string" /> that represents this instance.
 		/// </summary>
 		/// <returns>A <see cref="string" /> that represents this instance.</returns>
-		public override string ToString()
-		{
-			return $"{Hash} [{Category}] {Message}";
-		}
+		public override string ToString() => $"{(string.IsNullOrEmpty(Hash)?"":$"{Hash} ")}[{Category}] {Message}";
 	}
 }

@@ -1,3 +1,33 @@
+# (13/09/2021)  #
+
+## Feature ##
+- Now underscores are replaced with spaces in the message when suspected usage of feature branch name as message. 
+
+- Now issue number will me moved to the end of the message when available at the beginning. ([e916b596](https://github.com/cswebworks/CS.Changelog/commit/e916b596ab3f954528b2245cd539969f8a66b0af))
+
+  
+
+# v1.3.0.0 (08/09/2021)  #
+
+## Feature ##
+- Added multi-file parsing and filtering functionality ([297de634](https://github.com/cswebworks/CS.Changelog/commit/297de634313cc5ef9c1115db68372715ac1c6884))
+
+## Rebranding ##
+- Converted CS /webworks to Cohelion
+- Added application and package icon ([2e334593](https://github.com/cswebworks/CS.Changelog/commit/2e334593618579abb4ff7a6b53464036f344bb51))
+
+# v1.2.0.6 #
+- Used only one tab for indentation
+
+# v1.2.0.4 (22/03/2021)  #
+- Set default json output indentation character to tabs (no config option yet)
+
+# v1.2.0.3  #
+1.2.0.3: Fixed ignoring of startTag argument.
+
+# v1.2.0.2  #
+1.2.0.2: Migrated console to .Net core
+
 # v1.2.0.1 (26/07/2019)  #
 
 ## Fix ##

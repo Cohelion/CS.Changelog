@@ -30,7 +30,7 @@ namespace CS.Changelog.Console
 
         static void Main(string[] args)
         {
-            $"CS /webworks changelog generator, version {Constants.Version}".Dump(LogLevel.Info);
+            $"Cohelion changelog generator, version {Constants.Version}".Dump(LogLevel.Info);
 
             bool optionsParsed = true;
 
@@ -76,7 +76,8 @@ namespace CS.Changelog.Console
 
                     category_feature = _options.Category_feature,
                     category_hotfix = _options.Category_hotfix,
-                };
+					IssueNumberRegex = new Regex(_options.IssueNumberRegex, RegexOptions.IgnoreCase | RegexOptions.Compiled)
+				};
 
                 var entries = Parsing.Parse(log, parseOptions);
                 entries.Name = _options.ReleaseName;

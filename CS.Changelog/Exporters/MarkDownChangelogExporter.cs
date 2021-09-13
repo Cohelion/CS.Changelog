@@ -28,21 +28,23 @@ namespace CS.Changelog.Exporters
         /// <param name="options">The options for exporting.</param>
         public void Export(ChangeSet changes, FileInfo file, ExportOptions options = null)
         {
+			//	If changes are empty there's nothing to export, return.
+			if (changes == null) return;
+
             options = options ?? new ExportOptions();
             StringBuilder result = WriteChanges(changes, options);
 
             string originalContent = null;
-            if (file.Exists && options.Append && options.Reverse)
+            if (file != null && file.Exists && options.Append && options.Reverse)
             {
                 //Prepend content by reading entire file and then deleting the file
-
                 using (var s = file.OpenText())
                     originalContent = s.ReadToEnd();
 
                 file.Delete();
             }
 
-            using (var w = file.AppendText())
+            using (var w = file?.AppendText())
             {
                 w.Write(result);
 
@@ -98,8 +100,8 @@ namespace CS.Changelog.Exporters
                             : entry.Message;
 
                     message = message
-                                .Replace(@"_", @"\_")
-                                .Replace(@"#", @"\#");
+                                .Replace(@"_", @"\_", StringComparison.OrdinalIgnoreCase)
+                                .Replace(@"#", @"\#", StringComparison.OrdinalIgnoreCase);
 
                     result.AppendLine($@"- {message}{(hashes.Any()
                                                         ? $" ({string.Join(", ", hashes)})"

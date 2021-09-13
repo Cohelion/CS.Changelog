@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace CS.Changelog
@@ -150,7 +151,7 @@ namespace CS.Changelog
                                 if (fromBranchPrefix.Equals(options.prefix_feature, c))
                                 {
                                     LogCommit($"Feature {fromBranch} is merged directly into master!", match, level: LogLevel.Warning);
-                                    result.Add(hash, options.category_feature, fromBranchFullName);
+                                    result.Add(hash, options.category_feature, CleanMessage(fromBranchFullName, options.IssueNumberRegex));
                                 }
                                 else if (fromBranchPrefix.Equals(options.prefix_release, c))
 
@@ -160,7 +161,7 @@ namespace CS.Changelog
                                 else if (fromBranchPrefix.Equals(options.prefix_hotfix, c))
                                 {
                                     LogCommit($"{fromBranchPrefix} {fromBranchFullName} is merged", match, ConsoleColor.Green, level: LogLevel.Info);
-                                    result.Add(hash: hash, category: options.category_hotfix, message: fromBranchFullName);
+                                    result.Add(hash: hash, category: options.category_hotfix, message: CleanMessage(fromBranchFullName, options.IssueNumberRegex));
                                 }
                                 else
                                 {
@@ -173,7 +174,7 @@ namespace CS.Changelog
                                 if (fromBranchPrefix.Equals(options.prefix_feature, c))
                                 {
                                     LogCommit($"Feature {fromBranchFullName} is completed", match, ConsoleColor.Green, level: LogLevel.Info);
-                                    result.Add(hash, options.category_feature, fromBranchFullName);
+                                    result.Add(hash, options.category_feature, CleanMessage(fromBranchFullName, options.IssueNumberRegex));
                                 }
                                 else if (fromBranchPrefix.Equals(options.prefix_release, c)
                                        || fromBranchPrefix.Equals(options.prefix_hotfix, c))
@@ -207,7 +208,7 @@ namespace CS.Changelog
                                 if (fromBranchPrefix.Equals(options.prefix_feature, c))
                                 {
                                     LogCommit($"Feature {fromBranchFullName} is selected for or updated on preview", match, ConsoleColor.Green, level: LogLevel.Info);
-                                    result.Add(hash, options.category_feature, fromBranchFullName);
+                                    result.Add(hash, options.category_feature, CleanMessage(fromBranchFullName, options.IssueNumberRegex));
                                 }
                                 else if (fromBranch.Equals(options.branch_development, c)
                                      || (fromBranchPrefix.Equals(options.prefix_release, c)
@@ -238,7 +239,7 @@ namespace CS.Changelog
                         foreach (Match messagematch in messagematches)
                         {
                             LogCommit($"Commit with changelog category added : {message}", match, level: LogLevel.Info);
-                            result.Add(hash, messagematch.Groups["category"].Value, messagematch.Groups["message"].Value);
+                            result.Add(hash, messagematch.Groups["category"].Value, CleanMessage(messagematch.Groups["message"].Value, options.IssueNumberRegex));
                         }
                     }
                 }
@@ -277,5 +278,46 @@ namespace CS.Changelog
             LogCommit($"{reason} : {match.Groups["message"].Value}", match, level: LogLevel.Debug);
             ignored = true;
         }
+
+		private static string CleanMessage(string message, Regex IssueFormat)
+		{
+			var matches = IssueFormat.Matches(message);
+			var result = message;
+
+			//	Remove Line Feed character at the end of the message if any
+			//	Because the end of the message will be changed if there's any issue number present in the 
+			if (message.EndsWith('\r'))	message = message.Remove(message.Length -1, 1);
+
+			if (matches.Any())
+			{
+				//	If multiple matches are found, then leave the message as is
+				if (matches.Count > 1) return result;
+
+				var issueNumber = matches.First().Value;
+
+				//	If message doesn't contain spaces, suspect the message is the branch name, replace underscores with spaces
+				if (!message.Contains(" ", StringComparison.OrdinalIgnoreCase))
+					message = message.Replace("_", " ", StringComparison.OrdinalIgnoreCase);
+
+				//	Only if the message starts with the issue number, move it to the end.
+				//	E.G.: UNL-111 This is a fix for a panel.
+				//	Result: This is a fix for a panel. (UNL-111)
+				if (message.StartsWith(issueNumber, StringComparison.OrdinalIgnoreCase))
+				{
+					//	There should only be one message with text after splitting by the issue number.
+					var issueMessage = IssueFormat.Split(message)
+												  .Where(x => !string.IsNullOrWhiteSpace(x))
+												  .First();
+
+					//	Assamble the message with the issue number at the end, check if message ends with a period at the end, if not, add it.
+					result = $"{issueMessage}{(issueMessage.Last() != '.' ? "." : string.Empty)} ({issueNumber})";
+					return result;
+				}
+				
+			}
+
+			return result;
+
+		}
     }
 }
