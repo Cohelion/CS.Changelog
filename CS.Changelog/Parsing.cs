@@ -151,7 +151,7 @@ namespace CS.Changelog
                                 if (fromBranchPrefix.Equals(options.prefix_feature, c))
                                 {
                                     LogCommit($"Feature {fromBranch} is merged directly into master!", match, level: LogLevel.Warning);
-                                    result.Add(hash, options.category_feature, fromBranchFullName);
+                                    result.Add(hash, options.category_feature, CleanMessage(fromBranchFullName, options.IssueNumberRegex));
                                 }
                                 else if (fromBranchPrefix.Equals(options.prefix_release, c))
 
@@ -161,7 +161,7 @@ namespace CS.Changelog
                                 else if (fromBranchPrefix.Equals(options.prefix_hotfix, c))
                                 {
                                     LogCommit($"{fromBranchPrefix} {fromBranchFullName} is merged", match, ConsoleColor.Green, level: LogLevel.Info);
-                                    result.Add(hash: hash, category: options.category_hotfix, message: fromBranchFullName);
+                                    result.Add(hash: hash, category: options.category_hotfix, message: CleanMessage(fromBranchFullName, options.IssueNumberRegex));
                                 }
                                 else
                                 {
@@ -174,7 +174,7 @@ namespace CS.Changelog
                                 if (fromBranchPrefix.Equals(options.prefix_feature, c))
                                 {
                                     LogCommit($"Feature {fromBranchFullName} is completed", match, ConsoleColor.Green, level: LogLevel.Info);
-                                    result.Add(hash, options.category_feature, fromBranchFullName);
+                                    result.Add(hash, options.category_feature, CleanMessage(fromBranchFullName, options.IssueNumberRegex));
                                 }
                                 else if (fromBranchPrefix.Equals(options.prefix_release, c)
                                        || fromBranchPrefix.Equals(options.prefix_hotfix, c))
@@ -208,7 +208,7 @@ namespace CS.Changelog
                                 if (fromBranchPrefix.Equals(options.prefix_feature, c))
                                 {
                                     LogCommit($"Feature {fromBranchFullName} is selected for or updated on preview", match, ConsoleColor.Green, level: LogLevel.Info);
-                                    result.Add(hash, options.category_feature, fromBranchFullName);
+                                    result.Add(hash, options.category_feature, CleanMessage(fromBranchFullName, options.IssueNumberRegex));
                                 }
                                 else if (fromBranch.Equals(options.branch_development, c)
                                      || (fromBranchPrefix.Equals(options.prefix_release, c)
@@ -239,8 +239,7 @@ namespace CS.Changelog
                         foreach (Match messagematch in messagematches)
                         {
                             LogCommit($"Commit with changelog category added : {message}", match, level: LogLevel.Info);
-							var messageText = CleanMessage(messagematch.Groups["message"].Value, options.IssueNumberRegex);
-                            result.Add(hash, messagematch.Groups["category"].Value, messageText);
+                            result.Add(hash, messagematch.Groups["category"].Value, CleanMessage(messagematch.Groups["message"].Value, options.IssueNumberRegex));
                         }
                     }
                 }

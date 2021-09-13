@@ -21,10 +21,10 @@
 		<RepositoryUrl>https://github.com/cswebworks/CS.Changelog</RepositoryUrl>
 		<RepositoryType>Git</RepositoryType>
 		<PackageLicenseExpression>MS-PL</PackageLicenseExpression>
-		<Version>1.3.1.0</Version>
+		<Version>1.3.2.0</Version>
 		<PackageReleaseNotes>
 			<![CDATA[
-1.3.1.0: Moving feature issue number at the beginning of the message to the end.
+1.3.2.0: Moving feature issue number at the beginning of the message to the end.
              Removing underscores when suspected branch name used as message.
 1.3.0.0: Added multi changelog parsing and filtering
          Updated Markdig.Signed & Newtonsoft.Json
