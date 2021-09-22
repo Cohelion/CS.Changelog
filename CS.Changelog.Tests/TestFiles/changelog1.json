@@ -1,0 +1,105 @@
+{
+	"repositoryUrl": "https://gitlab.demo.com/Demo-Portal/commit/{0}",
+	"issueTrackerUrl": "https://project.demo.com/issue/{0}",
+	"issueNumberRegex": "DEMO-\\d{1,4}",
+	"changeSets": [
+		{
+			"date": "2020-07-02T23:33:22.3374532Z",
+			"name": "Hotfix",
+			"changes": [
+				{
+					"category": "Hotfix",
+					"hash": "76c4d243ad0b3447f641233cf0e247752ab77dab",
+					"message": "<a href=\"demo/dashboard?report=Repairs\">Repairs  > Repair </a> did not show value in comparison with global average. (DEMO-737)"
+				}
+			]
+		},
+		{
+			"date": "2020-04-27T23:45:22.6322622Z",
+			"name": "Hotfixes",
+			"changes": [
+				{
+					"category": "Hotfix",
+					"hash": "3d6fead042227007ea2eada0a6ec242fc27735dc",
+					"message": "Ignored demo customers in comparison reports, like <a href=\"demo/dashboard?report=Repairs\">Repairs </a> and <a href=\"demo/dashboard?report=Unreported\">Unreported</a>. (DEMO-720)"
+				},
+				{
+					"category": "Hotfix",
+					"hash": "3c724420f6435ac54fc7axacff5ba774d44eb623",
+					"message": "Display demo customer names as normal names. (DEMO-722)"
+				},
+				{
+					"category": "Hotfix",
+					"hash": "3f6ebf002203034e2773e3575b2e04f6c36ae74c",
+					"message": "Applied fixed order to the results displayed in the Overview information panel in <a href=\"demo/dashboard?report=Supply\">supply</a>. (DEMO-723)"
+				},
+				{
+					"category": "Hotfix",
+					"hash": "7ac4bae2aebaf702ecfxx7e6c3f67227cb2e7624",
+					"message": "The metrics in <a href=\"demo/dashboard?report=Repairs\">Repairs </a> were inconsistent, due to some metrics not ignoring damages for Product Groups. (DEMO-722)"
+				}
+			]
+		},
+		{
+			"date": "2020-02-27T23:47:32.5527672Z",
+			"name": "Minor fixes",
+			"changes": [
+				{
+					"category": "Development",
+					"hash": "2e776ac6bee4bc5e374a2b755ee3d73c73f02567",
+					"message": "DEMO-726_Dont_show_lines_when_no_data",
+					"ignore": true
+				},
+				{
+					"category": "Development",
+					"hash": "cb7a5bf3c033bbed7axx3a70c55322a6c7c20324",
+					"message": "Don't show Actual and Target lines at the end of year for months without repairs (DEMO-726)"
+				}
+			]
+		},
+		{
+			"date": "2021-02-03T23:43:22.0532732Z",
+			"name": "Hotfix (Repaired  & security)",
+			"changes": [
+				{
+					"category": "Security",
+					"hash": "e03adb7233e57f677d4e553607b74a276c34af5a",
+					"message": "Temporary roles were deemed permanent."
+				},
+				{
+					"category": "Hotfix",
+					"hash": "0fb4f72d535b6d6xx022b7262f7e3fc377aa777c",
+					"message": "Work order comparison <a href=\"demo/dashboard?report=Repairs\">(Repaired )</a> corrected: previously slightly too few repairs by Product category were reported, sometimes resulting in repairs by IATA type exceeding the value for the entire Product Category."
+				}
+			]
+		},
+		{
+			"date": "2021-02-02T20:03:23.7737767Z",
+			"name": "Hotfixes",
+			"changes": [
+				{
+					"category": "Hotfix",
+					"hash": "73767f2eba27bd3ac05afa74dd72ddaa73e6d704",
+					"message": "Fixed error in <a href=\"demo/dashboard?report=Repairs&subPage=RepairVs\">Top 20 Repair Stations</a>. (This would occur when no stations had any repairs in the requested period)"
+				},
+				{
+					"category": "Hotfix",
+					"hash": "2a36544c527325fed4b663bxc427fe272b446623",
+					"message": "null_reference_in_repaired_vs_",
+					"ignore": true
+				},
+				{
+					"category": "Hotfix",
+					"hash": "a2cccfdf320bxxeb3c70eb3325426bd4a57e0772",
+					"message": "Fixed error in <a href=\"demo/dashboard?report=Repairs\">Repaired </a> metrics. (This would occur when a customer had no  in the requested period)"
+				},
+				{
+					"category": "Hotfix",
+					"hash": "ff33eca6c6bcf2x3b3533220322667f2337a223f",
+					"message": "Fixing not always showing the correct translation in the navbar. Was <code>CUSTOMER_PORTAL</code> is now \"Customer Portal\""
+				}
+			]
+		}
+	]
+
+}
