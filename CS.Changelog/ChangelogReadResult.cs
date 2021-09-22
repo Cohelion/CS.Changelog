@@ -1,7 +1,7 @@
 ﻿using CS.Changelog.Exporters;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
 
 namespace CS.Changelog
 {
@@ -20,7 +20,7 @@ namespace CS.Changelog
 		/// <value>
 		/// The success.
 		/// </value>
-		public IEnumerable<ChangeLog> Success { get; } = new List<ChangeLog>();
+		public Collection<ChangeLog> Success { get; } = new Collection<ChangeLog>();
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ChangelogReadResult"/> class.
@@ -31,7 +31,7 @@ namespace CS.Changelog
 		/// Initializes a new instance of the <see cref="ChangelogReadResult"/> class, specifying <see cref="Failure"/>
 		/// </summary>
 		/// <param name="failures">The failures.</param>
-		public ChangelogReadResult(IEnumerable<ChangelogReadFailure> failures) => Failure = new List<ChangelogReadFailure>(failures);
+		public ChangelogReadResult(Collection<ChangelogReadFailure> failures) => Failure = new Collection<ChangelogReadFailure>(failures);
 
 		/// <summary>
 		/// Upon any failure, failures are listed here.
@@ -39,16 +39,16 @@ namespace CS.Changelog
 		/// <value>
 		/// The failures.
 		/// </value>
-		public IEnumerable<ChangelogReadFailure> Failure { get; } = new List<ChangelogReadFailure>();
+		public Collection<ChangelogReadFailure> Failure { get; } = new Collection<ChangelogReadFailure>();
 
 		/// <summary>
 		/// Records success, by adding it to <see cref="ChangelogReadResult.Success"/>
 		/// </summary>
-		public void AddSuccess(ChangeLog changelog) => Success.ToList().Add(changelog);
+		public void AddSuccess(ChangeLog changelog) => Success.Add(changelog);		
 
 		/// <summary>
 		/// Records failure, by adding it to <see cref="Failure"/>
 		/// </summary>
-		public void AddFailure(ChangelogReadFailure changelogFailure) => Failure.ToList().Add(changelogFailure);
+		public void AddFailure(ChangelogReadFailure changelogFailure) => Failure.Add(changelogFailure);
 	}
 }
