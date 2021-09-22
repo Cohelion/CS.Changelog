@@ -1,0 +1,69 @@
+{
+	"repositoryUrl": "https://gitlab.demo.com/demo/demopm.git",
+	"issueTrackerUrl": "https://project.demo.com/issue/{0}",
+	"issueNumberRegex": "[a-zA-Z]{1,4}-\\d{1,4}",
+	"changeSets": [
+		{
+			"date": "2020-08-13T02:34:44.7666728Z",
+			"name": "v20200813",
+			"changes": [
+				{
+					"category": "Feature",
+					"hash": "6d3040863b3cf303867e074b3320601f3bc186d2",
+					"message": "Merge from DEPM-781_forget_password"
+				},
+				{
+					"category": "Bugfix",
+					"hash": "2b83ca7a7d3d834f8f24324102be23e08d6b1304",
+					"message": "DEPM-788"
+				},
+				{
+					"category": "Feature",
+					"hash": "8384137e7020810ed87a800138f021eb7ffbe700",
+					"message": "Report"
+				},
+				{
+					"category": "Feature",
+					"hash": "20762de4f43b6b73e28bc0dab1a1b0c33231fc6f",
+					"message": "Report"
+				},
+				{
+					"category": "Feature",
+					"hash": "bd821e002e4270ddbb4ef86773c6df8cd808ba13",
+					"message": "Report"
+				}
+			]
+		},
+		{
+			"date": "2020-08-13T02:34:44.7666728Z",
+			"name": "v20200813 copy",
+			"changes": [
+				{
+					"category": "Unknown",
+					"hash": "6d3040863b3cf303867e074b3320601f3bc186d2",
+					"message": "Merge from 'DEPM-781_forget_password'"
+				},
+				{
+					"category": "Bugfix",
+					"hash": "2b83ca7a7d3d834f8f24324102be23e08d6b1304",
+					"message": "DEPM-788"
+				},
+				{
+					"category": "Feature",
+					"hash": "8384137e7020810ed87a800138f021eb7ffbe700",
+					"message": "Report"
+				},
+				{
+					"category": "Feature",
+					"hash": "20762de4f43b6b73e28bc0dab1a1b0c33231fc6f",
+					"message": "Report"
+				},
+				{
+					"category": "Feature",
+					"hash": "bd821e002e4270ddbb4ef86773c6df8cd808ba13",
+					"message": "Report"
+				}
+			]
+		}
+	]
+}

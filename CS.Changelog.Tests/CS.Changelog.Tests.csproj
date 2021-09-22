@@ -34,4 +34,16 @@
     <ProjectReference Include="..\CS.Changelog\CS.Changelog.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="TestFiles\changelog1.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\changelog2.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\EmptyChangelog.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
