@@ -1,3 +1,7 @@
+# (22/09/2021)  #
+
+## Fix ##
+- Now ChangelogReadResults uses collections instead of IEnumerables for Success and Failure. ([285d13f6](https://github.com/cswebworks/CS.Changelog/commit/285d13f64ae7934c7d760ee5e9e383d4be8cc31a))
 # (13/09/2021)  #
 
 ## Feature ##
