@@ -101,5 +101,41 @@ namespace CS.Changelog.Tests
 			Assert.Equal(expectedFailures, response.Failure.Count());
 			Assert.Equal(expectedChangeLogs, response.Success.Count());
 		}
+
+		/// <summary>
+		/// Tests <see cref="ChangelogReadResult"/> ability to add new successes using <see cref="ChangelogReadResult.AddSuccess(ChangeLog)"/>.
+		/// </summary>
+		[Fact]
+		public void AddSuccessChangelogReadResultTest()
+		{
+			//	Prepare
+			var expectedChangeLogs = 2;
+			var changelog = new ChangelogReadResult();
+			
+			//	Test
+			changelog.AddSuccess(new ChangeLog());
+			changelog.AddSuccess(new ChangeLog());
+
+			//	Assert
+			Assert.Equal(expectedChangeLogs, changelog.Success.Count());
+		}
+
+		/// <summary>
+		/// Tests <see cref="ChangelogReadResult"/> ability to add new failures using <see cref="ChangelogReadResult.AddFailure(ChangelogReadFailure)"/>.
+		/// </summary>
+		[Fact]
+		public void AddFailuresChangelogReadResultTest()
+		{
+			//	Prepare
+			var expectedFailures = 2;
+			var changelog = new ChangelogReadResult();
+
+			//	Test
+			changelog.AddFailure(new ChangelogReadFailure());
+			changelog.AddFailure(new ChangelogReadFailure());
+
+			//	Assert
+			Assert.Equal(expectedFailures, changelog.Failure.Count());
+		}
 	}
 }
