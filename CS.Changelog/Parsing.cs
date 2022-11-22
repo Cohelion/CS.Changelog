@@ -279,7 +279,13 @@ namespace CS.Changelog
             ignored = true;
         }
 
-		private static string CleanMessage(string message, Regex IssueFormat)
+		/// <summary>
+		/// Cleans a commit message.
+		/// </summary>
+		/// <param name="message">The message.</param>
+		/// <param name="IssueFormat">The issue format.</param>
+		/// <returns></returns>
+		public static string CleanMessage(string message, Regex IssueFormat)
 		{
 			var matches = IssueFormat.Matches(message);
 			var result = message;
@@ -302,15 +308,20 @@ namespace CS.Changelog
 				//	Only if the message starts with the issue number, move it to the end.
 				//	E.G.: UNL-111 This is a fix for a panel.
 				//	Result: This is a fix for a panel. (UNL-111)
+
 				if (message.StartsWith(issueNumber, StringComparison.OrdinalIgnoreCase))
 				{
 					//	There should only be one message with text after splitting by the issue number.
 					var issueMessage = IssueFormat.Split(message)
 												  .Where(x => !string.IsNullOrWhiteSpace(x))
-												  .First();
+												  .FirstOrDefault();
 
-					//	Assamble the message with the issue number at the end, check if message ends with a period at the end, if not, add it.
-					result = $"{issueMessage}{(issueMessage.Last() != '.' ? "." : string.Empty)} ({issueNumber})";
+					// In case the message is only the issue number
+					if (issueMessage is null)
+						return issueNumber;
+
+					//	Assemble the message with the issue number at the end, check if message ends with a period at the end, if not, add it.
+					result = $"{issueMessage.Trim()}{(issueMessage.Last() != '.' ? "." : string.Empty)} ({issueNumber})";
 					return result;
 				}
 				

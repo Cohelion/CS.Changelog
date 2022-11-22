@@ -1,7 +1,9 @@
-﻿using CS.Changelog.Exporters;
+﻿using CS.Changelog;
+using CS.Changelog.Exporters;
 using Xunit;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace CS.Changelog.Tests
 {
@@ -266,7 +268,7 @@ e226d3ad1c5f49caaaddf3e6e43135f092cc3c5e '2017-06-26T15:09:24+02:00' [{category1
 		[Fact]
 		public void ParseTest1()
 		{
-			
+
 			const string log = @"f4451af20c0f4023d7d785a6e7f647e43bc64fa2 '2017-06-27T12:28:01+02:00'  Merge branch 'feature/updatecubes' into develop
 e226d3ad1c5f49caaaddf3e6e43135f092cc3c5e '2017-06-26T15:09:24+02:00'  cDCM-704 - Enabled InActive selection in reporting
 324e6f2fcdca54f24a07864a8ccf7a10717345ce '2017-06-26T11:58:57+02:00'  Merge branch 'feature/cDCM-785_pivotedWoReview_remove_cache_option' into develop
@@ -384,7 +386,7 @@ d0f0c6e80284de11a6b067fa0bd0e14f3a7a5f3a '2017-05-30T08:38:16+02:00'  Merge bran
 			IChangelogExporter e = new TraceChangelogExporter();
 			e.Export(changeset, null);
 		}
-		
+
 		/// <summary>Just a log from Swissport Cargo DCM</summary>
 		internal const string logParseTest2 = @"7ba108c90a435353c909ad71b9d125de7971c251 '2017-09-07T14:55:52+02:00' Merge branch 'feature/cDCM-811_BudgetPrep_Finance_HQ' into preview
 65f5d69e6802403bd77c56b8b6d0ba2f5779d1ae '2017-09-07T14:51:45+02:00' cDCM-811 - Budget prep report - Ramp/Overhead tabs renamed
@@ -480,6 +482,22 @@ f42120d9b82fd6bd33479aeffd5a252749ebfdef '2017-07-16T12:27:53+02:00' Merge branc
 
 			IChangelogExporter e = new TraceChangelogExporter();
 			e.Export(changeset, null);
+		}
+
+		[Theory()]
+		[InlineData("abcd-123", "abcd-123", "[a-zA-Z]{1,4}-\\d{1,4}")]
+		[InlineData("abcd-123 My nice commit", "My nice commit. (abcd-123)", "[a-zA-Z]{1,4}-\\d{1,4}")]
+		[InlineData("abcd-123-My nice commit", "-My nice commit. (abcd-123)", "[a-zA-Z]{1,4}-\\d{1,4}")]
+		public void CleanMessageTest(string input, string expected, string issueFormat)
+		{
+			//arrange
+			var r = new Regex(issueFormat);
+
+			//act
+			var actual = Parsing.CleanMessage(input, r);
+
+			//assert
+			Assert.Equal(expected, actual);
 		}
 	}
 }

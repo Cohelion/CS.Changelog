@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Text.RegularExpressions;
 
 namespace CS.Changelog.Exporters
 {
@@ -19,13 +18,13 @@ namespace CS.Changelog.Exporters
 		/// </summary>
 		public bool ResolveIssueNumbers { get; set; } = true;
 
-        /// <summary>The issue tracker URL, used when <see cref="ResolveIssueNumbers"/> is <c>true</c>.<c>$0</c> will be substituded with the issue number.</summary>
-        [SuppressMessage("Design", "CA1056:Uri properties should not be strings", Justification = "<Pending>")]
-        public string IssueTrackerUrl { get; set; } = @"https://project.cs.nl/issue/{0}";
+		/// <summary>The issue tracker URL, used when <see cref="ResolveIssueNumbers"/> is <c>true</c>.<c>$0</c> will be substituded with the issue number.</summary>
+		[SuppressMessage("Design", "CA1056:Uri properties should not be strings", Justification = "<Pending>")]
+		public string IssueTrackerUrl { get; set; } = @"https://project.cs.nl/issue/{0}";
 
-        /// <summary>The repository URL, used when <see cref="LinkHash"/> is true.</summary>
-        [SuppressMessage("Design", "CA1056:Uri properties should not be strings", Justification = "<Pending>")]
-        public string RepositoryUrl { get; set; } = @"https://tfs.cs.nl/tfs/DefaultCollection/_git/MYUNCONFIGUREDPROJECTNAME/commit/{0}";
+		/// <summary>The repository URL, used when <see cref="LinkHash"/> is true.</summary>
+		[SuppressMessage("Design", "CA1056:Uri properties should not be strings", Justification = "<Pending>")]
+		public string RepositoryUrl { get; set; } = @"https://tfs.cs.nl/tfs/DefaultCollection/_git/MYUNCONFIGUREDPROJECTNAME/commit/{0}";
 
 		/// <summary>Whether to linkify the <see cref="ChangeLogMessage.Hash"/>, uses <see cref="RepositoryUrl"/></summary>
 		public bool LinkHash { get; set; } = true;
