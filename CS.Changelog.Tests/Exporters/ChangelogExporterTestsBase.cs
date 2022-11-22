@@ -14,9 +14,9 @@ namespace CS.Changelog.Exporters.Tests
 		/// <returns>The implementation of <see cref="IChangelogExporter"/> being tested.</returns>
 		protected abstract T GetExporter();
 
-        /// <summary>Tests implementation of <see cref="IChangelogExporter.Export(ChangeSet, FileInfo, ExportOptions)"/> by <see cref="JsonChangelogExporter.Export"/></summary>
-        [SkippableFact]
-        public void ExportThisRepoTest()
+		/// <summary>Tests implementation of <see cref="IChangelogExporter.Export(ChangeSet, FileInfo, ExportOptions)"/> by <see cref="JsonChangelogExporter.Export"/></summary>
+		[SkippableFact]
+		public void ExportThisRepoTest()
 		{
 			//Arrange
 			var log = GitExtensionsTests.GetThisRepoChangelog();
@@ -25,9 +25,9 @@ namespace CS.Changelog.Exporters.Tests
 			Testlog(log);
 		}
 
-        /// <summary>Tests implementation of <see cref="IChangelogExporter.Export(ChangeSet, FileInfo, ExportOptions)"/> by <see cref="JsonChangelogExporter.Export"/></summary>
-        [SkippableFact]
-        public void ExportOtherRepoTest()
+		/// <summary>Tests implementation of <see cref="IChangelogExporter.Export(ChangeSet, FileInfo, ExportOptions)"/> by <see cref="JsonChangelogExporter.Export"/></summary>
+		[SkippableFact]
+		public void ExportOtherRepoTest()
 		{
 			//Arrange
 			var log = GitExtensionsTests.GetSwissportRepoChangelog();
@@ -36,9 +36,9 @@ namespace CS.Changelog.Exporters.Tests
 			Testlog(log);
 		}
 
-        /// <summary>Tests implementation of <see cref="IChangelogExporter.Export(ChangeSet, FileInfo, ExportOptions)"/> by <see cref="JsonChangelogExporter.Export"/></summary>
-        [SkippableFact]
-        public void ExportParseTest2Test()
+		/// <summary>Tests implementation of <see cref="IChangelogExporter.Export(ChangeSet, FileInfo, ExportOptions)"/> by <see cref="JsonChangelogExporter.Export"/></summary>
+		[SkippableFact]
+		public void ExportParseTest2Test()
 		{
 			//Arrange
 			var log = ParsingTests.logParseTest2;
