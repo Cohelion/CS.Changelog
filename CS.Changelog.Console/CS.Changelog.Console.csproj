@@ -61,8 +61,8 @@
 
 	<ItemGroup>
 		<None Include="..\ReadMe.md">
-		  <Pack>True</Pack>
-		  <PackagePath></PackagePath>
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
 		</None>
 		<None Include="..\SolutionItems\cohelion.png">
 			<Pack>True</Pack>
@@ -72,6 +72,10 @@
 
 	<ItemGroup>
 		<PackageReference Include="CommandLineParser" Version="2.9.1" />
+		<PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 	</ItemGroup>
 
 	<ItemGroup>
