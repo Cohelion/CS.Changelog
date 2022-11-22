@@ -185,12 +185,12 @@ e226d3ad1c5f49caaaddf3e6e43135f092cc3c5e '2017-06-26T15:09:24+02:00' [{category1
 
 				Assert.Equal(3, entries.Count);
 
-				Assert.Equal(2, entries.Count(x => x.Category.Equals(category1, System.StringComparison.InvariantCulture)));
-				Assert.Equal(expectedMessage1, entries.First(x => x.Category.Equals(category1, System.StringComparison.InvariantCulture)).Message);
-				Assert.Equal(expectedMessage3, entries.Last(x => x.Category.Equals(category1, System.StringComparison.InvariantCulture)).Message);
+				Assert.Equal(2, entries.Count(x => x.Category.Equals(category1, System.StringComparison.Ordinal)));
+				Assert.Equal(expectedMessage1, entries.First(x => x.Category.Equals(category1, System.StringComparison.Ordinal)).Message);
+				Assert.Equal(expectedMessage3, entries.Last(x => x.Category.Equals(category1, System.StringComparison.Ordinal)).Message);
 
-				Assert.Equal(1, entries.Count(x => x.Category.Equals(category2, System.StringComparison.InvariantCulture)));
-				Assert.Equal(expectedMessage2, entries.Single(x => x.Category.Equals(category2, System.StringComparison.InvariantCulture)).Message);
+				Assert.Equal(1, entries.Count(x => x.Category.Equals(category2, System.StringComparison.Ordinal)));
+				Assert.Equal(expectedMessage2, entries.Single(x => x.Category.Equals(category2, System.StringComparison.Ordinal)).Message);
 			}
 		}
 
@@ -484,6 +484,12 @@ f42120d9b82fd6bd33479aeffd5a252749ebfdef '2017-07-16T12:27:53+02:00' Merge branc
 			e.Export(changeset, null);
 		}
 
+		/// <summary>
+		/// Tests <see cref="Parsing.CleanMessage"/>.
+		/// </summary>
+		/// <param name="input">The input.</param>
+		/// <param name="expected">The expected.</param>
+		/// <param name="issueFormat">The issue format.</param>
 		[Theory()]
 		[InlineData("abcd-123", "abcd-123", "[a-zA-Z]{1,4}-\\d{1,4}")]
 		[InlineData("abcd-123 My nice commit", "My nice commit. (abcd-123)", "[a-zA-Z]{1,4}-\\d{1,4}")]

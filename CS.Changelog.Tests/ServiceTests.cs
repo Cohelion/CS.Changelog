@@ -39,7 +39,7 @@ namespace CS.Changelog.Tests
 
 			var expectedChangeLogs = 2;
 			Assert.False(response.Failure.Any());
-			Assert.Equal(expectedChangeLogs, response.Success.Count());
+			Assert.Equal(expectedChangeLogs, response.Success.Count);
 		}
 
 		/// <summary>
@@ -67,8 +67,8 @@ namespace CS.Changelog.Tests
 			var expectedChangeLogs = 1;
 			var expectedFailures = 1;
 			Assert.True(response.Failure.Any());
-			Assert.Equal(expectedFailures, response.Failure.Count());
-			Assert.Equal(expectedChangeLogs, response.Success.Count());
+			Assert.Equal(expectedFailures, response.Failure.Count);
+			Assert.Equal(expectedChangeLogs, response.Success.Count);
 		}
 
 
@@ -98,8 +98,8 @@ namespace CS.Changelog.Tests
 			var expectedChangeLogs = 0;
 			var expectedFailures = 2;
 			Assert.True(response.Failure.Any());
-			Assert.Equal(expectedFailures, response.Failure.Count());
-			Assert.Equal(expectedChangeLogs, response.Success.Count());
+			Assert.Equal(expectedFailures, response.Failure.Count);
+			Assert.Equal(expectedChangeLogs, response.Success.Count);
 		}
 
 		/// <summary>
@@ -117,7 +117,7 @@ namespace CS.Changelog.Tests
 			changelog.AddSuccess(new ChangeLog());
 
 			//	Assert
-			Assert.Equal(expectedChangeLogs, changelog.Success.Count());
+			Assert.Equal(expectedChangeLogs, changelog.Success.Count);
 		}
 
 		/// <summary>
@@ -135,7 +135,7 @@ namespace CS.Changelog.Tests
 			changelog.AddFailure(new ChangelogReadFailure());
 
 			//	Assert
-			Assert.Equal(expectedFailures, changelog.Failure.Count());
+			Assert.Equal(expectedFailures, changelog.Failure.Count);
 		}
 	}
 }
