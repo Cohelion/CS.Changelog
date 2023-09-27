@@ -85,8 +85,8 @@ namespace CS.Changelog.Exporters
 				log = new ChangeLog { changes };
 
 			log.IssueNumberRegex = options?.IssueNumberRegex.ToString();
-			log.IssueTrackerUrl = new Uri(options?.IssueTrackerUrl);
-			log.RepositoryUrl = new Uri(options?.RepositoryUrl);
+			log.IssueTrackerUrl = string.IsNullOrEmpty(options?.IssueTrackerUrl) ? null : new Uri(options.IssueTrackerUrl);
+			log.RepositoryUrl = string.IsNullOrEmpty(options?.RepositoryUrl) ? null : new Uri(options?.RepositoryUrl);
 
 			var serializer = new JsonSerializer
 			{
