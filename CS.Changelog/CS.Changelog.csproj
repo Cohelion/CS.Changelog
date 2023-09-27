@@ -40,6 +40,7 @@
 1.2.0.3: Fixed a bug related to the use of startTag
 			]]>
 		</PackageReleaseNotes>
+		<PackageReadmeFile>ReadMe.md</PackageReadmeFile>
 		<PackageIcon>cohelion.png</PackageIcon>
 		<ApplicationIcon>..\SolutionItems\cohelion.ico</ApplicationIcon>
 		<AnalysisLevel>latest</AnalysisLevel>
@@ -50,6 +51,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<None Include="..\ReadMe.md" Link="ReadMe.md">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
 		<None Include="..\SolutionItems\cohelion.png">
 			<Pack>True</Pack>
 			<PackagePath></PackagePath>
@@ -58,8 +63,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Markdig.Signed" Version="0.30.4" />
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+		<PackageReference Include="Markdig.Signed" Version="0.33.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 
 </Project>

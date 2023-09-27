@@ -9,7 +9,7 @@ namespace CS.Changelog.Console
     /// A command-line application for creating git-commit-history based changelogs. See <see cref="Options"/> for usage.
     /// </summary>
     [CompilerGenerated]
-	class NamespaceDoc
+	sealed class NamespaceDoc
 	{
 		//Empty non-public class with name 'NamespaceDoc', with CompilerGenerated attribute can be used to document the namespace it is in.		
 	}

@@ -23,7 +23,7 @@ namespace CS.Changelog.Console
 	///    </item>
 	///</list>
 	/// </summary>
-	class Program
+	sealed class Program
 	{
 		/// <summary>The options to be passed to the program</summary>
 		internal static Options _options = new Options();

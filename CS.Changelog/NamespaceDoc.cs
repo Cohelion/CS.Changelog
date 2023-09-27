@@ -26,7 +26,7 @@ namespace CS.Changelog
     ///<seealso cref="Exporters"/>
     ///<seealso cref="Parsing"/>
     [CompilerGenerated]
-	class NamespaceDoc
+	sealed class NamespaceDoc
 	{
 		//Empty non-public class with name 'NamespaceDoc', with CompilerGenerated attribute can be used to document the namespace it is in.		
 	}
@@ -35,7 +35,7 @@ namespace CS.Changelog
 	/// See <see cref="CS.Changelog"/>
 	///</summary>
 	[CompilerGenerated]
-	class NamespaceGroupDoc
+	sealed class NamespaceGroupDoc
 	{
 		//Empty non-public class with name 'NamespaceDoc', with CompilerGenerated attribute can be used to document the namespace it is in.		
 	}

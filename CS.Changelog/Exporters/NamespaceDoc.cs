@@ -9,7 +9,7 @@ namespace CS.Changelog.Exporters
     /// Logic for writing and appending changelogs
     /// </summary>
     [CompilerGenerated]
-	class NamespaceDoc
+	sealed class NamespaceDoc
 	{
 		//Empty non-public class with name 'NamespaceDoc', with CompilerGenerated attribute can be used to document the namespace it is in.		
 	}
@@ -18,7 +18,7 @@ namespace CS.Changelog.Exporters
 	/// See <see cref="CS.Changelog.Exporters"/>
 	///</summary>
 	[CompilerGenerated]
-	class NamespaceGroupDoc
+	sealed class NamespaceGroupDoc
 	{
 		//Empty non-public class with name 'NamespaceDoc', with CompilerGenerated attribute can be used to document the namespace it is in.		
 	}
