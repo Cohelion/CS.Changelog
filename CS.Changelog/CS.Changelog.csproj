@@ -9,7 +9,7 @@
 		<LangVersion>8</LangVersion>
 		<NoWarn></NoWarn>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Copyright>Cohelion 2022</Copyright>
+		<Copyright>Cohelion 2023</Copyright>
 		<Authors>Robert Sirre, Mario Puglisi</Authors>
 		<Company>Cohelion</Company>
 		<Product>CS.Changelog generator</Product>
@@ -21,9 +21,10 @@
 		<RepositoryUrl>https://github.com/cswebworks/CS.Changelog</RepositoryUrl>
 		<RepositoryType>Git</RepositoryType>
 		<PackageLicenseExpression>MS-PL</PackageLicenseExpression>
-		<Version>1.3.4</Version>
+		<Version>1.3.5</Version>
 		<PackageReleaseNotes>
 			<![CDATA[
+1.3.5  : Escaped nullreference exceptions, upgraded dependencies.
 1.3.4  : Added input validation for urls.
          Fixed message formatting issue when the message only was an issue number.
 1.3.3.0: ChangelogReadResult now uses collections instead of IEnumerables.
