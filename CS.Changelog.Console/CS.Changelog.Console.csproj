@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
-		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<TargetFramework>net7.0</TargetFramework>
 		<Features>flow-analysis</Features>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -17,7 +17,7 @@
 		<Description>
 			A git-commit based changelog generator.
 		</Description>
-		<Version>1.3.5</Version>
+		<Version>1.4.0</Version>
 		<Copyright>Cohelion 2023</Copyright>
 		<PackageLicenseExpression>MS-PL</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/Cohelion/CS.Changelog</PackageProjectUrl>
@@ -25,6 +25,7 @@
 		<RepositoryType>Git</RepositoryType>
 		<PackageReleaseNotes>
 			<![CDATA[
+1.4.0  : Upgraded to .Net 7.0
 1.3.5  : Escaped nullreference exceptions, upgraded dependencies.
 1.3.4  : Added input validation for urls.
          Fixed message formatting issue when the message only was an issue number.
