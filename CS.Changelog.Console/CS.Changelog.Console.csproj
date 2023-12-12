@@ -54,6 +54,7 @@
 		<AnalysisMode>AllEnabledByDefault</AnalysisMode>
 		<DebugType>embedded</DebugType>
 		<PackageReadmeFile>ReadMe.md</PackageReadmeFile>
+		<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)'=='Tool'">
