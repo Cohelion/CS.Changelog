@@ -300,7 +300,7 @@ namespace CS.Changelog
 			//	Because the end of the message will be changed if there's any issue number present in the 
 			if (message.EndsWith('\r')) message = message.Remove(message.Length - 1, 1);
 
-			if (matches.Any())
+			if (matches.Count > 0)
 			{
 				//	If multiple matches are found, then leave the message as is
 				if (matches.Count > 1) return result;
