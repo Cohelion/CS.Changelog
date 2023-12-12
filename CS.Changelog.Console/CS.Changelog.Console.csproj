@@ -44,7 +44,7 @@
 		<ApplicationIcon />
 		<StartupObject />
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-		<PackAsTool>false</PackAsTool>
+		<PackAsTool>True</PackAsTool>
 		<ToolCommandName>changelog</ToolCommandName>
 		<PackageTags>git changelog generator</PackageTags>
 		<NeutralLanguage>en</NeutralLanguage>
